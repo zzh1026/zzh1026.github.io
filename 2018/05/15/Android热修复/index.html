@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="#Android热修复 热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载">
+<meta name="description" content="热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载机制) 将Class字节">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Android热修复">
 <meta property="og:url" content="http://yoursite.com/2018/05/15/Android热修复/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#Android热修复 热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载">
+<meta property="og:description" content="热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载机制) 将Class字节">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba469740ee5d3?imageslim">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba4697333434b?imageslim">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba46975665b3b?imageslim">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba469739e5b36?imageslim">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba46977048892?imageslim">
-<meta property="og:updated_time" content="2018-03-27T11:37:15.278Z">
+<meta property="og:updated_time" content="2018-05-15T11:37:37.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="#Android热修复 热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载">
+<meta name="twitter:title" content="Android热修复">
+<meta name="twitter:description" content="热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载机制) 将Class字节">
 <meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba469740ee5d3?imageslim">
 
 
@@ -131,7 +131,7 @@
 
 
 
-  <title> | Hexo</title>
+  <title>Android热修复 | Hexo</title>
   
 
 
@@ -255,7 +255,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Android热修复</h1>
         
 
         <div class="post-meta">
@@ -267,7 +267,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
                 2018-05-15
               </time>
             
@@ -305,8 +305,7 @@
       
 
       
-        <p>#Android热修复</p>
-<p><a href="https://juejin.im/post/5a0ad2b551882531ba1077a2" title="热修复——深入浅出原理与实现" target="_blank" rel="noopener">热修复——深入浅出原理与实现</a></p>
+        <p><a href="https://juejin.im/post/5a0ad2b551882531ba1077a2" title="热修复——深入浅出原理与实现" target="_blank" rel="noopener">热修复——深入浅出原理与实现</a></p>
 <h2 id="1-目前较火的热修复方案"><a href="#1-目前较火的热修复方案" class="headerlink" title="1, 目前较火的热修复方案:"></a>1, 目前较火的热修复方案:</h2><ol>
 <li>阿里系：DeXposed、andfix：从底层二进制入手（c语言）。</li>
 <li>腾讯系：tinker：从java加载机制入手。</li>
@@ -378,8 +377,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/部分笔记/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2018/05/15/Android软键盘/" rel="next" title="Android软键盘">
+                <i class="fa fa-chevron-left"></i> Android软键盘
               </a>
             
           </div>
@@ -387,10 +386,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/15/Android软键盘/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -467,7 +462,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
