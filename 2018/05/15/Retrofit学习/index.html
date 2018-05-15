@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#Retrofit学习 查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 ##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrof">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/05/15/Retrofit学习/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#Retrofit学习 查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 ##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrof">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png">
+<meta property="og:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNonMewRmN43HYdsPbic2fmfKkWcdiazvnRCkDs451PmT7w6SqmkaQcZdA/640?wx_fmt=png">
+<meta property="og:updated_time" content="2017-04-27T09:15:16.695Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#Retrofit学习 查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 ##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrof">
+<meta name="twitter:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/15/Retrofit学习/"/>
+
+
+
+
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Retrofit学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#Retrofit学习</p>
+<p><a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869</a></p>
+<p>##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)<br>关于配置可以查看<a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">Retrofit2 完全解析 探索与okhttp之间的关系</a></p>
+<h4 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1,添加依赖"></a>1,添加依赖</h4><blockquote>
+<p>compile ‘com.squareup.retrofit2:retrofit:2.1.0’</p>
+</blockquote>
+<h4 id="2-定义接口"><a href="#2-定义接口" class="headerlink" title="2,定义接口"></a>2,定义接口</h4><blockquote>
+<pre><code>`public interface GitHubService {  
+   @GET(&quot;users/{user}/repos&quot;)
+   Call&lt;String&gt; listRepos(@Path(&quot;user&quot;) String user);
+ }`
+</code></pre><p>path 代表的是路径 {} 里面代表被替换的网址</p>
+</blockquote>
+<h4 id="3-构造Retrofit"><a href="#3-构造Retrofit" class="headerlink" title="3,构造Retrofit"></a>3,构造Retrofit</h4><blockquote>
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+.baseUrl(&quot;https://api.github.com/&quot;)
+.addConverterFactory(ScalarsConverterFactory.create())    //添加转换器, 这是必须的
+.addCallAdapterFactory(RxJavaCallAdapterFactory.create())    //如果和rxjava配合,需要添加这个转换, 其目的是将 Call&lt;Object&gt; 转换成 Observable&lt;Object&gt;
+.build();
+</code></pre></blockquote>
+<h4 id="4-通过Retrofit的create方法得到所需的对象"><a href="#4-通过Retrofit的create方法得到所需的对象" class="headerlink" title="4,通过Retrofit的create方法得到所需的对象"></a>4,通过Retrofit的create方法得到所需的对象</h4><blockquote>
+<p>   GitHubService service = retrofit.create(GitHubService.class);</p>
+</blockquote>
+<h4 id="5-使用得到的对象调用方法-这里像是标记一下指令"><a href="#5-使用得到的对象调用方法-这里像是标记一下指令" class="headerlink" title="5,使用得到的对象调用方法,这里像是标记一下指令"></a>5,使用得到的对象调用方法,这里像是标记一下指令</h4><blockquote>
+<p>   Call<restaurantresponse> version = service.getVersion();//设置参数</restaurantresponse></p>
+</blockquote>
+<h4 id="6-标记指令完毕后在合适的时候调用来获取数据"><a href="#6-标记指令完毕后在合适的时候调用来获取数据" class="headerlink" title="6,标记指令完毕后在合适的时候调用来获取数据"></a>6,标记指令完毕后在合适的时候调用来获取数据</h4><blockquote>
+<p>同步调用<br>   Response<updateversionresponse> execute = version.execute();</updateversionresponse></p>
+<p>异步调用</p>
+<pre><code>version.enqueue(new Callback&lt;UpdateVersionResponse&gt;() {
+    @Override
+    public void onResponse(Call&lt;UpdateVersionResponse&gt; call, Response&lt;UpdateVersionResponse&gt; response) {
+        Log.i(&quot;hehe&quot;, &quot;成功&quot; + response.toString());
+    }
+</code></pre></blockquote>
+<blockquote>
+</blockquote>
+<pre><code>    @Override
+    public void onFailure(Call&lt;UpdateVersionResponse&gt; call, Throwable t) {
+        Log.i(&quot;hehe&quot;, &quot;访问失败&quot;);
+    }
+});
+</code></pre><p>##2,Url配置</p>
+<p>####Retrofit 支持的协议包括 GET/POST/PUT/DELETE/HEAD/PATCH，当然你也可以直接用 HTTP 来自定义请求。这些协议均以注解的形式进行配置</p>
+<p>###2.1,GET 的用法</p>
+<blockquote>
+<pre><code>@GET(&quot;users/{user}/repos&quot;)
+Call&lt;Object&gt; listRepos(@Path(&quot;user&quot;) String user);
+</code></pre></blockquote>
+<p>  这些注解都有一个参数 value，用来配置其路径,但是不能用于后缀的添加</p>
+<p>path 是相对路径，baseUrl 是目录形式：</p>
+<pre><code>path = &quot;apath&quot;，baseUrl = &quot;http://host:port/a/b/&quot;
+Url = &quot;http://host:port/a/b/apath&quot;
+</code></pre><p>配置共有四种配置方法</p>
+<p>配置的时候采取这种配置方式(baseurl最后以”/“结尾, path中不以”/“开头)</p>
+<p>###2.2,参数类型</p>
+<h4 id="0-Path"><a href="#0-Path" class="headerlink" title="0,Path"></a>0,Path</h4><p>path用于在url中动态配置url</p>
+<h4 id="1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field"><a href="#1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field" class="headerlink" title="1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)"></a>1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)</h4><pre><code>@GET(&quot;list&quot;)
+Call&lt;要转化成的对象&gt; list(@Query(&quot;page&quot;) int page);
+</code></pre><p>Query 其实就是 Url 中 ‘?’ 后面的 key-value，比如：<a href="http://www.println.net/?cate=android" target="_blank" rel="noopener">http://www.println.net/?cate=android</a></p>
+<p>这里的 cate=android 就是一个 Query，而我们在配置它的时候只需要在接口方法中增加一个参数，即可：</p>
+<pre><code>interface PrintlnServer{    
+   @GET(&quot;&quot;)    
+   Call&lt;Object&gt; cate(@Query(&quot;cate&quot;) String cate);
+}
+</code></pre><p>QueryMap用来表示多个(方法为)</p>
+<p>Query (Call<restaurantresponse> getVersion(@QueryMap HashMap&lt;String, String&gt; params);)</restaurantresponse></p>
+<p>2,Field &amp; FieldMap(用于POST方法提交表单请求体中的键值对, 此时仍然能在连接后面以Query添加参数)</p>
+<h4 id="PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。"><a href="#PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。" class="headerlink" title="PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。"></a>PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。</h4><pre><code>   @FormUrlEncoded
+   @POST(&quot;/&quot;)   
+   Call example(
+       @Field(&quot;name&quot;) String name,
+       @Field(&quot;occupation&quot;) String occupation);
+
+其实也很简单，我们只需要定义上面的接口就可以了，我们用 Field 声明了表单的项，这样提交表单就跟普通的函数调用一样简单直接了
+</code></pre><p>如果表单项不确定个数,可以使用FieldMap</p>
+<p>Call<restaurantresponse> getVersion(@FieldMap HashMap&lt;String, String&gt; params);</restaurantresponse></p>
+<p>3,Part &amp; PartMap(用于POST方法上传文件,get也可以使用该参数上传文件)</p>
+<p>表示请求正文是多部分的。零件应声明为参数并注释@Part。</p>
+<pre><code>public interface FileUploadService {  
+    @Multipart
+    @POST(&quot;upload&quot;)    
+    Call upload(@Part(&quot;description&quot;) RequestBody description,
+                                  @Part MultipartBody.Part file);
+}
+</code></pre><p>如果你需要上传文件，和我们前面的做法类似，定义一个接口方法，需要注意的是，这个方法不再有 @FormUrlEncoded 这个注解，而换成了 @Multipart，后面只需要在参数中增加 Part 就可以了。也许你会问，这里的 Part 和 Field 究竟有什么区别，其实从功能上讲，无非就是客户端向服务端发起请求携带参数的方式不同，并且前者可以携带的参数类型更加丰富，包括数据流。也正是因为这一点，我们可以通过这种方式来上传文件</p>
+<p><img src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png" alt=""></p>
+<h3 id="4-Converter-让入参和返回类型丰富"><a href="#4-Converter-让入参和返回类型丰富" class="headerlink" title="4,Converter 让入参和返回类型丰富"></a>4,Converter 让入参和返回类型丰富</h3><h4 id="4-1-RequestBodyConverter-自定义请求体"><a href="#4-1-RequestBodyConverter-自定义请求体" class="headerlink" title="4.1, RequestBodyConverter(自定义请求体)"></a>4.1, RequestBodyConverter(自定义请求体)</h4><pre><code>Retrofit 上传文件，这个上传的过程其实。。还是有那么点儿不够简练，我们只是要提供一个文件用于上传，可我们前后构造了三个对象：
+    file -- &gt; requestbody -- &gt; multipartbody.part
+</code></pre><p>Retrofit 允许我们自己定义入参和返回的类型，不过，如果这些类型比较特别，我们还需要准备相应的 Converter，也正是因为 Converter 的存在， Retrofit 在入参和返回类型上表现得非常灵活.</p>
+<p>###新的上传文件的接口</p>
+<pre><code>public interface FileUploadService {  
+    @Multipart
+    @POST(&quot;upload&quot;)    
+    Call upload(@Part(&quot;description&quot;) RequestBody description,        
+                //注意这里的参数 &quot;aFile&quot; 之前是在创建 MultipartBody.Part 的时候传入的
+                @Part(&quot;aFile&quot;) File file);
+}
+把入参类型改成了我们熟悉的 File，如果你就这么拿去发请求，服务端收到的结果是一个jsonstring(内部默认的是GsonRequestBodyConverter)
+</code></pre><p>所以就只能自己实现一个 FileRequestBodyConverter</p>
+<pre><code>static class FileRequestBodyConverterFactory extends Converter.Factory {    
+        @Override
+    public Converter requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {      
+       return new FileRequestBodyConverter();
+    }
+  }  
+
+ static class FileRequestBodyConverter implements Converter&lt;File, RequestBody&gt; {    
+    @Override
+    public RequestBody convert(File file) throws IOException {      
+      return RequestBody.create(MediaType.parse(&quot;application/otcet-stream&quot;), file);
+    }
+  }
+</code></pre><p>然后在创建 Retrofit 的时候记得配置上它:</p>
+<pre><code>addConverterFactory(new FileRequestBodyConverterFactory())
+</code></pre><p>这样，我们的文件内容就能上传了</p>
+<h4 id="4-2-ResponseBodyConverter-这个一般也用不到"><a href="#4-2-ResponseBodyConverter-这个一般也用不到" class="headerlink" title="4.2 ResponseBodyConverter     //这个一般也用不到"></a>4.2 ResponseBodyConverter     //这个一般也用不到</h4><p>前面我们为大家简单示例了如何自定义 RequestBodyConverter，对应的，Retrofit 也支持自定义 ResponseBodyConverter。</p>
+<p>再来看下我们定义的接口：</p>
+<pre><code>public interface GitHubService {  
+   @GET(&quot;users/{user}/repos&quot;)
+  Call&lt;&gt; listRepos(@Path(&quot;user&quot;) String user);
+}
+</code></pre><p><img src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNonMewRmN43HYdsPbic2fmfKkWcdiazvnRCkDs451PmT7w6SqmkaQcZdA/640?wx_fmt=png" alt=""></p>
+<p>当然，别忘了在构造 Retrofit 的时候添加这个 Converter，这样我们就能够愉快的让接口返回 Result 对象了。</p>
+<blockquote>
+<p>注意！！Retrofit 在选择合适的 Converter 时，主要依赖于需要转换的对象类型，在添加 Converter 时，注意 Converter 支持的类型的包含关系以及其顺序。</p>
+</blockquote>
+<p>###Retrofit 原理分析</p>
+<p>####1,是谁实际上完成了接口请求的处理？</p>
+<h3 id="方法总结"><a href="#方法总结" class="headerlink" title="方法总结"></a>方法总结</h3><h4 id="最基本的配置"><a href="#最基本的配置" class="headerlink" title="最基本的配置"></a>最基本的配置</h4><pre><code>Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(&quot;http://192.168.31.242:8080/springmvc_users/user/&quot;)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build();
+IUserBiz userBiz = retrofit.create(IUserBiz.class);
+Call&lt;List&lt;User&gt;&gt; call = userBiz.getUsers();
+call.enqueue(new Callback&lt;List&lt;User&gt;&gt;()
+        {
+            @Override
+            public void onResponse(Call&lt;List&lt;User&gt;&gt; call, Response&lt;List&lt;User&gt;&gt; response)
+            {
+                Log.e(TAG, &quot;normalGet:&quot; + response.body() + &quot;&quot;);
+            }
+
+            @Override
+            public void onFailure(Call&lt;List&lt;User&gt;&gt; call, Throwable t)
+            {
+
+            }
+        });
+</code></pre><h4 id="1-一般的get请求"><a href="#1-一般的get请求" class="headerlink" title="1,一般的get请求"></a>1,一般的get请求</h4><pre><code>  `public interface IUserBiz {
+    @GET(&quot;users&quot;)
+    Call&lt;List&lt;User&gt;&gt; getUsers();
+}`
+这是最基本的get请求,没有任何参数及其他.
+</code></pre><h4 id="2-动态修改地址的get请求-–-使用-Path-注解"><a href="#2-动态修改地址的get请求-–-使用-Path-注解" class="headerlink" title="2,动态修改地址的get请求 – 使用 Path 注解"></a>2,动态修改地址的get请求 – 使用 Path 注解</h4><pre><code>public interface IUserBiz {
+    @GET(&quot;{username}&quot;)
+    Call&lt;User&gt; getUser(@Path(&quot;username&quot;) String username);
+}
+
+这是 使用 Path注解来动态修改url地址的get请求, 但是这个path只能用于修改url而不能用作修改后面的参数, 相当于url中的占位符.
+</code></pre><h4 id="3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解"><a href="#3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解" class="headerlink" title="3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解"></a>3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解</h4><pre><code>public interface IUserBiz {
+    @GET(&quot;users&quot;)
+    Call&lt;List&lt;User&gt;&gt; getUsersBySort(@Query(&quot;sortby&quot;) String sort);
+}
+
+eg: http://baseurl/users?sortby=username
+    http://baseurl/users?sortby=id
+
+这样我们就完成了参数的指定，当然相同的方式也适用于POST，只需要把注解修改为@POST即可。
+不同点在于, 这个 Query 注解代表的是在 url后面添加 参数而不是把参数防盗请求体中进行隐藏请求.
+</code></pre><h4 id="4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解"><a href="#4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解" class="headerlink" title="4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解"></a>4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解</h4><pre><code>public interface IUserBiz {
+ @POST(&quot;add&quot;)
+ Call&lt;List&lt;User&gt;&gt; addUser(@Body User user);
+}
+
+这是通过 Gson 把对象变成Json字符串然后传上去, 不过一般不需要这样,一般都是使用参数传的,所以这种情况的使用情况较少(暂时较少)
+</code></pre><h4 id="5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解"><a href="#5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解" class="headerlink" title="5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解"></a>5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解</h4><pre><code>public interface IUserBiz {
+    @POST(&quot;login&quot;)
+    @FormUrlEncoded
+    Call&lt;User&gt; login(@Field(&quot;username&quot;) String username, @Field(&quot;password&quot;) String password);
+}
+
+这是通过 FormUrlEncoded 进行标识后才能使用 field ,这是使用post的时候在请求体中 添加这些键值对(这种最常用) ,FieldMap注解 则是一个map对象, 表示多个field的参数, (一般用 fieldmap进行post请求,因为 一般请求的时候的参数较多,写多个field不合适.)
+</code></pre><h4 id="6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解"><a href="#6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解" class="headerlink" title="6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解"></a>6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解</h4><p>@part可以当成@field来使用,因为 @part是特殊的@field, @part比 @field多支持了文件的类型</p>
+<pre><code>文件上传应有的形式: 
+    Content-Disposition: form-data; name=&quot;file&quot;；filename=&quot;test.jpg&quot;
+普通使用Part注解添加的file:
+    Content-Disposition: form-data; name=&quot;file&quot;
+
+所以中心思想就是把  file 替换成 file&quot;；filename=&quot;test.jpg 通过拼接字符串的方式保存文件
+
+public interface DemoService {
+    @Multipart()
+    @POST(&quot;api/files&quot;)
+    Call&lt;ResponseInfo&gt; uploadFile(@Part(&quot;file\&quot;;filename=\&quot;test.jpg&quot;) RequestBody photo);
+}
+
+
+
+public interface IUserBiz {
+    @Multipart
+    @POST(&quot;register&quot;)
+    Call&lt;User&gt; registerUser(@Part MultipartBody.Part photo, @Part(&quot;username&quot;) 
+                 RequestBody username, @Part(&quot;password&quot;) RequestBody password);
+}
+
+这里@MultiPart的意思就是允许多个@Part了，我们这里使用了3个@Part.
+第一个我们准备上传个文件，使用了MultipartBody.Part类型，
+其余两个均为简单的键值对(这里的键值对说明也可以使用 string,string  的方式 ,上面的 string,requestbody形式并不是必须的 即可以: 
+    public interface IUserBiz {
+        @Multipart
+        @POST(&quot;register&quot;)
+        Call&lt;User&gt; registerUser(@Part MultipartBody.Part photo, @Part(&quot;username&quot;) 
+                    String username, @Part(&quot;password&quot;) String password);
+    }
+)
+
+使用的代码为:
+
+File file = new File(Environment.getExternalStorageDirectory(), &quot;icon.png&quot;);
+RequestBody photoRequestBody = RequestBody.create(MediaType.parse(&quot;image/png&quot;), file);
+MultipartBody.Part photo = MultipartBody.Part.createFormData(&quot;photos&quot;, &quot;icon.png&quot;, photoRequestBody);
+
+Call&lt;User&gt; call = userBiz.registerUser(photo, RequestBody.create(null, &quot;abc&quot;), RequestBody.create(null, &quot;123&quot;));
+</code></pre><h4 id="7-多文件上传-PartMap-–-使用-PartMap注解"><a href="#7-多文件上传-PartMap-–-使用-PartMap注解" class="headerlink" title="7,多文件上传@PartMap – 使用 PartMap注解"></a>7,多文件上传@PartMap – 使用 PartMap注解</h4><pre><code>public interface IUserBiz {
+     @Multipart
+     @POST(&quot;register&quot;)
+      Call&lt;User&gt; registerUser(
+             @PartMap Map&lt;String, RequestBody&gt; params, 
+            @Part(&quot;password&quot;) RequestBody password);
+}
+
+这里使用了一个新的注解@PartMap，这个注解用于标识一个Map，Map的key为String类型，代表上传的键值对的key(与服务器接受的key对应),value即为RequestBody，有点类似@Part的封装版本。
+</code></pre><p>执行代码:</p>
+<pre><code>File file = new File(Environment.getExternalStorageDirectory(), &quot;messenger_01.png&quot;);
+RequestBody photo = RequestBody.create(MediaType.parse(&quot;image/png&quot;, file);
+Map&lt;String,RequestBody&gt; photos = new HashMap&lt;&gt;();
+photos.put(&quot;photos\&quot;; filename=\&quot;icon.png&quot;, photo);
+             &quot;file\&quot;; filename=\&quot;test.jpg&quot;
+photos.put(&quot;username&quot;,  RequestBody.create(null, &quot;abc&quot;));
+
+Call&lt;User&gt; call = userBiz.registerUser(photos, RequestBody.create(null, &quot;123&quot;));
+
+可以看到，可以在Map中put进一个或多个文件，键值对等，当然你也可以分开，
+单独的键值对也可以使用 @Part，这里又看到设置文件的时候，相对应的key很奇怪，
+例如上例&quot;photos\&quot;; filename=\&quot;icon.png&quot;,前面的photos就是与服务器对应的key，
+后面filename是服务器得到的文件名，ok，参数虽然奇怪，但是也可以动态的设置文件名，不太影响使用
+
+这个的优势是可以动态的修改名字了,(因为 使用Part注解 value是写死的,所以值没法改,但是使用 PartMap注解 value是创建好传进去的,所以这个名字就可以修改了)
+</code></pre><h4 id="8-下载文件"><a href="#8-下载文件" class="headerlink" title="8,下载文件"></a>8,下载文件</h4><pre><code>public interface IUserBiz {
+    @GET(&quot;download&quot;)
+    Call&lt;ResponseBody&gt; downloadTest();
+}
+
+然后调用: 
+
+Call&lt;ResponseBody&gt; call = userBiz.downloadTest();
+call.enqueue(new Callback&lt;ResponseBody&gt;() {
+    @Override
+    public void onResponse(Call&lt;ResponseBody&gt; call, Response&lt;ResponseBody&gt; response)
+    {
+        InputStream is = response.body().byteStream();
+        //save file
+    }
+
+    @Override
+    public void onFailure(Call&lt;ResponseBody&gt; call, Throwable t)
+    {
+
+    }
+});
+</code></pre><h4 id="field-和-part-和-query-的区别"><a href="#field-和-part-和-query-的区别" class="headerlink" title="field 和 part 和 query 的区别:"></a>field 和 part 和 query 的区别:</h4><blockquote>
+<p>field 用于简单键值对的提交, 用在post请求中, 需要进行 @formurlencoude 注解进行标识(get无法使用,这个只能用于post请求体中)</p>
+<p>part 用于post请求中在field的基础上 可以携带文件进行提交(这个只能用于post请求体中)</p>
+<p>query 用于在url后面添加参数, post和get请求均可以使用</p>
+</blockquote>
+<p><a href="https://github.com/square/retrofit/issues/1063" target="_blank" rel="noopener">可以查看 直接使用requestbody的上传文件的解决 retrofit#1063</a></p>
+<p>@Part(“image\”; filename=\”image.jpg\” “) RequestBody image</p>
+<pre><code>public interface ApiInterface {
+    @Multipart
+    @POST (&quot;/api/Accounts/editaccount&quot;)
+    Call&lt;User&gt; editUser (
+         @Header(&quot;Authorization&quot;) String authorization, 
+         @Part(&quot;file\&quot;; filename=\&quot;pp.png&quot;) RequestBody file , 
+        @Part(&quot;FirstName&quot;) RequestBody fname, 
+        @Part(&quot;Id&quot;) RequestBody id);
+}
+</code></pre><h2 id="配置OkHttpClient"><a href="#配置OkHttpClient" class="headerlink" title="配置OkHttpClient"></a>配置OkHttpClient</h2><p>1,</p>
+<pre><code>.callFactory(new okhttp3.Call.Factory() {
+                    @Override
+                    public okhttp3.Call newCall(Request request) {
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        return okHttpClient.newCall(request);
+                    }
+                })
+
+可以单独写一个OkhttpClient的单例生成类，在这个里面完成你所需的所有的配置，然后将OkhttpClient实例通过方法公布出来，设置给retrofit
+callFactory方法接受一个okhttp3.Call.Factory对象，OkHttpClient即为一个实现类
+</code></pre><p>2,</p>
+<pre><code>.client(okhttpclient)
+
+也可以配置client
+</code></pre><p>//转换器 , 请求原始数据转换成对象(addConverterFactory()),一般将该数据转换成json</p>
+<p>Scalars (primitives, boxed, and String): com.squareup.retrofit2:converter-scalars:2.1.0</p>
+<p>Gson: com.squareup.retrofit2:converter-gson:2.1.0</p>
+<p>Jackson: com.squareup.retrofit2:converter-jackson:{最新版本号}</p>
+<p>Moshi: com.squareup.retrofit2:converter-moshi:{最新版本号}</p>
+<p>Protobuf: com.squareup.retrofit2:converter-protobuf:{最新版本号}</p>
+<p>Wire: com.squareup.retrofit2:converter-wire:{最新版本号}</p>
+<p>Simple XML: com.squareup.retrofit2:converter-simplexml:{最新版本号}</p>
+<p>//转换器 , 将返回的Call对象转换成其他 (addCallAdapterFactory()),一般将该数据转换成rxjava</p>
+<h1 id="注-添加header的方法"><a href="#注-添加header的方法" class="headerlink" title="注: 添加header的方法"></a>注: 添加header的方法</h1><p>该文章见<a href="http://blog.csdn.net/ghost_programmer/article/details/52372065" target="_blank" rel="noopener">retrofit 网络请求库 : http://blog.csdn.net/ghost_programmer/article/details/52372065</a></p>
+<h2 id="headers-和-header"><a href="#headers-和-header" class="headerlink" title="@headers 和 @header"></a>@headers 和 @header</h2><p>headers是在方法上部声明, 不能动态修改, 不可覆盖 , header 是在方法的参数中代表的, 可以动态设置</p>
+<h2 id="OKhttp-配置的时候在所有的request中添加header-Interceptor"><a href="#OKhttp-配置的时候在所有的request中添加header-Interceptor" class="headerlink" title="OKhttp  配置的时候在所有的request中添加header   Interceptor"></a>OKhttp  配置的时候在所有的request中添加header   Interceptor</h2><p>官方demo见 <a href="https://github.com/square/okhttp/wiki/Interceptors" target="_blank" rel="noopener">https://github.com/square/okhttp/wiki/Interceptors</a></p>
+<pre><code>Request request = chain.request();
+
+Response response = chain.proceed(request);
+</code></pre><h4 id="通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。"><a href="#通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。" class="headerlink" title="通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。"></a>通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。</h4><h4 id="对所有的请求都添加请求头"><a href="#对所有的请求都添加请求头" class="headerlink" title="对所有的请求都添加请求头"></a>对所有的请求都添加请求头</h4><pre><code>public okhttp3.Response intercept(Chain chain) throws IOException {
+    Request request = chain.request();
+    // 重写request
+    Request requestOverwrite = request.newBuilder().header(&quot;User-Agent&quot;,&quot;Android&quot;).build();
+
+    return chain.proceed(requestOverwrite);
+}
+</code></pre><h4 id="同理-要对所有的请求相应-response-添加header的话"><a href="#同理-要对所有的请求相应-response-添加header的话" class="headerlink" title="同理, 要对所有的请求相应 response 添加header的话"></a>同理, 要对所有的请求相应 response 添加header的话</h4><pre><code>@Override
+public okhttp3.Response intercept(Chain chain) throws IOException {
+    Request request = chain.request();
+    okhttp3.Response originalResponse = chain.proceed(request);
+
+    return originalResponse.newBuilder().header(&quot;Cache-Control&quot;,&quot;max-age=100&quot;).build();
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/15/RecycleView学习/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/15/rxjava学习/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加依赖"><span class="nav-number">1.</span> <span class="nav-text">1,添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-定义接口"><span class="nav-number">2.</span> <span class="nav-text">2,定义接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-构造Retrofit"><span class="nav-number">3.</span> <span class="nav-text">3,构造Retrofit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-通过Retrofit的create方法得到所需的对象"><span class="nav-number">4.</span> <span class="nav-text">4,通过Retrofit的create方法得到所需的对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-使用得到的对象调用方法-这里像是标记一下指令"><span class="nav-number">5.</span> <span class="nav-text">5,使用得到的对象调用方法,这里像是标记一下指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-标记指令完毕后在合适的时候调用来获取数据"><span class="nav-number">6.</span> <span class="nav-text">6,标记指令完毕后在合适的时候调用来获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-Path"><span class="nav-number">7.</span> <span class="nav-text">0,Path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field"><span class="nav-number">8.</span> <span class="nav-text">1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。"><span class="nav-number">9.</span> <span class="nav-text">PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Converter-让入参和返回类型丰富"><span class="nav-number"></span> <span class="nav-text">4,Converter 让入参和返回类型丰富</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-RequestBodyConverter-自定义请求体"><span class="nav-number">1.</span> <span class="nav-text">4.1, RequestBodyConverter(自定义请求体)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-ResponseBodyConverter-这个一般也用不到"><span class="nav-number">2.</span> <span class="nav-text">4.2 ResponseBodyConverter     //这个一般也用不到</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法总结"><span class="nav-number"></span> <span class="nav-text">方法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最基本的配置"><span class="nav-number">1.</span> <span class="nav-text">最基本的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-一般的get请求"><span class="nav-number">2.</span> <span class="nav-text">1,一般的get请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-动态修改地址的get请求-–-使用-Path-注解"><span class="nav-number">3.</span> <span class="nav-text">2,动态修改地址的get请求 – 使用 Path 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解"><span class="nav-number">4.</span> <span class="nav-text">3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解"><span class="nav-number">5.</span> <span class="nav-text">4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解"><span class="nav-number">6.</span> <span class="nav-text">5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解"><span class="nav-number">7.</span> <span class="nav-text">6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-多文件上传-PartMap-–-使用-PartMap注解"><span class="nav-number">8.</span> <span class="nav-text">7,多文件上传@PartMap – 使用 PartMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-下载文件"><span class="nav-number">9.</span> <span class="nav-text">8,下载文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#field-和-part-和-query-的区别"><span class="nav-number">10.</span> <span class="nav-text">field 和 part 和 query 的区别:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置OkHttpClient"><span class="nav-number"></span> <span class="nav-text">配置OkHttpClient</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注-添加header的方法"><span class="nav-number"></span> <span class="nav-text">注: 添加header的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#headers-和-header"><span class="nav-number"></span> <span class="nav-text">@headers 和 @header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OKhttp-配置的时候在所有的request中添加header-Interceptor"><span class="nav-number"></span> <span class="nav-text">OKhttp  配置的时候在所有的request中添加header   Interceptor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。"><span class="nav-number">1.</span> <span class="nav-text">通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对所有的请求都添加请求头"><span class="nav-number">2.</span> <span class="nav-text">对所有的请求都添加请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同理-要对所有的请求相应-response-添加header的话"><span class="nav-number">3.</span> <span class="nav-text">同理, 要对所有的请求相应 response 添加header的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

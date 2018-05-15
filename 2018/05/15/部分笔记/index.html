@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="####图片上面两个是圆角,下面不是圆角 #1,使用自定义Imageview ,在onDraw里面实现     `     @Override     protected void onDraw(Canvas canvas) {         BitmapShader shader;         BitmapDrawable bitmapDrawable = (BitmapDrawable)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/05/15/部分笔记/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="####图片上面两个是圆角,下面不是圆角 #1,使用自定义Imageview ,在onDraw里面实现     `     @Override     protected void onDraw(Canvas canvas) {         BitmapShader shader;         BitmapDrawable bitmapDrawable = (BitmapDrawable)">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-08-11T01:06:29.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="####图片上面两个是圆角,下面不是圆角 #1,使用自定义Imageview ,在onDraw里面实现     `     @Override     protected void onDraw(Canvas canvas) {         BitmapShader shader;         BitmapDrawable bitmapDrawable = (BitmapDrawable)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/15/部分笔记/"/>
+
+
+
+
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/部分笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>####图片上面两个是圆角,下面不是圆角</p>
+<p>#1,使用自定义Imageview ,在onDraw里面实现</p>
+<pre><code>    `
+    @Override
+    protected void onDraw(Canvas canvas) {
+        BitmapShader shader;
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) getDrawable();
+        shader = new BitmapShader(bitmapDrawable.getBitmap(),
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        //设置映射否则图片显示不全
+        RectF rect = new RectF(0.0f, 0.0f, getWidth(), getHeight() + yRadius);
+        int width = bitmapDrawable.getBitmap().getWidth();
+        int height = bitmapDrawable.getBitmap().getHeight() + (int) yRadius;
+        RectF src = new RectF(0.0f, 0.0f, width, height);
+        Matrix matrix = new Matrix();
+        matrix.setRectToRect(src, rect, Matrix.ScaleToFit.CENTER);
+        shader.setLocalMatrix(matrix);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setShader(shader);
+        //根据图片圆角矩形的半径进行裁剪
+        canvas.clipRect(new Rect(0, 0, (int) (rect.right), (int) (rect.bottom - yRadius)));
+        //这样就把下面的部分剪裁掉了,只剩下上面两个圆角了
+        canvas.drawRoundRect(rect, xRadius, yRadius, paint);
+    }
+    `
+同理,可以实现左边右边上面下面四种建材,缺点是只能两两实现圆角剪裁而不能自定义某一个角
+</code></pre><p>关于Cavans的方法:</p>
+<pre><code>Canvas():创建一个空的画布，可以使用setBitmap()方法来设置绘制的具体画布；
+
+Canvas(Bitmap bitmap):以bitmap对象创建一个画布，则将内容都绘制在bitmap上，bitmap不得为null;
+
+Canvas(GL gl):在绘制3D效果时使用，与OpenGL有关；
+
+drawColor:设置画布的背景色；
+
+setBitmap:设置具体的画布；
+
+clipRect:设置显示区域，即设置裁剪区；
+
+isOpaque:检测是否支持透明；
+
+rotate:旋转画布；
+
+canvas.drawRect(RectF,Paint)方法用于画矩形，第一个参数为图形显示区域，第二个参数为画笔，设置好图形显示区域Rect和画笔Paint后，即可画图；
+
+canvas.drawRoundRect(RectF, float, float, Paint) 方法用于画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
+
+canvas.drawLine(startX, startY, stopX, stopY, paint)：前四个参数的类型均为float，最后一个参数类型为Paint。表示用画笔paint从点（startX,startY）到点（stopX,stopY）画一条直线；
+
+canvas.drawArc(oval, startAngle, sweepAngle, useCenter, paint)：第一个参数oval为RectF类型，即圆弧显示区域，startAngle和sweepAngle均为float类型，分别表示圆弧起始角度和圆弧度数,3点钟方向为0度，useCenter设置是否显示圆心，boolean类型，paint为画笔；
+
+canvas.drawCircle(float,float, float, Paint)方法用于画圆，前两个参数代表圆心坐标，第三个参数为圆半径，第四个参数是画笔；
+
+Rect（int left,int top,int right,int bottom）
+
+left
+          矩形左上角X坐标值
+top
+          矩形左上角Y坐标值
+right
+          矩形右下角X坐标值
+bottom
+          矩形右下角Y坐标值
+</code></pre><p>#2,关于Android的权限结构: 危险权限(即需要不断申请的权限)</p>
+<p>权限组位于 #Manifest#permission_group 中</p>
+<h4 id="1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><a href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”" class="headerlink" title="1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”"></a>1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</h4><p>读取日历 READ_CALENDAR “android.permission.READ_CALENDAR”</p>
+<p>编辑日历(比如添加行程等) WRITE_CALENDAR “android.permission.WRITE_CALENDAR”</p>
+<h4 id="2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><a href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”" class="headerlink" title="2,摄像机组:     CAMERA “android.permission-group.CAMERA”"></a>2,摄像机组:     CAMERA “android.permission-group.CAMERA”</h4><p>打开摄像机 CAMERA “android.permission.CAMERA”</p>
+<h4 id="3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><a href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”" class="headerlink" title="3,联系人组:    CONTACTS “android.permission-group.CONTACTS”"></a>3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</h4><p>读取联系人 READ_CONTACTS “android.permission.READ_CONTACTS”</p>
+<p>修改联系人(增加删除联系人)    WRITE_CONTACTS “android.permission.WRITE_CONTACTS”</p>
+<h4 id="4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><a href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”" class="headerlink" title="4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”"></a>4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</h4><p>打开麦克风    RECORD_AUDIO “android.permission.RECORD_AUDIO”</p>
+<h4 id="5-手机使用组-PHONE-“android-permission-group-PHONE”"><a href="#5-手机使用组-PHONE-“android-permission-group-PHONE”" class="headerlink" title="5,手机使用组: PHONE “android.permission-group.PHONE”"></a>5,手机使用组: PHONE “android.permission-group.PHONE”</h4><p>读取手机状态 READ_PHONE_STATE “android.permission.READ_PHONE_STATE”</p>
+<p>拨打电话(直接自动拨打,不是跳转到拨打电话界面,任何跳转都不需要权限,如跳转到打电话界面和发送短信界面) CALL_PHONE “android.permission.CALL_PHONE”</p>
+<p>读取通话记录 READ_CALL_LOG “android.permission.READ_CALL_LOG”</p>
+<p>修改通话记录(添加和删除通话记录,如黑名单中挂断电话后还把该通话记录删除) WRITE_CALL_LOG “android.permission.WRITE_CALL_LOG”</p>
+<h4 id="6-传感器组-SENSORS-“android-permission-group-SENSORS”"><a href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”" class="headerlink" title="6,传感器组: SENSORS “android.permission-group.SENSORS”"></a>6,传感器组: SENSORS “android.permission-group.SENSORS”</h4><p>使用身体传感器(其他传感器没题) BODY_SENSORS “android.permission.BODY_SENSORS”</p>
+<h4 id="7-短信组-SMS-“android-permission-group-SMS”"><a href="#7-短信组-SMS-“android-permission-group-SMS”" class="headerlink" title="7,短信组: SMS “android.permission-group.SMS”"></a>7,短信组: SMS “android.permission-group.SMS”</h4><p>发送短信(直接发送短信) SEND_SMS “android.permission.SEND_SMS”</p>
+<p>接收短信 RECEIVE_SMS “android.permission.RECEIVE_SMS”</p>
+<p>读取短信 READ_SMS “android.permission.READ_SMS”</p>
+<p>彩信相关 RECEIVE_MMS “android.permission.RECEIVE_MMS”</p>
+<h4 id="8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><a href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”" class="headerlink" title="8,sd卡组:  STORAGE “android.permission-group.STORAGE”"></a>8,sd卡组:  STORAGE “android.permission-group.STORAGE”</h4><p>读取sd卡数据 READ_EXTERNAL_STORAGE “android.permission.READ_EXTERNAL_STORAGE”</p>
+<p>向sd卡写数据 WRITE_EXTERNAL_STORAGE “android.permission.WRITE_EXTERNAL_STORAGE”</p>
+<h4 id="9-位置组-LOCATION-“android-permission-group-LOCATION”"><a href="#9-位置组-LOCATION-“android-permission-group-LOCATION”" class="headerlink" title="9,位置组:    LOCATION “android.permission-group.LOCATION”"></a>9,位置组:    LOCATION “android.permission-group.LOCATION”</h4><p>获取精确位置 ACCESS_FINE_LOCATION “android.permission.ACCESS_FINE_LOCATION”</p>
+<p>获取大致位置 ACCESS_COARSE_LOCATION “android.permission.ACCESS_COARSE_LOCATION”</p>
+<p>#3,关于Fragment的小坑(不能叫坑,只是我自己的问题,记录下来是为了让自己以后不犯错)</p>
+<pre><code>一般在newInstence中的 fragment是 static的, 所以在合适的时机必须调用 fragment=null ,来销毁该fragment, 否则下次调用的时候该fragment会使用,但是该fragment的各种状态却还在没有重置
+</code></pre><p>#4,弹出dialog的时候弹出软键盘</p>
+<p>背景: 项目中任何界面都是 默认不弹出软键盘的,所以 在baseactivity中有 开启新界面的配置了不弹出软键盘(在onCreate()之前调用:)</p>
+<pre><code>//有EditView的界面，默认不弹窗软键盘
+getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+</code></pre><p>但是在支付界面是需要输入支付密码的, 这个密码用的是dialog, 需求需要在这个dialog弹出的时候自动弹出软键盘,所以这个时候是需要对软键盘进行处理的,具体处理方法如下:</p>
+<p>在dialog的oncreate方法中添加</p>
+<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+</code></pre><p>如果使用的alertDialog,可以</p>
+<pre><code>AlertDialog.Builder builder = new Builder(context);
+final View view = View.inflate(context, R.layout.dialog_enter_pwd, null);
+builder.setView(view);
+builder.setCancelable(false);
+final AlertDialog dialog = builder.show();
+dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+</code></pre><p>至此,我的问题就解决了</p>
+<p>其他的方法如: </p>
+<p>1,在调用dialog之前在activity中调用 </p>
+<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+</code></pre><p>2,在调用完毕后调用</p>
+<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+</code></pre><p>总之: SOFT_INPUT_STATE_ALWAYS_VISIBLE , 和 SOFT_INPUT_STATE_VISIBLE 都试试.</p>
+<h3 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h3><h4 id="1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口"><a href="#1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口" class="headerlink" title="1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口"></a>1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口</h4><pre><code>final void attach(Context context, ActivityThread aThread,
+        Instrumentation instr, IBinder token, int ident,
+        Application application, Intent intent, ActivityInfo info,
+        CharSequence title, Activity parent, String id,
+        NonConfigurationInstances lastNonConfigurationInstances,
+        Configuration config, String referrer, IVoiceInteractor voiceInteractor) {
+    attachBaseContext(context);
+    ....
+    //创建对应的Window 并设置callback, 其实为PhoneWindow
+    mWindow = new PhoneWindow(this);
+    mWindow.setCallback(this);
+    mWindow.setOnWindowDismissedCallback(this);
+    ....
+    // 设置Window的WindowManager, 对Window的mWindowManager赋值,
+    // 事实上, Window中 并未使用传递进去的windowManager, 而是在此方法中 调用WindowManagerImpl.createLocalWindowManager 重新创建了一个
+    mWindow.setWindowManager(
+            (WindowManager)context.getSystemService(Context.WINDOW_SERVICE),
+            mToken, mComponent.flattenToString(),
+            (info.flags &amp; ActivityInfo.FLAG_HARDWARE_ACCELERATED) != 0);
+    if (mParent != null) {
+        mWindow.setContainer(mParent.getWindow());
+    }
+    // 把window对象中的 windowManager 关联到 Activity的 mWindowManager
+    mWindowManager = mWindow.getWindowManager();
+    ...
+  }
+</code></pre><p>Activity创建之后, 在ActivityThread中 调用 Activity#attach, 进行一些初始化操作,在Activity#attach中, 创建了一个PhoneWindow对象,这个PhoneWindow就是getWindow中得到的window</p>
+<h4 id="2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样"><a href="#2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样" class="headerlink" title="2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样"></a>2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样</h4><pre><code> Dialog(@NonNull Context context, @StyleRes int themeResId, boolean createContextThemeWrapper) {
+    ......
+    // 用getSystemService获取 WindowManger实例
+    mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    // 直接创建一个 PhoneWindow的实例
+    final Window w = new PhoneWindow(mContext);
+    mWindow = w;
+    w.setCallback(this);
+    w.setOnWindowDismissedCallback(this);
+    w.setWindowManager(mWindowManager, null, null);
+    w.setGravity(Gravity.CENTER);
+    mListenersHandler = new ListenersHandler(this);
+}
+</code></pre><p>代码很明显, 首先获取windowManager实例, 然后创建window对象,然后在设置callback,对PhoneWindow的实例设置WindowManager;(这里有一点和Activity不同, Activity是调用Window的setWindowManager后, 把Window对应的WindowManger获取,然后赋值给自己的变量Activity#mWindowManger, 而dialog没这个操作; dialog对应的Window对象,就只是传入的Context实例去getSystemService所得); 这个PhoneWindow就是getWindow中得到的window</p>
+<p>所以他们获取到的window是不一样的</p>
+<pre><code>activity中window的地址为:com.android.internal.policy.PhoneWindow@595fa83
+dialog中window的地址为:com.android.internal.policy.PhoneWindow@960ec5c
+</code></pre><p>很明显不一样</p>
+<p>可参考<a href="http://www.jianshu.com/p/c1d7ebc57fb0" target="_blank" rel="noopener">Activity和dialog的窗口添加源码分析</a></p>
+<p>1, Window是一个抽象类, 具体的实现是PhoneWindow</p>
+<p>2,android系统中, 每个界面,对应着一个window; 但其实在android系统中window也是一个抽象的概率,它是以view的形式存在; 在使用中, 无法直接访问Window, 只能通过WindowManager才能访问Window; 每个Window都对应一个View和一个ViewRootImpl, ViewRootImpl是连接Window和WMS的桥梁, WMS的一些消息,通过ViewRootImpl转发给View;</p>
+<p>3, WindowManager继承自ViewManager(间接证明Window其实对应的是View?)，常用的只有三个方法：addView、updateView和removeView</p>
+<p>4,各种Window的不同, 主要是 token及type的不同</p>
+<p>5,app中控制window, 是通过WindowManager.LayoutParams去控制, eg: 通过x,y,gravity去控制位置…</p>
+<h1 id="CardView使用"><a href="#CardView使用" class="headerlink" title="CardView使用"></a>CardView使用</h1><p>参考资料: <a href="http://www.jianshu.com/p/e693e395e729" target="_blank" rel="noopener">CardView的使用</a></p>
+<h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1,基本使用"></a>1,基本使用</h2><pre><code>&lt;android.support.v7.widget.CardView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    
+    xmlns:cardview=&quot;http://schemas.android.com/apk/res-auto&quot;   
+    cardview:cardElevation=&quot;5dp&quot;   
+    cardview:cardCornerRadius=&quot;6dp&quot;   
+    android:layout_width=&quot;match_parent&quot;   
+    android:layout_height=&quot;match_parent&quot;&gt;
+&lt;/android.support.v7.widget.CardView&gt;
+</code></pre><p>cardview:cardElevation 表示cardView 的阴影的 高度</p>
+<p>cardview:cardCornerRadius 表示cardView 的圆角的边缘弧度数</p>
+<h2 id="2-拓展属性介绍"><a href="#2-拓展属性介绍" class="headerlink" title="2,拓展属性介绍"></a>2,拓展属性介绍</h2><pre><code>cardBackgroundColor   : 设置CardView的背景颜色
+cardMaxElevation   : 设置最大高度
+cardUseCompatPadding :设置内边距
+cardPreventCornerOverlap : 是否添加内边距,为了防止卡片内容和边角的重叠
+contentPadding : 设置CardView边界跟内部的间距
+contentPaddingLeft :设置CardView边界跟内部的左间距
+contentPaddingRight:设置CardView边界跟内部的右间距
+contentPaddingTop:设置CardView边界跟内部的上间距
+contentPaddingBottom:设置CardView边界跟内部的下间距
+</code></pre><h2 id="3-一些问题和一些实现"><a href="#3-一些问题和一些实现" class="headerlink" title="3,一些问题和一些实现"></a>3,一些问题和一些实现</h2><p>1,在API21(5.0) 以上,使用起来没有问题;</p>
+<p>2,在API21以下,在CardView 与内部view会有默认的边距, 图 , 原因是因为 在API21以下,为了防止内容与CardView 重叠, 默认使用cardPreventCornerOverlap =true 使会有默认边距 ,解决这个问题, 只需要添加代码 cardPreventCornerOverlap  =false 即可;</p>
+<p>3,CardView设置不了与屏幕的间距, 只需要在CardView外面再套一层布局 再设置CardView的margin值即可;</p>
+<p>4,CardView继承于FrameLayout 可以作为根布局来使用, 具有FrameLayout的一切特点,但是要注意第三点提到的问题,同时也要注意子View的位置;</p>
+<p>5,去除阴影  card_view:cardElevation=”0dp” 即可;</p>
+<p>6,设置点击水波纹效果 android:foreground=”?attr/selectableItemBackground” 但是在5.0以下就没有效果;</p>
+<p>7,实现Material Design 点击阴影效果 需要借助5.0的属性 android:stateListAnimator, 5.0以下没有效果</p>
+<p>创建一个Z轴方向的动画,设置属性为android:stateListAnimator=”@anim/xxx</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;item android:state_enabled=&quot;true&quot; android:state_pressed=&quot;true&quot;&gt;
+        &lt;objectAnimator
+            android:duration=&quot;@android:integer/config_shortAnimTime&quot;
+            android:propertyName=&quot;translationZ&quot;
+            android:valueTo=&quot;@dimen/touch_raise&quot;
+            android:valueType=&quot;floatType&quot; /&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+        &lt;objectAnimator
+            android:duration=&quot;@android:integer/config_shortAnimTime&quot;
+            android:propertyName=&quot;translationZ&quot;
+            android:valueTo=&quot;0dp&quot;
+            android:valueType=&quot;floatType&quot; /&gt;
+    &lt;/item&gt;
+&lt;/selector&gt;
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/15/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/15/Android热修复/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><span class="nav-number">1.</span> <span class="nav-text">1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><span class="nav-number">2.</span> <span class="nav-text">2,摄像机组:     CAMERA “android.permission-group.CAMERA”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><span class="nav-number">3.</span> <span class="nav-text">3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><span class="nav-number">4.</span> <span class="nav-text">4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-手机使用组-PHONE-“android-permission-group-PHONE”"><span class="nav-number">5.</span> <span class="nav-text">5,手机使用组: PHONE “android.permission-group.PHONE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”"><span class="nav-number">6.</span> <span class="nav-text">6,传感器组: SENSORS “android.permission-group.SENSORS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-短信组-SMS-“android-permission-group-SMS”"><span class="nav-number">7.</span> <span class="nav-text">7,短信组: SMS “android.permission-group.SMS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><span class="nav-number">8.</span> <span class="nav-text">8,sd卡组:  STORAGE “android.permission-group.STORAGE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-位置组-LOCATION-“android-permission-group-LOCATION”"><span class="nav-number">9.</span> <span class="nav-text">9,位置组:    LOCATION “android.permission-group.LOCATION”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number"></span> <span class="nav-text">PS:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口"><span class="nav-number">1.</span> <span class="nav-text">1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样"><span class="nav-number">2.</span> <span class="nav-text">2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CardView使用"><span class="nav-number"></span> <span class="nav-text">CardView使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本使用"><span class="nav-number"></span> <span class="nav-text">1,基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-拓展属性介绍"><span class="nav-number"></span> <span class="nav-text">2,拓展属性介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-一些问题和一些实现"><span class="nav-number"></span> <span class="nav-text">3,一些问题和一些实现</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

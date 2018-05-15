@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#RecycleView  参考 Android RecyclerView 使用完全解析 体验艺术般的控件和RecycleView的基本使用 ##概述RecycleView 在 support-v7包下 其作用是用来代替 ListView和GridView 其优点是: 提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration ,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/05/15/RecycleView学习/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#RecycleView  参考 Android RecyclerView 使用完全解析 体验艺术般的控件和RecycleView的基本使用 ##概述RecycleView 在 support-v7包下 其作用是用来代替 ListView和GridView 其优点是: 提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration ,">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-04-14T12:24:49.363Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#RecycleView  参考 Android RecyclerView 使用完全解析 体验艺术般的控件和RecycleView的基本使用 ##概述RecycleView 在 support-v7包下 其作用是用来代替 ListView和GridView 其优点是: 提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration ,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/15/RecycleView学习/"/>
+
+
+
+
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/RecycleView学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#RecycleView </p>
+<p>参考 <a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="noopener">Android RecyclerView 使用完全解析 体验艺术般的控件</a><br>和<br><a href="http://www.jianshu.com/p/804790b4c957" target="_blank" rel="noopener">RecycleView的基本使用</a></p>
+<p>##概述<br>RecycleView 在 support-v7包下</p>
+<p>其作用是用来代替 ListView和GridView</p>
+<p>其优点是:</p>
+<pre><code>提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现令人瞠目的效果。
+</code></pre><p>例如: </p>
+<p>1,你想要控制其显示的方式，请通过布局管理器LayoutManager</p>
+<p>2,你想要控制Item间的间隔（可绘制），请通过ItemDecoration</p>
+<p>3,你想要控制Item增删的动画，请通过ItemAnimator</p>
+<p>缺点是: </p>
+<pre><code>想要实现点击、长按事件，需要自己定义
+</code></pre><p>##基本使用方法</p>
+<pre><code>mRecyclerView = findView(R.id.id_recyclerview);
+//设置布局管理器
+mRecyclerView.setLayoutManager(layout);
+//设置adapter
+mRecyclerView.setAdapter(adapter)
+//设置Item增加、移除动画
+mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//添加分割线
+mRecyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.HORIZONTAL_LIST));
+</code></pre><p>###Just like ListView(主要流程的代码)</p>
+<p>主界面:</p>
+<pre><code>recyclerView = (RecyclerView) findViewById(gridRv);
+
+initData();
+//设置布局适配器
+recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//设置adapter
+mAdapter = new RecycleViewListAdapter(this, mDatas);
+recyclerView.setAdapter(mAdapter);
+</code></pre><p>adapter:</p>
+<pre><code>public class RecycleViewListAdapter extends RecyclerView.Adapter {
+    private List&lt;String&gt; mDatas;
+    private Context mContext;
+
+    public RecycleViewListAdapter(Context mContext, List&lt;String&gt; mDatas) {
+        this.mContext = mContext;
+        this.mDatas = mDatas;
+    }
+
+    public void setImages(List&lt;String&gt; mDatas) {
+        this.mDatas = mDatas;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_list_recycleview, parent, false);
+        MyViewHolder myViewHolder = new MyViewHolder(view);
+        return myViewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        MyViewHolder myViewHolder = (MyViewHolder) holder;
+        myViewHolder.tv.setText(mDatas.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDatas.size();
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView tv;
+        public MyViewHolder(View view) {
+            super(view);
+            tv = (TextView) view.findViewById(R.id.recy_tv);
+        }
+    }
+}
+</code></pre><p>###ItemDecoration(添加分割线)<br>主要方法为:  mRecyclerView.addItemDecoration(ItemDecoration)</p>
+<p>该方法的参数为RecyclerView.ItemDecoration，该类为抽象类,该类的源码为: </p>
+<pre><code>public static abstract class ItemDecoration {
+
+    public void onDraw(Canvas c, RecyclerView parent, State state) {
+                onDraw(c, parent);
+     }
+
+
+    public void onDrawOver(Canvas c, RecyclerView parent, State state) {
+                onDrawOver(c, parent);
+     }
+
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
+                getItemOffsets(outRect, ((LayoutParams) view.getLayoutParams()).getViewLayoutPosition(),
+                        parent);
+    }
+
+    @Deprecated
+    public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent){
+                outRect.set(0, 0, 0, 0);
+    }
+}
+</code></pre><p>当我们调用mRecyclerView.addItemDecoration(ItemDecoration)方法添加decoration的时候，RecyclerView在绘制的时候，去会绘制decorator，即调用该类的onDraw和onDrawOver方法;</p>
+<p>1,onDraw方法先于drawChildren</p>
+<p>2,onDrawOver在drawChildren之后，一般我们选择复写其中一个即可。</p>
+<p>3,getItemOffsets 可以通过outRect.set()为每个Item设置一定的偏移量，主要用于绘制Decorator。</p>
+<p>需要自定义 可以参考: <a href="http://blog.csdn.net/lmj623565791/article/details/38173061" target="_blank" rel="noopener">Android 自定义RecyclerView 实现真正的Gallery效果</a></p>
+<p>###LayoutManager</p>
+<p>RecyclerView.LayoutManager, 这是一个抽象类，系统提供了3个实现类;</p>
+<p>1,LinearLayoutManager 现行管理器，支持横向、纵向。</p>
+<p>2,GridLayoutManager 网格布局管理器</p>
+<p>3,StaggeredGridLayoutManager 瀑布就式布局管理器</p>
+<p>使用GridLayoutManager , 代码为:</p>
+<pre><code>//mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
+</code></pre><p>只需要修改LayoutManager即可</p>
+<p>但是改为GridLayoutManager以后，对于分割线，前面的DividerItemDecoration就不适用了，主要是因为它在绘制的时候，比如水平线，针对每个child的取值为:</p>
+<pre><code>final int left = parent.getPaddingLeft();
+final int right = parent.getWidth() - parent.getPaddingRight();
+</code></pre><p>因为每个Item一行，这样是没问题的。而GridLayoutManager时，一行有多个childItem，这样就多次绘制了，并且GridLayoutManager时，Item如果为最后一列（则右边无间隔线）或者为最后一行（底部无分割线）。</p>
+<p>这样的话需要修改gridview中的分割线item</p>
+<p>可以参考: <a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="noopener">文章开头的地址</a></p>
+<p>主要在getItemOffsets方法中，去判断如果是最后一行，则不需要绘制底部；如果是最后一列，则不需要绘制右边，整个判断也考虑到了StaggeredGridLayoutManager的横向和纵向，所以稍稍有些复杂。最重要还是去理解，如何绘制什么的不重要。一般如果仅仅是希望有空隙，还是去设置item的margin方便。</p>
+<p>StaggeredGridLayoutManager可以有三种用法<br>使用, StaggeredGridLayoutManager,代码: StaggeredGridLayoutManager.VERTICAL</p>
+<pre><code>// mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
+mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+</code></pre><p>这两种写法显示的效果是一致的，但是注意StaggeredGridLayoutManager构造的第二个参数传一个orientation，如果传入的是StaggeredGridLayoutManager.VERTICAL代表有多少列；那么传入的如果是StaggeredGridLayoutManager.HORIZONTAL就代表有多少行，比如本例如果改为：StaggeredGridLayoutManager.HORIZONTAL</p>
+<pre><code>mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.HORIZONTAL));
+</code></pre><p>固定为4行，变成了左右滑动。有一点需要注意，如果是横向的时候，item的宽度需要注意去设置，毕竟横向的宽度没有约束了，应为控件可以横向滚动了。 </p>
+<p>适用在需要横向滚动的情况下的listview 或者 gridview</p>
+<p>###条目动画 ItemAnimator</p>
+<p>item增加、删除的动画也是可配置的。</p>
+<p>ItemAnimator也是一个抽象类，好在系统为我们提供了一种默认的实现类</p>
+<pre><code>// 设置item动画
+mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+</code></pre><p>PS:这里更新数据集不是用adapter.notifyDataSetChanged()</p>
+<p>而是 notifyItemInserted(position)与notifyItemRemoved(position) </p>
+<p>否则没有动画效果。</p>
+<p>可以为adapter中添加了两个方法：<br>    public void addData(int position) {<br>            mDatas.add(position, “Insert One”);<br>            notifyItemInserted(position);<br>        }</p>
+<pre><code>    public void removeData(int position) {
+        mDatas.remove(position);
+        notifyItemRemoved(position);
+    }
+}
+</code></pre><p>因为只有一种动画, 所以可以去网上搜索一些比较好看的动画效果</p>
+<p><a href="https://github.com/search?l=Java&amp;o=desc&amp;p=1&amp;q=RecyclerView&amp;s=stars&amp;type=Repositories&amp;utf8=✓" target="_blank" rel="noopener">RecyclerView的一些动画效果</a></p>
+<p><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper" target="_blank" rel="noopener">一个比较好的动画的library</a></p>
+<p>###Click and LongClick(点击事件,,,recyclerview没有提供,所以需要自己写)</p>
+<p>实现的方式比较多，你可以通过mRecyclerView.addOnItemTouchListener去监听然后去判断手势，<br>当然你也可以通过adapter中自己去提供回调，这里我们选择后者，前者的方式，大家有兴趣自己去实现。</p>
+<pre><code>class HomeAdapter extends RecyclerView.Adapter&lt;HomeAdapter.MyViewHolder&gt; {
+
+//...
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view , int position);
+    }
+
+    private OnItemClickLitener mOnItemClickLitener;
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        holder.tv.setText(mDatas.get(position));
+
+        // 如果设置了回调，则设置点击事件
+        if (mOnItemClickLitener != null) {
+            holder.itemView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
+                    return false;
+                }
+            });
+        }
+    }
+//...
+}
+</code></pre><p>adapter中自己定义了个接口，然后在onBindViewHolder中去为holder.itemView去设置相应<br>的监听最后回调我们设置的监听。</p>
+<p>然后在activity中添加监听</p>
+<pre><code>mAdapter.setOnItemClickLitener(new OnItemClickLitener(){
+
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(HomeActivity.this, position + &quot; click&quot;,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(HomeActivity.this, position + &quot; long click&quot;,
+                        Toast.LENGTH_SHORT).show();
+                        mAdapter.removeData(position);
+            }
+        });
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/15/okhttp学习/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/15/Retrofit学习/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

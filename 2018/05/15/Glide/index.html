@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="##Glide学习 ###第一部分是 glide 的使用以及和 picasso 的对比 ###第二部分是 glide 与 fresco 的对比 ###1,glide库的地址bumptech/glide Android 图片加载框架最全解析（一），Glide的基本用法 Glide是在Picasso基础上进行了优化改进, 所以这两个是没得挑的..Fresco是fackbook出品的,也很不错,比较 网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/05/15/Glide/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="##Glide学习 ###第一部分是 glide 的使用以及和 picasso 的对比 ###第二部分是 glide 与 fresco 的对比 ###1,glide库的地址bumptech/glide Android 图片加载框架最全解析（一），Glide的基本用法 Glide是在Picasso基础上进行了优化改进, 所以这两个是没得挑的..Fresco是fackbook出品的,也很不错,比较 网">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1802256-8baeb4e124e62d8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-08-29T07:04:23.935Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="##Glide学习 ###第一部分是 glide 的使用以及和 picasso 的对比 ###第二部分是 glide 与 fresco 的对比 ###1,glide库的地址bumptech/glide Android 图片加载框架最全解析（一），Glide的基本用法 Glide是在Picasso基础上进行了优化改进, 所以这两个是没得挑的..Fresco是fackbook出品的,也很不错,比较 网">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1802256-8baeb4e124e62d8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/15/Glide/"/>
+
+
+
+
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Glide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##Glide学习</p>
+<p>###第一部分是 glide 的使用以及和 picasso 的对比</p>
+<p>###第二部分是 glide 与 fresco 的对比</p>
+<p>###1,glide库的地址<br><a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">bumptech/glide</a></p>
+<p><a href="http://blog.csdn.net/guolin_blog/article/details/53759439" target="_blank" rel="noopener">Android 图片加载框架最全解析（一），Glide的基本用法</a></p>
+<p>Glide是在Picasso基础上进行了优化改进, 所以这两个是没得挑的..Fresco是fackbook出品的,也很不错,比较</p>
+<p><a href="http://stackoverflow.com/questions/29363321/picasso-v-s-imageloader-v-s-fresco-vs-glide" target="_blank" rel="noopener">网络加载框架那个好?</a><br>里面说是 fresco相比较其他的图片加载框架有以下优势:</p>
+<p>1,理解可能不准确,说是存储位置不在内存中或者内存占用极小,可以极大的减少了outofmemoryerror的风险,同时gc调用次数减少可以提高app性能</p>
+<p>2,图片加载可以表示成进度条, 可以像浏览器那样,体验好</p>
+<p>3,图片可以在周边任意裁剪,而不仅仅是居中显示 ,这个非常好用</p>
+<p>4,图片可以本地调整大小,可以减少下载时候的oom问题</p>
+<p>但是其缺点也有: 库比较大, 上手比较难</p>
+<p>glide的优点是可以加载 gif图</p>
+<p>###2,基础用法:  Glide是 Picasso 的进化版 . 1,内存优化更好 .2,加载速度更快</p>
+<p>Picasso</p>
+<pre><code>Picasso.with(context)
+     .load(&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;)
+     .into(ivImg);
+</code></pre><p>Glide</p>
+<pre><code>Glide.with(context)
+     .load(&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;)
+    .into(ivImg);
+</code></pre><p>Glide更易用，因为Glide的with方法不光接受Context，还接受Activity 和 Fragment，Context会自动的从他们获取。</p>
+<p>将Activity/Fragment作为with()参数的好处是：</p>
+<pre><code>图片加载会和Activity/Fragment的生命周期保持一致，比如 Paused状态在暂停加载，
+在Resumed的时候又自动重新加载。所以我建议传参的时候传递Activity 和 Fragment给Glide，而不是Context。
+</code></pre><p>Glide默认的Bitmap格式是RGB_565,比ARGB_8888格式的内存开销要小一半</p>
+<p>如果你对默认的RGB_565效果还比较满意，可以不做任何事，但是如果你觉得难以接受，可以创建一个新的GlideModule将Bitmap格式转换到ARGB_8888：</p>
+<pre><code>1. public class GlideConfiguration implements GlideModule {
+3.     @Override
+4.     public void applyOptions(Context context, GlideBuilder builder) {
+5.         // Apply options to the builder here.
+6.         builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
+7.     }
+8.  
+9.     @Override
+10.     public void registerComponents(Context context, Glide glide) {
+11.         // register ModelLoaders here.
+12.     }
+13. }
+</code></pre><p>同时在AndroidManifest.xml中将GlideModule定义为meta-data</p>
+<pre><code>&lt;meta-data android:name=&quot;com.inthecheesefactory.lab.glidepicasso.GlideConfiguration&quot;
+    android:value=&quot;GlideModule&quot;/&gt;
+</code></pre><p>原因在于Picasso是加载了全尺寸的图片到内存(这个全尺寸的意思是把原生的图片加载到了内存, 然后根据imageview来进行裁剪)，然后让GPU来实时重绘大小。而Glide加载的大小和ImageView的大小是一致的，因此更小。</p>
+<p>一: 指定加载图片的大小</p>
+<pre><code>Picasso.with(this)
+ .load(&quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&quot;)
+ .resize(768, 432)
+ .into(ivImgPicasso);
+
+但是问题在于你需要主动计算ImageView的大小，或者说你的ImageView大小是具体的值（而不是wrap_content），你也可以这样：
+
+Picasso.with(this)
+    .load(&quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&quot;)
+    .fit()
+    .centerCrop()
+    .into(ivImgPicasso);
+</code></pre><p>总结:Glide可以自动计算出任意情况下的ImageView大小。</p>
+<p>二: 磁盘缓存</p>
+<p>Picasso和Glide在磁盘缓存策略上有很大的不同。Picasso缓存的是全尺寸的，而Glide缓存的是跟ImageView尺寸相同的。</p>
+<p>Picasso只缓存一个全尺寸的<br>Glide则不同，它会为每种大小的ImageView缓存 一次。尽管一张图片已经缓存了一次,但是假如你要在另外一个地方再次以不同尺寸显示，需要重新下载，调整成新尺寸的大小，然后将这个尺寸的也缓存起来</p>
+<p>例如:假如在第一个页面有一个200x200的ImageView，在第二个页面有一个100x100的ImageView，这两个ImageView本来是要显示同一张图片，却需要下载两次。<br>不过，你可以改变这种行为，让Glide既缓存全尺寸又缓存其他尺寸：</p>
+<pre><code>Glide.with(this)
+  .load(&quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&quot;)
+  .diskCacheStrategy(DiskCacheStrategy.ALL)
+  .into(ivImgGlide);
+</code></pre><p>下次在任何ImageView中加载图片的时候，全尺寸的图片将从缓存中取出，重新调整大小，然后缓存。</p>
+<p>Glide的这种方式优点是加载显示非常快。而Picasso的方式则因为需要在显示之前重新调整大小而导致一些延迟，即便你添加了这段代码来让其立即显示</p>
+<pre><code>//Picasso
+ .noFade();
+</code></pre><p>总结: Glide远比Picasso快，虽然需要更大的空间来缓存。(需要更大的空间的原因是picasso只缓存一个最大的图,取的时候把这个图剪裁后进行设置,相对来说速度就比较慢了,而 glide 默认是只缓存imageview大小的图片的,但是获取其他大小的图片的时候却需要重新获取了,当然可以设置一个最大的图,所以这个时候已经缓存变大了,并且在加载其他尺寸的图片的时候会将大图剪裁,再把剪裁后的图重新缓存,这样就相当于用了多少不同尺寸的该图就缓存了几次,还多一次大图, 所以缓存会变大但是加载速度很快… 由于picasso至缓存一个所以每次加载都需要剪裁所以速度没有glide快 ,但是现在的手机存储是非常大的,所以 综上所诉 glide更好)</p>
+<p>三: 特性    —  glide 和 Picasso的特性基本一样,但是glide是picasso的升级版</p>
+<p>1,确定剪裁的大小  Image Resizing</p>
+<pre><code>1. // Picasso
+2. .resize(300, 200);
+3.  
+4. // Glide
+5. .override(300, 200);
+</code></pre><p>2,一般情况下剪裁方式    Center Cropping</p>
+<pre><code>1. // Picasso
+2. .centerCrop();
+3.  
+4. // Glide
+5. .centerCrop();
+</code></pre><p>3,自定义显示方式,(例如 设置centercrop或者fitcenter)  Transforming</p>
+<pre><code>1. // Picasso
+2. .transform(new CircleTransform())
+3. .bitmapTransform()  ,transform有两个重载方法, 其中的一个会调用bitmaptransform方法, 效果和直接调用bitmaptransform是一样的, 另一个方法会调用new MultiTransformation&lt;ResourceType&gt;(transformations) 用来创建gif图的显示 , 而bitmaptransform就是显示图片而非gif图片
+3.  
+4. // Glide
+5. .transform(new CircleTransform(context))
+</code></pre><p>4,设置占位图或者加载错误图：</p>
+<pre><code>1. // Picasso
+2. .placeholder(R.drawable.placeholder)
+3. .error(R.drawable.imagenotfound)
+4.  
+5. // Glide
+6. .placeholder(R.drawable.placeholder)
+7. .error(R.drawable.imagenotfound)
+</code></pre><p>5,Glide可以加载gif图, 但是picasso 不行</p>
+<p>同时因为Glide和Activity/Fragment的生命周期是一致的，因此gif的动画也会自动的随着Activity/Fragment的状态暂停、重放。Glide 的缓存在gif这里也是一样，调整大小然后缓存。</p>
+<p>但是Glide 动画会消费太多的内存，因此谨慎使用。</p>
+<p>除了gif动画之外，Glide还可以将任何的本地视频解码成一张静态图片。</p>
+<p>还有一个特性是可以配置图片显示的动画，而Picasso只有一种动画：fading in</p>
+<p>最后一个是可以使用thumbnail()产生一个加载图片的thumbnail。</p>
+<p>其实还有一些特性，不过不是非常重要，比如将图像转换成字节数组等。(这样就可以进行load百分比的显示了)</p>
+<p>##配置</p>
+<p>有许多可以配置的选项，比如大小，缓存的磁盘位置，最大缓存空间，位图格式等等。可以在这个页面查看这些配置Configuration 。</p>
+<p>#总结</p>
+<p>Glide和Picasso都是非常完美的库。Glide加载图像以及磁盘缓存的方式都要优于Picasso，速度更快，并且Glide更有利于减少OutOfMemoryError的发生，GIF动画是Glide的杀手锏。不过Picasso的图片质量更高。<br>你更喜欢哪个呢？<br>虽然我使用了很长时间的Picasso，但是我得承认现在我更喜欢Glide。我的建议是使用Glide，但是将Bitmap格式换成 ARGB_8888、让Glide缓存同时缓存全尺寸和改变尺寸两种。</p>
+<p>#Fresco vs Glide</p>
+<p>地址见: <a href="http://www.jianshu.com/p/6729dc17586b" target="_blank" rel="noopener">网络加载图片对比（Fresco/Glide）</a></p>
+<p>最后面有<a href="http://fresco-cn.org/docs/caching.html" target="_blank" rel="noopener">Fresco中文官网</a></p>
+<p>和<a href="https://futurestud.io/blog/glide-getting-started" target="_blank" rel="noopener">Glide 教程</a></p>
+<h3 id="fresco的功能"><a href="#fresco的功能" class="headerlink" title="fresco的功能"></a>fresco的功能</h3><p><img src="http://upload-images.jianshu.io/upload_images/1802256-8baeb4e124e62d8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>下面介绍一些项目中经常用到的功能，与glide中的对比</p>
+<h4 id="圆角，-圆形"><a href="#圆角，-圆形" class="headerlink" title="圆角， 圆形"></a>圆角， 圆形</h4><p>fresco实现</p>
+<pre><code>public void setRoundImageSrc(SimpleDraweeView draweeView, String src, float radius){
+    RoundingParams roundingParams = RoundingParams.fromCornersRadius(radius);
+    draweeView.setHierarchy(
+            new GenericDraweeHierarchyBuilder(draweeView.getResources())
+            .setRoundingParams(roundingParams)
+            .build());
+    draweeView.setImageURI(Uri.parse(src));
+｝
+</code></pre><p>glide实现</p>
+<pre><code>需要自己实现圆角，继承自BitmapTransformation操作bitmap对象实现(圆形同理)：
+
+public static class GlideRoundTransform extends BitmapTransformation {
+
+    private static float radius = 0f;
+
+    public GlideRoundTransform(Context context) {
+        this(context, 4);
+    }
+
+    public GlideRoundTransform(Context context, int dp) {
+        super(context);
+        this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
+    }
+
+    @Override 
+    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+        return roundCrop(pool, toTransform);
+    }
+
+    private static Bitmap roundCrop(BitmapPool pool, Bitmap source) {
+        if (source == null) return null;
+
+        Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+        if (result == null) {
+            result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(result);
+        Paint paint = new Paint();
+        paint.setShader(new BitmapShader(source, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
+        paint.setAntiAlias(true);
+        RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());
+        canvas.drawRoundRect(rectF, radius, radius, paint);
+        return result;
+    }
+
+    @Override public String getId() {
+        return getClass().getName() + Math.round(radius);
+    }
+}
+
+//使用
+Glide.with(context).load(imageUrl).transform(new GlideRoundTransform(context)).into(imageView)
+//注意：使用了transform以后，就不能使用centercrop，fitcenter等方法
+</code></pre><h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>Fresco缓存也是一大亮点， 三级缓存，分别是 Bitmap缓存，未解码图片缓存， 文件缓存。</p>
+<p>这里提一点Bitmap缓存：在5.0以下系统，Bitmap缓存位于ashmem，这样Bitmap对象的创建和释放将不会引发GC，更少的GC会使你的APP运行得更加流畅。5.0及其以上系统，相比之下，内存管理有了很大改进，所以Bitmap缓存直接位于Java的heap上。</p>
+<p>另外，磁盘缓存还可以通过代码来设置不同手机的缓存容量：</p>
+<pre><code>public void initFresco(Context context, String diskCacheUniqueName){
+    DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(context)
+            .setMaxCacheSize(DISK_CACHE_SIZE_HIGH)
+            .setMaxCacheSizeOnLowDiskSpace(DISK_CACHE_SIZE_LOW)
+            .setMaxCacheSizeOnVeryLowDiskSpace(DISK_CACHE_SIZE_VERY_LOW)
+            .build();
+
+    ImagePipelineConfig config = ImagePipelineConfig.newBuilder(context)
+            .setMainDiskCacheConfig(diskCacheConfig)
+            .build();
+    Fresco.initialize(context, config);
+}
+</code></pre><p>Glide缓存</p>
+<p>Glide虽然只有内存和磁盘缓存，在性能上比不上Fresco；</p>
+<p>但他也有另外的优点， Fresco缓存的时候，只会缓存原始图像，(这点和Picasso 是一样的,实际用的时候由于剪裁方式就没有glide加载速度快了) .</p>
+<p>而Glide则会根据ImageView控件尺寸获得对应的大小的bitmap来展示，从而缓存也可以针对不同的对象：原始图像（source），结果图像(result); 可以通过.diskCacheStrategy()方法设置(这样会增加缓存的空间,但是这个并不重要);</p>
+<pre><code>public enum DiskCacheStrategy {    
+  /** Caches with both {@link #SOURCE} and {@link #RESULT}. */    
+  ALL(true, true),    
+  /** Saves no data to cache. */    
+  NONE(false, false),    
+  /** Saves just the original data to cache. */    
+  SOURCE(true, false),    
+  /** Saves the media item after all transformations to cache. */    
+  RESULT(false, true);
+}
+</code></pre><p>####bitmap操作</p>
+<p>Glide与Picasso类似，通过简单的方法即可获得网络图片的bitmap对象：</p>
+<pre><code>Bitmap myBitmap = Glide.with(applicationContext)  
+    .load(yourUrl)      //地址
+    .asBitmap() //必须,表示作为bitmap来获取
+    .centerCrop()  //加载的方式
+    .into(500, 500)  //加载的大小(结合上面的表示在图的中间截取 500*500的大小)
+    .get()    //通过这个方法来实际获取bitmap对象
+</code></pre><p>相反，Fresco要获取bitmap更加复杂， 而且使用起来也并不是那么顺畅。</p>
+<p>首先，Fresco为了更好地管理bitmap 对象（bitmap对象申请和释放会引起频繁的GC操作，从而引起界面卡顿）， 引入了可关闭的引用（CloseableReference）, 持有者在离开作用域的时候需要关闭该引用，而我们要获取的bitmap 对象就是可关闭的引用。</p>
+<p>也就是说，我们不能像上面Glide那样把bitmap 对象取出来传递给其它地方使用， 只能在Fresco提供的作用域范围内使用，代码如下：</p>
+<pre><code>public void setDataSubscriber(Context context, Uri uri, int width, int height){
+    DataSubscriber dataSubscriber = new BaseDataSubscriber&lt;CloseableReference&lt;CloseableBitmap&gt;&gt;() {
+        @Override
+        public void onNewResultImpl(
+                DataSource&lt;CloseableReference&lt;CloseableBitmap&gt;&gt; dataSource) {
+            if (!dataSource.isFinished()) {
+                return;
+            }
+            CloseableReference&lt;CloseableBitmap&gt; imageReference = dataSource.getResult();
+            if (imageReference != null) {
+                final CloseableReference&lt;CloseableBitmap&gt; closeableReference = imageReference.clone();
+                try {
+                    CloseableBitmap closeableBitmap = closeableReference.get();
+                    Bitmap bitmap  = closeableBitmap.getUnderlyingBitmap();
+                    if(bitmap != null &amp;&amp; !bitmap.isRecycled()) {
+                        //you can use bitmap here
+                    }
+                } finally {
+                    imageReference.close();
+                    closeableReference.close();
+                }
+            }
+        }
+        @Override
+        public void onFailureImpl(DataSource dataSource) {
+            Throwable throwable = dataSource.getFailureCause();
+            // handle failure
+        }
+    };
+    getBitmap(context, uri, width, height, dataSubscriber);
+}
+</code></pre><p>在实际使用过程中， 如果只有在作用域范围操作bitmap，明显不能满足需求。<br>项目中使用的方式是获取缓存的文件对象：</p>
+<pre><code>//同样在DataSubscriber中获取
+FileBinaryResource resource = (FileBinaryResource) Fresco.getImagePipelineFactory().getMainFileCache().getResource(new SimpleCacheKey(url));
+if (resource != null &amp;&amp; resource.getFile() != null) {           
+    setImage(ImageSource.uri(Uri.fromFile(resource.getFile())));
+}
+</code></pre><p>##其他</p>
+<p>除了以上内容，Fresco还具备以下一些常用的，但Glide没有的功能：</p>
+<p>1，SimpleDraweeView控件可以指定图片的宽高比例（app:viewAspectRatio），对于手机适配非常重要;</p>
+<p>2，图片加载进度；</p>
+<p>3，先加载小尺寸图片，再加载大尺寸的（Glide只有占位图）；</p>
+<p>##性能</p>
+<p>除了在功能上对比， 网络图片显示是非常耗性能的， 下面就针对图片质量，内存使用等情况来对比。</p>
+<p>##Glide的使用<br>            Glide<br>                .with(this)<br>                .load(url)<br>                .placeholder(R.drawable.vip_center_item_1)<br>                .diskCacheStrategy(DiskCacheStrategy.ALL)<br>                .bitmapTransform(new GlideRoundTransform(this))<br>                .centerCrop()<br>                .into(result);</p>
+<p>配合 <a href="https://github.com/wasabeef/glide-transformations" target="_blank" rel="noopener">Glide的 图形裁剪库可以完美的设置图片</a></p>
+<pre><code>Glide
+    .with(context)
+    .load(path)
+    .placeholder(R.drawable.vip_center_item_1)
+    .diskCacheStrategy(DiskCacheStrategy.ALL)
+    .bitmapTransform(new RoundedCornersTransformation(context, 5, 1))
+    .centerCrop()
+    .into(imageView);
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/15/BoradcastReceiver的学习/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/15/Kotlin笔记/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#fresco的功能"><span class="nav-number">1.</span> <span class="nav-text">fresco的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#圆角，-圆形"><span class="nav-number">1.1.</span> <span class="nav-text">圆角， 圆形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存"><span class="nav-number">1.2.</span> <span class="nav-text">缓存</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

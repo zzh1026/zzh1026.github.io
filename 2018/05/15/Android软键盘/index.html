@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Android软键盘1,WindowSoftInputMode属性活动的主窗口如何与包含屏幕上的软键盘窗口交互,这个属性的设置将会影响两件事情: 1,软键盘的状态:当活动(Activity)成为用户关注的焦点时，它是否隐藏或显示。 2,对活动主窗口进行的调整：无论是调整大小以便为软键盘腾出空间，还是在软键盘覆盖窗口的一部分，以便当前焦点内容可见。 1,属性详解 The setting must b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/05/15/Android软键盘/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Android软键盘1,WindowSoftInputMode属性活动的主窗口如何与包含屏幕上的软键盘窗口交互,这个属性的设置将会影响两件事情: 1,软键盘的状态:当活动(Activity)成为用户关注的焦点时，它是否隐藏或显示。 2,对活动主窗口进行的调整：无论是调整大小以便为软键盘腾出空间，还是在软键盘覆盖窗口的一部分，以便当前焦点内容可见。 1,属性详解 The setting must b">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-03-01T02:06:36.508Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="Android软键盘1,WindowSoftInputMode属性活动的主窗口如何与包含屏幕上的软键盘窗口交互,这个属性的设置将会影响两件事情: 1,软键盘的状态:当活动(Activity)成为用户关注的焦点时，它是否隐藏或显示。 2,对活动主窗口进行的调整：无论是调整大小以便为软键盘腾出空间，还是在软键盘覆盖窗口的一部分，以便当前焦点内容可见。 1,属性详解 The setting must b">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/15/Android软键盘/"/>
+
+
+
+
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Android软键盘/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Android软键盘"><a href="#Android软键盘" class="headerlink" title="Android软键盘"></a><strong>Android软键盘</strong></h1><h2 id="1-WindowSoftInputMode属性"><a href="#1-WindowSoftInputMode属性" class="headerlink" title="1,WindowSoftInputMode属性"></a>1,WindowSoftInputMode属性</h2><p>活动的主窗口如何与包含屏幕上的软键盘窗口交互,这个属性的设置将会影响两件事情:</p>
+<p>1,软键盘的状态:当活动(Activity)成为用户关注的焦点时，它是否隐藏或显示。</p>
+<p>2,对活动主窗口进行的调整：无论是调整大小以便为软键盘腾出空间，还是在软键盘覆盖窗口的一部分，以便当前焦点内容可见。</p>
+<h3 id="1-属性详解"><a href="#1-属性详解" class="headerlink" title="1,属性详解"></a>1,属性详解</h3><blockquote>
+<p>The setting must be one of the values listed in the following table, or a combination of one “state…” value plus one “adjust…” value. Setting multiple values in either group — multiple “state…” values, for example — has undefined results. Individual values are separated by a vertical bar (|). For example:</p>
+</blockquote>
+<p>该属性可选的值有两部分，一部分为软键盘的状态控制，控制软键盘是隐藏还是显示，另一部分是Activity窗口的调整，以便腾出空间展示软键盘。        android:windowSoftInputMode的属性设置必须是下面中的一个值，或一个”state”值加一个”adjust”值的组合，各个值之间用 | 分开。</p>
+<blockquote>
+<activity android:windowsoftinputmode="stateVisible|adjustResize" .="">
+</activity></blockquote>
+<p>设置的值为1个或者 一个 state… 加 一个 adjust…</p>
+<blockquote>
+<p>Values set here (other than “stateUnspecified” and “adjustUnspecified”) override values set in the theme.</p>
+</blockquote>
+<p>此处设置的值（“stateUnspecified”和“adjustUnspecified”除外）将覆盖主题中设置的值。<br>PS:这个是很好理解的,  正如在代码中设置会覆盖activity注册声明中的值, activity注册声明中的值也会覆盖主题中设置的值:  代码设置 &gt; 注册声明 &gt;　主题设置</p>
+<p>用来设置窗口软键盘的交互模式，其属性一共有9个取值</p>
+<h2 id="state状态的-6种"><a href="#state状态的-6种" class="headerlink" title="state状态的:6种"></a>state状态的:6种</h2><h4 id="stateUnspecified-－－－－－-SOFT-INPUT-STATE-UNSPECIFIED"><a href="#stateUnspecified-－－－－－-SOFT-INPUT-STATE-UNSPECIFIED" class="headerlink" title="stateUnspecified　－－－－－　SOFT_INPUT_STATE_UNSPECIFIED"></a>stateUnspecified　－－－－－　SOFT_INPUT_STATE_UNSPECIFIED</h4><blockquote>
+<p>no state has been specified    (未指定状态)</p>
+</blockquote>
+<p>默认交互方式，系统会根据界面采取相应的软键盘的显示模式。比如，当界面上只有输入框和按钮的时候，软键盘就不会自动弹出，但是当有获得焦点的输入框的界面有滚动的需求的时候，会自动弹出软键盘，例如外层为ScrollView。阻止键盘弹出的一个解决方案就是，在xml文件中，设置一个非输入框控件获取焦点。</p>
+<h4 id="stateUnchanged-———–-SOFT-INPUT-STATE-UNCHANGED"><a href="#stateUnchanged-———–-SOFT-INPUT-STATE-UNCHANGED" class="headerlink" title="stateUnchanged     ———–  SOFT_INPUT_STATE_UNCHANGED"></a>stateUnchanged     ———–  SOFT_INPUT_STATE_UNCHANGED</h4><blockquote>
+<p>please don’t change the state of the soft input area.(不改变软键盘的状态,当前的键盘是否显隐,取决于上一个界面的软键盘状态,无论是隐藏还是显示)</p>
+</blockquote>
+<p>保持当前软键盘状态不变。举个例子，假如上个界面键盘是隐藏的，那么跳转到该界面之后，软键盘也是隐藏的；如果上个界面是显示的，那么跳转该界面后，软键盘也是显示状态。</p>
+<h4 id="stateHidden-—————-SOFT-INPUT-STATE-HIDDEN"><a href="#stateHidden-—————-SOFT-INPUT-STATE-HIDDEN" class="headerlink" title="stateHidden —————     SOFT_INPUT_STATE_HIDDEN"></a>stateHidden —————     SOFT_INPUT_STATE_HIDDEN</h4><blockquote>
+<p>please hide any soft input area when normally appropriate (when the user is navigating forward to your window).(在普通适当的情况隐藏软键盘,当用户正在该界面操作浏览的时候)</p>
+</blockquote>
+<p>当设置该状态时，软键盘总是被隐藏，不管是否有输入的需求。</p>
+<h4 id="stateAlwaysHidden-———-SOFT-INPUT-STATE-ALWAYS-HIDDEN"><a href="#stateAlwaysHidden-———-SOFT-INPUT-STATE-ALWAYS-HIDDEN" class="headerlink" title="stateAlwaysHidden ———  SOFT_INPUT_STATE_ALWAYS_HIDDEN"></a>stateAlwaysHidden ———  SOFT_INPUT_STATE_ALWAYS_HIDDEN</h4><blockquote>
+<p>please always hide any soft input area when this window receives focus.(当窗口获取到焦点的时候也保持隐藏)</p>
+</blockquote>
+<p>当设置该状态时，软键盘总是被隐藏，和stateHidden不同的是，当我们跳转到下个界面，如果下个页面的软键盘是显示的，而我们再次回来的时候，软键盘就会隐藏起来。</p>
+<h4 id="stateVisible-————–-SOFT-INPUT-STATE-VISIBLE"><a href="#stateVisible-————–-SOFT-INPUT-STATE-VISIBLE" class="headerlink" title="stateVisible ————–  SOFT_INPUT_STATE_VISIBLE"></a>stateVisible ————–  SOFT_INPUT_STATE_VISIBLE</h4><blockquote>
+<p>please show the soft input area when normally appropriate (when the user is navigating forward to your window).(在普通适当的情况展示软键盘,当用户正在该界面操作浏览的时候)</p>
+</blockquote>
+<p>当设置为这个状态时，软键盘总是可见的，即使在界面上没有输入框的情况下也可以强制弹出来出来。。</p>
+<h4 id="stateAlwaysVisible-——–-SOFT-INPUT-STATE-ALWAYS-VISIBLE"><a href="#stateAlwaysVisible-——–-SOFT-INPUT-STATE-ALWAYS-VISIBLE" class="headerlink" title="stateAlwaysVisible ——–  SOFT_INPUT_STATE_ALWAYS_VISIBLE"></a>stateAlwaysVisible ——–  SOFT_INPUT_STATE_ALWAYS_VISIBLE</h4><blockquote>
+<p>please always make the soft input area visible when this window receives input focus.(当这个窗口接收输入焦点保持可见)</p>
+</blockquote>
+<h2 id="adjust状态的-4种"><a href="#adjust状态的-4种" class="headerlink" title="adjust状态的:4种"></a>adjust状态的:4种</h2><h4 id="adjustUnspecified-———-SOFT-INPUT-ADJUST-UNSPECIFIED"><a href="#adjustUnspecified-———-SOFT-INPUT-ADJUST-UNSPECIFIED" class="headerlink" title="adjustUnspecified ———  SOFT_INPUT_ADJUST_UNSPECIFIED"></a>adjustUnspecified ———  SOFT_INPUT_ADJUST_UNSPECIFIED</h4><blockquote>
+<p>nothing specified. The system will try to pick one or the other depending on the contents of the window.(默认,)</p>
+</blockquote>
+<p>设置软键盘与软件的显示内容之间的显示关系，默认的设置模式。在这中情况下，系统会根据界面选择不同的模式。如果界面里面有可以滚动的控件，比如ScrowView，系统会减小可以滚动的界面的大小，从而保证即使软键盘显示出来了，也能够看到所有的内容。如果布局里面没有滚动的控件，那么软键盘可能就会盖住一些内容。没有滚动控件，软键盘下面的布局都被遮挡住，若想修改，只能隐藏软键盘，然后选择。而且，重点注意一下上面的布局，当我们选择的输入框偏下的时候，上面的标题栏和布局被软键盘顶上去了。</p>
+<h4 id="adjustResize-————–-SOFT-INPUT-ADJUST-RESIZE"><a href="#adjustResize-————–-SOFT-INPUT-ADJUST-RESIZE" class="headerlink" title="adjustResize ————–  SOFT_INPUT_ADJUST_RESIZE"></a>adjustResize ————–  SOFT_INPUT_ADJUST_RESIZE</h4><p>这个属性表示Activity的主窗口总是会被调整大小，从而保证软键盘显示空间。</p>
+<p>该模式下窗口总是调整屏幕的大小用以保证软键盘的显示空间；这个选项不能和adjustPan同时使用，如果这两个属性都没有被设置，系统会根据窗口中的布局自动选择其中一个。</p>
+<h4 id="adjustPan-—————–-SOFT-INPUT-ADJUST-PAN"><a href="#adjustPan-—————–-SOFT-INPUT-ADJUST-PAN" class="headerlink" title="adjustPan —————–  SOFT_INPUT_ADJUST_PAN"></a>adjustPan —————–  SOFT_INPUT_ADJUST_PAN</h4><p>如果设置为这个属性，那么Activity的屏幕大小并不会调整来保证软键盘的空间，而是采取了另外一种策略，系统会通过布局的移动，来保证用户要进行输入的输入框肯定在用户的视野范围内，从而让用户可以看到自己输入的内容。对于没有滚动控件的布局来说，这个其实就是默认的设置，如果我们选择的位置偏下，上面的标题栏和部分控件会被顶上去。</p>
+<p>对于没有滚动控件的布局来说，adjustPan就是默认的设置。</p>
+<p>####adjustNothing ————-  SOFT_INPUT_ADJUST_NOTHING ####</p>
+<h4 id="备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。"><a href="#备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。" class="headerlink" title="备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。"></a>备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。</h4><h4 id="备注2-对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的"><a href="#备注2-对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的" class="headerlink" title="备注2: 对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的"></a>备注2: 对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的</h4><h4 id="备注3-根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。"><a href="#备注3-根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。" class="headerlink" title="备注3: 根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。"></a>备注3: 根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。</h4><h3 id="2-使用方式"><a href="#2-使用方式" class="headerlink" title="2,使用方式"></a>2,使用方式</h3><p>1,代码实现方式：</p>
+<pre><code>//在activity中的setContentView之前写上以下代码
+getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+</code></pre><p>2,xml实现方式</p>
+<pre><code>//在 项目的AndroidManifest.xml文件中界面对应的&lt;activity&gt;里加入
+android:windowSoftInputMode=&quot;adjustPan&quot;
+</code></pre><h2 id="2-手动打开-关闭软键盘"><a href="#2-手动打开-关闭软键盘" class="headerlink" title="2,手动打开,关闭软键盘"></a>2,手动打开,关闭软键盘</h2><p><a href="http://www.jianshu.com/p/50c35e1bf09b" target="_blank" rel="noopener">关于键盘的自动弹出和不自动弹出可以看这里</a></p>
+<p>在开发过程中，难免会遇到想手动打开或者关闭软键盘的情况，这时使用以下代码不失为一种好办法。</p>
+<pre><code>/**
+ * 动态显示隐藏软键盘,如果显示则隐藏,如果隐藏则显示
+ *
+ * @param context context
+ */
+public static void toggleSoftInput(Context context) {
+    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+}
+</code></pre><h4 id="打开软键盘"><a href="#打开软键盘" class="headerlink" title="打开软键盘"></a>打开软键盘</h4><pre><code>//这个不一定起作用
+public static void openSoftInput(Context context) {
+    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
+}
+
+或者
+
+InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);    
+
+或者
+
+//使用EditText来弹出软键盘
+InputMethodManager inputManager =(InputMethodManager)etInput.getContext ().getSystemService(Context.INPUT_METHOD_SERVICE);
+inputManager.showSoftInput(etInput, 0);
+</code></pre><h4 id="隐藏软键盘"><a href="#隐藏软键盘" class="headerlink" title="隐藏软键盘"></a>隐藏软键盘</h4><pre><code>InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+
+或者
+
+int flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM; 
+getWindow().addFlags(flags);
+
+或者
+
+//在onclick事件下.以下方法可行.(如果是EditText失去焦点/得到焦点,没有效果)
+InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE); 
+im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+</code></pre><h4 id="获取输入法打开的状态"><a href="#获取输入法打开的状态" class="headerlink" title="获取输入法打开的状态"></a>获取输入法打开的状态</h4><pre><code>InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+boolean isOpen=imm.isActive();//isOpen若返回true，则表示输入法打开
+</code></pre><p>PS：输入法打开的意思并不是说软键盘弹出，这个两个概念</p>
+<h2 id="3-软键盘的Enter键"><a href="#3-软键盘的Enter键" class="headerlink" title="3,软键盘的Enter键"></a>3,软键盘的Enter键</h2><h3 id="1-使用方式"><a href="#1-使用方式" class="headerlink" title="1,使用方式"></a>1,使用方式</h3><p>1,当layout中有多个EditText，把每个控件的android:singleLine的属性都被设置成true的情况下，软键盘的Enter键上 的文字会变成“Next”，按下后下个EditText会自动获得焦点（实现了“Next”的功能）；当最后一个控件获得焦点的时候，Enter键上的文 字会变成“Done”，按下后软键盘会自动隐藏起来。</p>
+<p>2,把EditText的ImeOptions属性设置成不同的值，Enter键上可以显示不同的文字或图案</p>
+<pre><code>actionNone : 回车键，按下后光标到下一行
+actionGo ： Go，
+actionSearch ： 一个放大镜
+actionSend ： Send
+actionNext ： Next
+actionDone ： Done，隐藏软键盘，即使不是最后一个文本输入框
+
+inputView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null &amp;&amp; event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                     //do something;              
+                    return true;
+                }
+                return false;
+            }
+        });
+</code></pre><h1 id="部分坑"><a href="#部分坑" class="headerlink" title="部分坑"></a>部分坑</h1><h3 id="1-软键盘无法顶起页面"><a href="#1-软键盘无法顶起页面" class="headerlink" title="1,软键盘无法顶起页面"></a>1,软键盘无法顶起页面</h3><p>开发中有个需求是将页面底部的一个按钮顶起，但是开发时发现Android5.0以后的版本设置了adjustResize属性后无法成功顶起。纠结了好久，最后在stackoverflow找到解决方案，那就是在根布局上加上fitsSystemWindow=”true”即可。</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;       android:layout_width=&quot;match_parent&quot; 
+    android:layout_height=&quot;match_parent&quot;     
+    android:fitsSystemWindows=&quot;true&quot;&gt;
+</code></pre><p>这里的fitsSystemWindow具体的作用就是你的contentview是否忽略actionbar,title,屏幕的底部虚拟按键，将整个屏幕当作可用的空间。 </p>
+<p>正常情况，contentview可用的空间是去除了actionbar,title,底部按键的空间后剩余的可用区域；这个属性设置为true,则忽略，false则不忽略</p>
+<h3 id="2-自定义软键盘按钮功能无效"><a href="#2-自定义软键盘按钮功能无效" class="headerlink" title="2,自定义软键盘按钮功能无效"></a>2,自定义软键盘按钮功能无效</h3><p>在edittext上加入Android:imeOptions=”actionSearch”这个属性没响应，最后发现在2.3及以上版本不起作用，解决方案：加上</p>
+<pre><code>android:singleLine=&quot;true&quot;
+</code></pre><p>因为输入法键盘右下角默认的回车键本来就是换行用的，当设置单行后，回车换行就失去作用了，这样就可以设置为搜索、发送、go等等。</p>
+<h1 id="Android键盘控制器InputMethodManager"><a href="#Android键盘控制器InputMethodManager" class="headerlink" title="Android键盘控制器InputMethodManager"></a>Android键盘控制器InputMethodManager</h1><h3 id="获取InputMethodManager对象："><a href="#获取InputMethodManager对象：" class="headerlink" title="获取InputMethodManager对象："></a>获取InputMethodManager对象：</h3><pre><code>InputMethodManager imm = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
+</code></pre><h3 id="切换打开-隐藏状态"><a href="#切换打开-隐藏状态" class="headerlink" title="切换打开/隐藏状态"></a>切换打开/隐藏状态</h3><pre><code>imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+</code></pre><h3 id="打开键盘"><a href="#打开键盘" class="headerlink" title="打开键盘"></a>打开键盘</h3><pre><code>imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
+</code></pre><h3 id="隐藏键盘"><a href="#隐藏键盘" class="headerlink" title="隐藏键盘"></a>隐藏键盘</h3><pre><code>imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+</code></pre><h3 id="获取输入法状态"><a href="#获取输入法状态" class="headerlink" title="获取输入法状态"></a>获取输入法状态</h3><pre><code>boolean isOpen=imm.isActive();
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/15/Android热修复/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/15/BoradcastReceiver的学习/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android软键盘"><span class="nav-number">1.</span> <span class="nav-text">Android软键盘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-WindowSoftInputMode属性"><span class="nav-number">1.1.</span> <span class="nav-text">1,WindowSoftInputMode属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-属性详解"><span class="nav-number">1.1.1.</span> <span class="nav-text">1,属性详解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#state状态的-6种"><span class="nav-number">1.2.</span> <span class="nav-text">state状态的:6种</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#stateUnspecified-－－－－－-SOFT-INPUT-STATE-UNSPECIFIED"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">stateUnspecified　－－－－－　SOFT_INPUT_STATE_UNSPECIFIED</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stateUnchanged-———–-SOFT-INPUT-STATE-UNCHANGED"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">stateUnchanged     ———–  SOFT_INPUT_STATE_UNCHANGED</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stateHidden-—————-SOFT-INPUT-STATE-HIDDEN"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">stateHidden —————     SOFT_INPUT_STATE_HIDDEN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stateAlwaysHidden-———-SOFT-INPUT-STATE-ALWAYS-HIDDEN"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">stateAlwaysHidden ———  SOFT_INPUT_STATE_ALWAYS_HIDDEN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stateVisible-————–-SOFT-INPUT-STATE-VISIBLE"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">stateVisible ————–  SOFT_INPUT_STATE_VISIBLE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stateAlwaysVisible-——–-SOFT-INPUT-STATE-ALWAYS-VISIBLE"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">stateAlwaysVisible ——–  SOFT_INPUT_STATE_ALWAYS_VISIBLE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adjust状态的-4种"><span class="nav-number">1.3.</span> <span class="nav-text">adjust状态的:4种</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#adjustUnspecified-———-SOFT-INPUT-ADJUST-UNSPECIFIED"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">adjustUnspecified ———  SOFT_INPUT_ADJUST_UNSPECIFIED</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adjustResize-————–-SOFT-INPUT-ADJUST-RESIZE"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">adjustResize ————–  SOFT_INPUT_ADJUST_RESIZE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adjustPan-—————–-SOFT-INPUT-ADJUST-PAN"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">adjustPan —————–  SOFT_INPUT_ADJUST_PAN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#备注2-对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">备注2: 对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#备注3-根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。"><span class="nav-number">1.3.0.6.</span> <span class="nav-text">备注3: 根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用方式"><span class="nav-number">1.3.1.</span> <span class="nav-text">2,使用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-手动打开-关闭软键盘"><span class="nav-number">1.4.</span> <span class="nav-text">2,手动打开,关闭软键盘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打开软键盘"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">打开软键盘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏软键盘"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">隐藏软键盘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取输入法打开的状态"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">获取输入法打开的状态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-软键盘的Enter键"><span class="nav-number">1.5.</span> <span class="nav-text">3,软键盘的Enter键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用方式"><span class="nav-number">1.5.1.</span> <span class="nav-text">1,使用方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部分坑"><span class="nav-number">2.</span> <span class="nav-text">部分坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-软键盘无法顶起页面"><span class="nav-number">2.0.1.</span> <span class="nav-text">1,软键盘无法顶起页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-自定义软键盘按钮功能无效"><span class="nav-number">2.0.2.</span> <span class="nav-text">2,自定义软键盘按钮功能无效</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android键盘控制器InputMethodManager"><span class="nav-number">3.</span> <span class="nav-text">Android键盘控制器InputMethodManager</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取InputMethodManager对象："><span class="nav-number">3.0.1.</span> <span class="nav-text">获取InputMethodManager对象：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换打开-隐藏状态"><span class="nav-number">3.0.2.</span> <span class="nav-text">切换打开/隐藏状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开键盘"><span class="nav-number">3.0.3.</span> <span class="nav-text">打开键盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏键盘"><span class="nav-number">3.0.4.</span> <span class="nav-text">隐藏键盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取输入法状态"><span class="nav-number">3.0.5.</span> <span class="nav-text">获取输入法状态</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
