@@ -229,6 +229,328 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/部分笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/15/部分笔记/" itemprop="url">部分笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>####图片上面两个是圆角,下面不是圆角</p>
+<p>#1,使用自定义Imageview ,在onDraw里面实现</p>
+<pre><code>    `
+    @Override
+    protected void onDraw(Canvas canvas) {
+        BitmapShader shader;
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) getDrawable();
+        shader = new BitmapShader(bitmapDrawable.getBitmap(),
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        //设置映射否则图片显示不全
+        RectF rect = new RectF(0.0f, 0.0f, getWidth(), getHeight() + yRadius);
+        int width = bitmapDrawable.getBitmap().getWidth();
+        int height = bitmapDrawable.getBitmap().getHeight() + (int) yRadius;
+        RectF src = new RectF(0.0f, 0.0f, width, height);
+        Matrix matrix = new Matrix();
+        matrix.setRectToRect(src, rect, Matrix.ScaleToFit.CENTER);
+        shader.setLocalMatrix(matrix);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setShader(shader);
+        //根据图片圆角矩形的半径进行裁剪
+        canvas.clipRect(new Rect(0, 0, (int) (rect.right), (int) (rect.bottom - yRadius)));
+        //这样就把下面的部分剪裁掉了,只剩下上面两个圆角了
+        canvas.drawRoundRect(rect, xRadius, yRadius, paint);
+    }
+    `
+同理,可以实现左边右边上面下面四种建材,缺点是只能两两实现圆角剪裁而不能自定义某一个角
+</code></pre><p>关于Cavans的方法:</p>
+<pre><code>Canvas():创建一个空的画布，可以使用setBitmap()方法来设置绘制的具体画布；
+
+Canvas(Bitmap bitmap):以bitmap对象创建一个画布，则将内容都绘制在bitmap上，bitmap不得为null;
+
+Canvas(GL gl):在绘制3D效果时使用，与OpenGL有关；
+
+drawColor:设置画布的背景色；
+
+setBitmap:设置具体的画布；
+
+clipRect:设置显示区域，即设置裁剪区；
+
+isOpaque:检测是否支持透明；
+
+rotate:旋转画布；
+
+canvas.drawRect(RectF,Paint)方法用于画矩形，第一个参数为图形显示区域，第二个参数为画笔，设置好图形显示区域Rect和画笔Paint后，即可画图；
+
+canvas.drawRoundRect(RectF, float, float, Paint) 方法用于画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
+
+canvas.drawLine(startX, startY, stopX, stopY, paint)：前四个参数的类型均为float，最后一个参数类型为Paint。表示用画笔paint从点（startX,startY）到点（stopX,stopY）画一条直线；
+
+canvas.drawArc(oval, startAngle, sweepAngle, useCenter, paint)：第一个参数oval为RectF类型，即圆弧显示区域，startAngle和sweepAngle均为float类型，分别表示圆弧起始角度和圆弧度数,3点钟方向为0度，useCenter设置是否显示圆心，boolean类型，paint为画笔；
+
+canvas.drawCircle(float,float, float, Paint)方法用于画圆，前两个参数代表圆心坐标，第三个参数为圆半径，第四个参数是画笔；
+
+Rect（int left,int top,int right,int bottom）
+
+left
+          矩形左上角X坐标值
+top
+          矩形左上角Y坐标值
+right
+          矩形右下角X坐标值
+bottom
+          矩形右下角Y坐标值
+</code></pre><p>#2,关于Android的权限结构: 危险权限(即需要不断申请的权限)</p>
+<p>权限组位于 #Manifest#permission_group 中</p>
+<h4 id="1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><a href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”" class="headerlink" title="1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”"></a>1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</h4><p>读取日历 READ_CALENDAR “android.permission.READ_CALENDAR”</p>
+<p>编辑日历(比如添加行程等) WRITE_CALENDAR “android.permission.WRITE_CALENDAR”</p>
+<h4 id="2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><a href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”" class="headerlink" title="2,摄像机组:     CAMERA “android.permission-group.CAMERA”"></a>2,摄像机组:     CAMERA “android.permission-group.CAMERA”</h4><p>打开摄像机 CAMERA “android.permission.CAMERA”</p>
+<h4 id="3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><a href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”" class="headerlink" title="3,联系人组:    CONTACTS “android.permission-group.CONTACTS”"></a>3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</h4><p>读取联系人 READ_CONTACTS “android.permission.READ_CONTACTS”</p>
+<p>修改联系人(增加删除联系人)    WRITE_CONTACTS “android.permission.WRITE_CONTACTS”</p>
+<h4 id="4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><a href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”" class="headerlink" title="4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”"></a>4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</h4><p>打开麦克风    RECORD_AUDIO “android.permission.RECORD_AUDIO”</p>
+<h4 id="5-手机使用组-PHONE-“android-permission-group-PHONE”"><a href="#5-手机使用组-PHONE-“android-permission-group-PHONE”" class="headerlink" title="5,手机使用组: PHONE “android.permission-group.PHONE”"></a>5,手机使用组: PHONE “android.permission-group.PHONE”</h4><p>读取手机状态 READ_PHONE_STATE “android.permission.READ_PHONE_STATE”</p>
+<p>拨打电话(直接自动拨打,不是跳转到拨打电话界面,任何跳转都不需要权限,如跳转到打电话界面和发送短信界面) CALL_PHONE “android.permission.CALL_PHONE”</p>
+<p>读取通话记录 READ_CALL_LOG “android.permission.READ_CALL_LOG”</p>
+<p>修改通话记录(添加和删除通话记录,如黑名单中挂断电话后还把该通话记录删除) WRITE_CALL_LOG “android.permission.WRITE_CALL_LOG”</p>
+<h4 id="6-传感器组-SENSORS-“android-permission-group-SENSORS”"><a href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”" class="headerlink" title="6,传感器组: SENSORS “android.permission-group.SENSORS”"></a>6,传感器组: SENSORS “android.permission-group.SENSORS”</h4><p>使用身体传感器(其他传感器没题) BODY_SENSORS “android.permission.BODY_SENSORS”</p>
+<h4 id="7-短信组-SMS-“android-permission-group-SMS”"><a href="#7-短信组-SMS-“android-permission-group-SMS”" class="headerlink" title="7,短信组: SMS “android.permission-group.SMS”"></a>7,短信组: SMS “android.permission-group.SMS”</h4><p>发送短信(直接发送短信) SEND_SMS “android.permission.SEND_SMS”</p>
+<p>接收短信 RECEIVE_SMS “android.permission.RECEIVE_SMS”</p>
+<p>读取短信 READ_SMS “android.permission.READ_SMS”</p>
+<p>彩信相关 RECEIVE_MMS “android.permission.RECEIVE_MMS”</p>
+<h4 id="8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><a href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”" class="headerlink" title="8,sd卡组:  STORAGE “android.permission-group.STORAGE”"></a>8,sd卡组:  STORAGE “android.permission-group.STORAGE”</h4><p>读取sd卡数据 READ_EXTERNAL_STORAGE “android.permission.READ_EXTERNAL_STORAGE”</p>
+<p>向sd卡写数据 WRITE_EXTERNAL_STORAGE “android.permission.WRITE_EXTERNAL_STORAGE”</p>
+<h4 id="9-位置组-LOCATION-“android-permission-group-LOCATION”"><a href="#9-位置组-LOCATION-“android-permission-group-LOCATION”" class="headerlink" title="9,位置组:    LOCATION “android.permission-group.LOCATION”"></a>9,位置组:    LOCATION “android.permission-group.LOCATION”</h4><p>获取精确位置 ACCESS_FINE_LOCATION “android.permission.ACCESS_FINE_LOCATION”</p>
+<p>获取大致位置 ACCESS_COARSE_LOCATION “android.permission.ACCESS_COARSE_LOCATION”</p>
+<p>#3,关于Fragment的小坑(不能叫坑,只是我自己的问题,记录下来是为了让自己以后不犯错)</p>
+<pre><code>一般在newInstence中的 fragment是 static的, 所以在合适的时机必须调用 fragment=null ,来销毁该fragment, 否则下次调用的时候该fragment会使用,但是该fragment的各种状态却还在没有重置
+</code></pre><p>#4,弹出dialog的时候弹出软键盘</p>
+<p>背景: 项目中任何界面都是 默认不弹出软键盘的,所以 在baseactivity中有 开启新界面的配置了不弹出软键盘(在onCreate()之前调用:)</p>
+<pre><code>//有EditView的界面，默认不弹窗软键盘
+getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+</code></pre><p>但是在支付界面是需要输入支付密码的, 这个密码用的是dialog, 需求需要在这个dialog弹出的时候自动弹出软键盘,所以这个时候是需要对软键盘进行处理的,具体处理方法如下:</p>
+<p>在dialog的oncreate方法中添加</p>
+<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+</code></pre><p>如果使用的alertDialog,可以</p>
+<pre><code>AlertDialog.Builder builder = new Builder(context);
+final View view = View.inflate(context, R.layout.dialog_enter_pwd, null);
+builder.setView(view);
+builder.setCancelable(false);
+final AlertDialog dialog = builder.show();
+dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+</code></pre><p>至此,我的问题就解决了</p>
+<p>其他的方法如: </p>
+<p>1,在调用dialog之前在activity中调用 </p>
+<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+</code></pre><p>2,在调用完毕后调用</p>
+<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+</code></pre><p>总之: SOFT_INPUT_STATE_ALWAYS_VISIBLE , 和 SOFT_INPUT_STATE_VISIBLE 都试试.</p>
+<h3 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h3><h4 id="1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口"><a href="#1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口" class="headerlink" title="1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口"></a>1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口</h4><pre><code>final void attach(Context context, ActivityThread aThread,
+        Instrumentation instr, IBinder token, int ident,
+        Application application, Intent intent, ActivityInfo info,
+        CharSequence title, Activity parent, String id,
+        NonConfigurationInstances lastNonConfigurationInstances,
+        Configuration config, String referrer, IVoiceInteractor voiceInteractor) {
+    attachBaseContext(context);
+    ....
+    //创建对应的Window 并设置callback, 其实为PhoneWindow
+    mWindow = new PhoneWindow(this);
+    mWindow.setCallback(this);
+    mWindow.setOnWindowDismissedCallback(this);
+    ....
+    // 设置Window的WindowManager, 对Window的mWindowManager赋值,
+    // 事实上, Window中 并未使用传递进去的windowManager, 而是在此方法中 调用WindowManagerImpl.createLocalWindowManager 重新创建了一个
+    mWindow.setWindowManager(
+            (WindowManager)context.getSystemService(Context.WINDOW_SERVICE),
+            mToken, mComponent.flattenToString(),
+            (info.flags &amp; ActivityInfo.FLAG_HARDWARE_ACCELERATED) != 0);
+    if (mParent != null) {
+        mWindow.setContainer(mParent.getWindow());
+    }
+    // 把window对象中的 windowManager 关联到 Activity的 mWindowManager
+    mWindowManager = mWindow.getWindowManager();
+    ...
+  }
+</code></pre><p>Activity创建之后, 在ActivityThread中 调用 Activity#attach, 进行一些初始化操作,在Activity#attach中, 创建了一个PhoneWindow对象,这个PhoneWindow就是getWindow中得到的window</p>
+<h4 id="2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样"><a href="#2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样" class="headerlink" title="2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样"></a>2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样</h4><pre><code> Dialog(@NonNull Context context, @StyleRes int themeResId, boolean createContextThemeWrapper) {
+    ......
+    // 用getSystemService获取 WindowManger实例
+    mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    // 直接创建一个 PhoneWindow的实例
+    final Window w = new PhoneWindow(mContext);
+    mWindow = w;
+    w.setCallback(this);
+    w.setOnWindowDismissedCallback(this);
+    w.setWindowManager(mWindowManager, null, null);
+    w.setGravity(Gravity.CENTER);
+    mListenersHandler = new ListenersHandler(this);
+}
+</code></pre><p>代码很明显, 首先获取windowManager实例, 然后创建window对象,然后在设置callback,对PhoneWindow的实例设置WindowManager;(这里有一点和Activity不同, Activity是调用Window的setWindowManager后, 把Window对应的WindowManger获取,然后赋值给自己的变量Activity#mWindowManger, 而dialog没这个操作; dialog对应的Window对象,就只是传入的Context实例去getSystemService所得); 这个PhoneWindow就是getWindow中得到的window</p>
+<p>所以他们获取到的window是不一样的</p>
+<pre><code>activity中window的地址为:com.android.internal.policy.PhoneWindow@595fa83
+dialog中window的地址为:com.android.internal.policy.PhoneWindow@960ec5c
+</code></pre><p>很明显不一样</p>
+<p>可参考<a href="http://www.jianshu.com/p/c1d7ebc57fb0" target="_blank" rel="noopener">Activity和dialog的窗口添加源码分析</a></p>
+<p>1, Window是一个抽象类, 具体的实现是PhoneWindow</p>
+<p>2,android系统中, 每个界面,对应着一个window; 但其实在android系统中window也是一个抽象的概率,它是以view的形式存在; 在使用中, 无法直接访问Window, 只能通过WindowManager才能访问Window; 每个Window都对应一个View和一个ViewRootImpl, ViewRootImpl是连接Window和WMS的桥梁, WMS的一些消息,通过ViewRootImpl转发给View;</p>
+<p>3, WindowManager继承自ViewManager(间接证明Window其实对应的是View?)，常用的只有三个方法：addView、updateView和removeView</p>
+<p>4,各种Window的不同, 主要是 token及type的不同</p>
+<p>5,app中控制window, 是通过WindowManager.LayoutParams去控制, eg: 通过x,y,gravity去控制位置…</p>
+<h1 id="CardView使用"><a href="#CardView使用" class="headerlink" title="CardView使用"></a>CardView使用</h1><p>参考资料: <a href="http://www.jianshu.com/p/e693e395e729" target="_blank" rel="noopener">CardView的使用</a></p>
+<h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1,基本使用"></a>1,基本使用</h2><pre><code>&lt;android.support.v7.widget.CardView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    
+    xmlns:cardview=&quot;http://schemas.android.com/apk/res-auto&quot;   
+    cardview:cardElevation=&quot;5dp&quot;   
+    cardview:cardCornerRadius=&quot;6dp&quot;   
+    android:layout_width=&quot;match_parent&quot;   
+    android:layout_height=&quot;match_parent&quot;&gt;
+&lt;/android.support.v7.widget.CardView&gt;
+</code></pre><p>cardview:cardElevation 表示cardView 的阴影的 高度</p>
+<p>cardview:cardCornerRadius 表示cardView 的圆角的边缘弧度数</p>
+<h2 id="2-拓展属性介绍"><a href="#2-拓展属性介绍" class="headerlink" title="2,拓展属性介绍"></a>2,拓展属性介绍</h2><pre><code>cardBackgroundColor   : 设置CardView的背景颜色
+cardMaxElevation   : 设置最大高度
+cardUseCompatPadding :设置内边距
+cardPreventCornerOverlap : 是否添加内边距,为了防止卡片内容和边角的重叠
+contentPadding : 设置CardView边界跟内部的间距
+contentPaddingLeft :设置CardView边界跟内部的左间距
+contentPaddingRight:设置CardView边界跟内部的右间距
+contentPaddingTop:设置CardView边界跟内部的上间距
+contentPaddingBottom:设置CardView边界跟内部的下间距
+</code></pre><h2 id="3-一些问题和一些实现"><a href="#3-一些问题和一些实现" class="headerlink" title="3,一些问题和一些实现"></a>3,一些问题和一些实现</h2><p>1,在API21(5.0) 以上,使用起来没有问题;</p>
+<p>2,在API21以下,在CardView 与内部view会有默认的边距, 图 , 原因是因为 在API21以下,为了防止内容与CardView 重叠, 默认使用cardPreventCornerOverlap =true 使会有默认边距 ,解决这个问题, 只需要添加代码 cardPreventCornerOverlap  =false 即可;</p>
+<p>3,CardView设置不了与屏幕的间距, 只需要在CardView外面再套一层布局 再设置CardView的margin值即可;</p>
+<p>4,CardView继承于FrameLayout 可以作为根布局来使用, 具有FrameLayout的一切特点,但是要注意第三点提到的问题,同时也要注意子View的位置;</p>
+<p>5,去除阴影  card_view:cardElevation=”0dp” 即可;</p>
+<p>6,设置点击水波纹效果 android:foreground=”?attr/selectableItemBackground” 但是在5.0以下就没有效果;</p>
+<p>7,实现Material Design 点击阴影效果 需要借助5.0的属性 android:stateListAnimator, 5.0以下没有效果</p>
+<p>创建一个Z轴方向的动画,设置属性为android:stateListAnimator=”@anim/xxx</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;item android:state_enabled=&quot;true&quot; android:state_pressed=&quot;true&quot;&gt;
+        &lt;objectAnimator
+            android:duration=&quot;@android:integer/config_shortAnimTime&quot;
+            android:propertyName=&quot;translationZ&quot;
+            android:valueTo=&quot;@dimen/touch_raise&quot;
+            android:valueType=&quot;floatType&quot; /&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+        &lt;objectAnimator
+            android:duration=&quot;@android:integer/config_shortAnimTime&quot;
+            android:propertyName=&quot;translationZ&quot;
+            android:valueTo=&quot;0dp&quot;
+            android:valueType=&quot;floatType&quot; /&gt;
+    &lt;/item&gt;
+&lt;/selector&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Android热修复/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -951,6 +1273,326 @@ instance.sendBroadcast(intent);
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/RecycleView学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/15/RecycleView学习/" itemprop="url">RecycleView</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考 <a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="noopener">Android RecyclerView 使用完全解析 体验艺术般的控件</a><br>和<br><a href="http://www.jianshu.com/p/804790b4c957" target="_blank" rel="noopener">RecycleView的基本使用</a></p>
+<p>##概述<br>RecycleView 在 support-v7包下</p>
+<p>其作用是用来代替 ListView和GridView</p>
+<p>其优点是:</p>
+<pre><code>提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现令人瞠目的效果。
+</code></pre><p>例如: </p>
+<p>1,你想要控制其显示的方式，请通过布局管理器LayoutManager</p>
+<p>2,你想要控制Item间的间隔（可绘制），请通过ItemDecoration</p>
+<p>3,你想要控制Item增删的动画，请通过ItemAnimator</p>
+<p>缺点是: </p>
+<pre><code>想要实现点击、长按事件，需要自己定义
+</code></pre><p>##基本使用方法</p>
+<pre><code>mRecyclerView = findView(R.id.id_recyclerview);
+//设置布局管理器
+mRecyclerView.setLayoutManager(layout);
+//设置adapter
+mRecyclerView.setAdapter(adapter)
+//设置Item增加、移除动画
+mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//添加分割线
+mRecyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.HORIZONTAL_LIST));
+</code></pre><p>###Just like ListView(主要流程的代码)</p>
+<p>主界面:</p>
+<pre><code>recyclerView = (RecyclerView) findViewById(gridRv);
+
+initData();
+//设置布局适配器
+recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//设置adapter
+mAdapter = new RecycleViewListAdapter(this, mDatas);
+recyclerView.setAdapter(mAdapter);
+</code></pre><p>adapter:</p>
+<pre><code>public class RecycleViewListAdapter extends RecyclerView.Adapter {
+    private List&lt;String&gt; mDatas;
+    private Context mContext;
+
+    public RecycleViewListAdapter(Context mContext, List&lt;String&gt; mDatas) {
+        this.mContext = mContext;
+        this.mDatas = mDatas;
+    }
+
+    public void setImages(List&lt;String&gt; mDatas) {
+        this.mDatas = mDatas;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_list_recycleview, parent, false);
+        MyViewHolder myViewHolder = new MyViewHolder(view);
+        return myViewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        MyViewHolder myViewHolder = (MyViewHolder) holder;
+        myViewHolder.tv.setText(mDatas.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDatas.size();
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView tv;
+        public MyViewHolder(View view) {
+            super(view);
+            tv = (TextView) view.findViewById(R.id.recy_tv);
+        }
+    }
+}
+</code></pre><p>###ItemDecoration(添加分割线)<br>主要方法为:  mRecyclerView.addItemDecoration(ItemDecoration)</p>
+<p>该方法的参数为RecyclerView.ItemDecoration，该类为抽象类,该类的源码为: </p>
+<pre><code>public static abstract class ItemDecoration {
+
+    public void onDraw(Canvas c, RecyclerView parent, State state) {
+                onDraw(c, parent);
+     }
+
+
+    public void onDrawOver(Canvas c, RecyclerView parent, State state) {
+                onDrawOver(c, parent);
+     }
+
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
+                getItemOffsets(outRect, ((LayoutParams) view.getLayoutParams()).getViewLayoutPosition(),
+                        parent);
+    }
+
+    @Deprecated
+    public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent){
+                outRect.set(0, 0, 0, 0);
+    }
+}
+</code></pre><p>当我们调用mRecyclerView.addItemDecoration(ItemDecoration)方法添加decoration的时候，RecyclerView在绘制的时候，去会绘制decorator，即调用该类的onDraw和onDrawOver方法;</p>
+<p>1,onDraw方法先于drawChildren</p>
+<p>2,onDrawOver在drawChildren之后，一般我们选择复写其中一个即可。</p>
+<p>3,getItemOffsets 可以通过outRect.set()为每个Item设置一定的偏移量，主要用于绘制Decorator。</p>
+<p>需要自定义 可以参考: <a href="http://blog.csdn.net/lmj623565791/article/details/38173061" target="_blank" rel="noopener">Android 自定义RecyclerView 实现真正的Gallery效果</a></p>
+<p>###LayoutManager</p>
+<p>RecyclerView.LayoutManager, 这是一个抽象类，系统提供了3个实现类;</p>
+<p>1,LinearLayoutManager 现行管理器，支持横向、纵向。</p>
+<p>2,GridLayoutManager 网格布局管理器</p>
+<p>3,StaggeredGridLayoutManager 瀑布就式布局管理器</p>
+<p>使用GridLayoutManager , 代码为:</p>
+<pre><code>//mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
+</code></pre><p>只需要修改LayoutManager即可</p>
+<p>但是改为GridLayoutManager以后，对于分割线，前面的DividerItemDecoration就不适用了，主要是因为它在绘制的时候，比如水平线，针对每个child的取值为:</p>
+<pre><code>final int left = parent.getPaddingLeft();
+final int right = parent.getWidth() - parent.getPaddingRight();
+</code></pre><p>因为每个Item一行，这样是没问题的。而GridLayoutManager时，一行有多个childItem，这样就多次绘制了，并且GridLayoutManager时，Item如果为最后一列（则右边无间隔线）或者为最后一行（底部无分割线）。</p>
+<p>这样的话需要修改gridview中的分割线item</p>
+<p>可以参考: <a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="noopener">文章开头的地址</a></p>
+<p>主要在getItemOffsets方法中，去判断如果是最后一行，则不需要绘制底部；如果是最后一列，则不需要绘制右边，整个判断也考虑到了StaggeredGridLayoutManager的横向和纵向，所以稍稍有些复杂。最重要还是去理解，如何绘制什么的不重要。一般如果仅仅是希望有空隙，还是去设置item的margin方便。</p>
+<p>StaggeredGridLayoutManager可以有三种用法<br>使用, StaggeredGridLayoutManager,代码: StaggeredGridLayoutManager.VERTICAL</p>
+<pre><code>// mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
+mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+</code></pre><p>这两种写法显示的效果是一致的，但是注意StaggeredGridLayoutManager构造的第二个参数传一个orientation，如果传入的是StaggeredGridLayoutManager.VERTICAL代表有多少列；那么传入的如果是StaggeredGridLayoutManager.HORIZONTAL就代表有多少行，比如本例如果改为：StaggeredGridLayoutManager.HORIZONTAL</p>
+<pre><code>mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.HORIZONTAL));
+</code></pre><p>固定为4行，变成了左右滑动。有一点需要注意，如果是横向的时候，item的宽度需要注意去设置，毕竟横向的宽度没有约束了，应为控件可以横向滚动了。 </p>
+<p>适用在需要横向滚动的情况下的listview 或者 gridview</p>
+<p>###条目动画 ItemAnimator</p>
+<p>item增加、删除的动画也是可配置的。</p>
+<p>ItemAnimator也是一个抽象类，好在系统为我们提供了一种默认的实现类</p>
+<pre><code>// 设置item动画
+mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+</code></pre><p>PS:这里更新数据集不是用adapter.notifyDataSetChanged()</p>
+<p>而是 notifyItemInserted(position)与notifyItemRemoved(position) </p>
+<p>否则没有动画效果。</p>
+<p>可以为adapter中添加了两个方法：<br>    public void addData(int position) {<br>            mDatas.add(position, “Insert One”);<br>            notifyItemInserted(position);<br>        }</p>
+<pre><code>    public void removeData(int position) {
+        mDatas.remove(position);
+        notifyItemRemoved(position);
+    }
+}
+</code></pre><p>因为只有一种动画, 所以可以去网上搜索一些比较好看的动画效果</p>
+<p><a href="https://github.com/search?l=Java&amp;o=desc&amp;p=1&amp;q=RecyclerView&amp;s=stars&amp;type=Repositories&amp;utf8=✓" target="_blank" rel="noopener">RecyclerView的一些动画效果</a></p>
+<p><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper" target="_blank" rel="noopener">一个比较好的动画的library</a></p>
+<p>###Click and LongClick(点击事件,,,recyclerview没有提供,所以需要自己写)</p>
+<p>实现的方式比较多，你可以通过mRecyclerView.addOnItemTouchListener去监听然后去判断手势，<br>当然你也可以通过adapter中自己去提供回调，这里我们选择后者，前者的方式，大家有兴趣自己去实现。</p>
+<pre><code>class HomeAdapter extends RecyclerView.Adapter&lt;HomeAdapter.MyViewHolder&gt; {
+
+//...
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view , int position);
+    }
+
+    private OnItemClickLitener mOnItemClickLitener;
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        holder.tv.setText(mDatas.get(position));
+
+        // 如果设置了回调，则设置点击事件
+        if (mOnItemClickLitener != null) {
+            holder.itemView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
+                    return false;
+                }
+            });
+        }
+    }
+//...
+}
+</code></pre><p>adapter中自己定义了个接口，然后在onBindViewHolder中去为holder.itemView去设置相应<br>的监听最后回调我们设置的监听。</p>
+<p>然后在activity中添加监听</p>
+<pre><code>mAdapter.setOnItemClickLitener(new OnItemClickLitener(){
+
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(HomeActivity.this, position + &quot; click&quot;,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(HomeActivity.this, position + &quot; long click&quot;,
+                        Toast.LENGTH_SHORT).show();
+                        mAdapter.removeData(position);
+            }
+        });
+}
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/SomeUsefulCommands/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1456,7 +2098,7 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/rxjava学习/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Retrofit学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -1475,7 +2117,7 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/rxjava学习/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2018/05/15/Retrofit学习/" itemprop="url">Retrofit学习</a></h1>
         
 
         <div class="post-meta">
@@ -1487,7 +2129,7 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
                 2018-05-15
               </time>
             
@@ -1527,8 +2169,456 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
       
         
           
-            <p>#Rxjava</p>
-<p>1,创建观察者:  observer  subscriber</p>
+            <p><a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869</a></p>
+<p>##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)<br>关于配置可以查看<a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">Retrofit2 完全解析 探索与okhttp之间的关系</a></p>
+<h4 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1,添加依赖"></a>1,添加依赖</h4><blockquote>
+<p>compile ‘com.squareup.retrofit2:retrofit:2.1.0’</p>
+</blockquote>
+<h4 id="2-定义接口"><a href="#2-定义接口" class="headerlink" title="2,定义接口"></a>2,定义接口</h4><blockquote>
+<pre><code>`public interface GitHubService {  
+   @GET(&quot;users/{user}/repos&quot;)
+   Call&lt;String&gt; listRepos(@Path(&quot;user&quot;) String user);
+ }`
+</code></pre><p>path 代表的是路径 {} 里面代表被替换的网址</p>
+</blockquote>
+<h4 id="3-构造Retrofit"><a href="#3-构造Retrofit" class="headerlink" title="3,构造Retrofit"></a>3,构造Retrofit</h4><blockquote>
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+.baseUrl(&quot;https://api.github.com/&quot;)
+.addConverterFactory(ScalarsConverterFactory.create())    //添加转换器, 这是必须的
+.addCallAdapterFactory(RxJavaCallAdapterFactory.create())    //如果和rxjava配合,需要添加这个转换, 其目的是将 Call&lt;Object&gt; 转换成 Observable&lt;Object&gt;
+.build();
+</code></pre></blockquote>
+<h4 id="4-通过Retrofit的create方法得到所需的对象"><a href="#4-通过Retrofit的create方法得到所需的对象" class="headerlink" title="4,通过Retrofit的create方法得到所需的对象"></a>4,通过Retrofit的create方法得到所需的对象</h4><blockquote>
+<p>   GitHubService service = retrofit.create(GitHubService.class);</p>
+</blockquote>
+<h4 id="5-使用得到的对象调用方法-这里像是标记一下指令"><a href="#5-使用得到的对象调用方法-这里像是标记一下指令" class="headerlink" title="5,使用得到的对象调用方法,这里像是标记一下指令"></a>5,使用得到的对象调用方法,这里像是标记一下指令</h4><blockquote>
+<p>   Call<restaurantresponse> version = service.getVersion();//设置参数</restaurantresponse></p>
+</blockquote>
+<h4 id="6-标记指令完毕后在合适的时候调用来获取数据"><a href="#6-标记指令完毕后在合适的时候调用来获取数据" class="headerlink" title="6,标记指令完毕后在合适的时候调用来获取数据"></a>6,标记指令完毕后在合适的时候调用来获取数据</h4><blockquote>
+<p>同步调用<br>   Response<updateversionresponse> execute = version.execute();</updateversionresponse></p>
+<p>异步调用</p>
+<pre><code>version.enqueue(new Callback&lt;UpdateVersionResponse&gt;() {
+    @Override
+    public void onResponse(Call&lt;UpdateVersionResponse&gt; call, Response&lt;UpdateVersionResponse&gt; response) {
+        Log.i(&quot;hehe&quot;, &quot;成功&quot; + response.toString());
+    }
+</code></pre></blockquote>
+<blockquote>
+</blockquote>
+<pre><code>    @Override
+    public void onFailure(Call&lt;UpdateVersionResponse&gt; call, Throwable t) {
+        Log.i(&quot;hehe&quot;, &quot;访问失败&quot;);
+    }
+});
+</code></pre><p>##2,Url配置</p>
+<p>####Retrofit 支持的协议包括 GET/POST/PUT/DELETE/HEAD/PATCH，当然你也可以直接用 HTTP 来自定义请求。这些协议均以注解的形式进行配置</p>
+<p>###2.1,GET 的用法</p>
+<blockquote>
+<pre><code>@GET(&quot;users/{user}/repos&quot;)
+Call&lt;Object&gt; listRepos(@Path(&quot;user&quot;) String user);
+</code></pre></blockquote>
+<p>  这些注解都有一个参数 value，用来配置其路径,但是不能用于后缀的添加</p>
+<p>path 是相对路径，baseUrl 是目录形式：</p>
+<pre><code>path = &quot;apath&quot;，baseUrl = &quot;http://host:port/a/b/&quot;
+Url = &quot;http://host:port/a/b/apath&quot;
+</code></pre><p>配置共有四种配置方法</p>
+<p>配置的时候采取这种配置方式(baseurl最后以”/“结尾, path中不以”/“开头)</p>
+<p>###2.2,参数类型</p>
+<h4 id="0-Path"><a href="#0-Path" class="headerlink" title="0,Path"></a>0,Path</h4><p>path用于在url中动态配置url</p>
+<h4 id="1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field"><a href="#1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field" class="headerlink" title="1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)"></a>1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)</h4><pre><code>@GET(&quot;list&quot;)
+Call&lt;要转化成的对象&gt; list(@Query(&quot;page&quot;) int page);
+</code></pre><p>Query 其实就是 Url 中 ‘?’ 后面的 key-value，比如：<a href="http://www.println.net/?cate=android" target="_blank" rel="noopener">http://www.println.net/?cate=android</a></p>
+<p>这里的 cate=android 就是一个 Query，而我们在配置它的时候只需要在接口方法中增加一个参数，即可：</p>
+<pre><code>interface PrintlnServer{    
+   @GET(&quot;&quot;)    
+   Call&lt;Object&gt; cate(@Query(&quot;cate&quot;) String cate);
+}
+</code></pre><p>QueryMap用来表示多个(方法为)</p>
+<p>Query (Call<restaurantresponse> getVersion(@QueryMap HashMap&lt;String, String&gt; params);)</restaurantresponse></p>
+<p>2,Field &amp; FieldMap(用于POST方法提交表单请求体中的键值对, 此时仍然能在连接后面以Query添加参数)</p>
+<h4 id="PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。"><a href="#PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。" class="headerlink" title="PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。"></a>PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。</h4><pre><code>   @FormUrlEncoded
+   @POST(&quot;/&quot;)   
+   Call example(
+       @Field(&quot;name&quot;) String name,
+       @Field(&quot;occupation&quot;) String occupation);
+
+其实也很简单，我们只需要定义上面的接口就可以了，我们用 Field 声明了表单的项，这样提交表单就跟普通的函数调用一样简单直接了
+</code></pre><p>如果表单项不确定个数,可以使用FieldMap</p>
+<p>Call<restaurantresponse> getVersion(@FieldMap HashMap&lt;String, String&gt; params);</restaurantresponse></p>
+<p>3,Part &amp; PartMap(用于POST方法上传文件,get也可以使用该参数上传文件)</p>
+<p>表示请求正文是多部分的。零件应声明为参数并注释@Part。</p>
+<pre><code>public interface FileUploadService {  
+    @Multipart
+    @POST(&quot;upload&quot;)    
+    Call upload(@Part(&quot;description&quot;) RequestBody description,
+                                  @Part MultipartBody.Part file);
+}
+</code></pre><p>如果你需要上传文件，和我们前面的做法类似，定义一个接口方法，需要注意的是，这个方法不再有 @FormUrlEncoded 这个注解，而换成了 @Multipart，后面只需要在参数中增加 Part 就可以了。也许你会问，这里的 Part 和 Field 究竟有什么区别，其实从功能上讲，无非就是客户端向服务端发起请求携带参数的方式不同，并且前者可以携带的参数类型更加丰富，包括数据流。也正是因为这一点，我们可以通过这种方式来上传文件</p>
+<p><img src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png" alt=""></p>
+<h3 id="4-Converter-让入参和返回类型丰富"><a href="#4-Converter-让入参和返回类型丰富" class="headerlink" title="4,Converter 让入参和返回类型丰富"></a>4,Converter 让入参和返回类型丰富</h3><h4 id="4-1-RequestBodyConverter-自定义请求体"><a href="#4-1-RequestBodyConverter-自定义请求体" class="headerlink" title="4.1, RequestBodyConverter(自定义请求体)"></a>4.1, RequestBodyConverter(自定义请求体)</h4><pre><code>Retrofit 上传文件，这个上传的过程其实。。还是有那么点儿不够简练，我们只是要提供一个文件用于上传，可我们前后构造了三个对象：
+    file -- &gt; requestbody -- &gt; multipartbody.part
+</code></pre><p>Retrofit 允许我们自己定义入参和返回的类型，不过，如果这些类型比较特别，我们还需要准备相应的 Converter，也正是因为 Converter 的存在， Retrofit 在入参和返回类型上表现得非常灵活.</p>
+<p>###新的上传文件的接口</p>
+<pre><code>public interface FileUploadService {  
+    @Multipart
+    @POST(&quot;upload&quot;)    
+    Call upload(@Part(&quot;description&quot;) RequestBody description,        
+                //注意这里的参数 &quot;aFile&quot; 之前是在创建 MultipartBody.Part 的时候传入的
+                @Part(&quot;aFile&quot;) File file);
+}
+把入参类型改成了我们熟悉的 File，如果你就这么拿去发请求，服务端收到的结果是一个jsonstring(内部默认的是GsonRequestBodyConverter)
+</code></pre><p>所以就只能自己实现一个 FileRequestBodyConverter</p>
+<pre><code>static class FileRequestBodyConverterFactory extends Converter.Factory {    
+        @Override
+    public Converter requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {      
+       return new FileRequestBodyConverter();
+    }
+  }  
+
+ static class FileRequestBodyConverter implements Converter&lt;File, RequestBody&gt; {    
+    @Override
+    public RequestBody convert(File file) throws IOException {      
+      return RequestBody.create(MediaType.parse(&quot;application/otcet-stream&quot;), file);
+    }
+  }
+</code></pre><p>然后在创建 Retrofit 的时候记得配置上它:</p>
+<pre><code>addConverterFactory(new FileRequestBodyConverterFactory())
+</code></pre><p>这样，我们的文件内容就能上传了</p>
+<h4 id="4-2-ResponseBodyConverter-这个一般也用不到"><a href="#4-2-ResponseBodyConverter-这个一般也用不到" class="headerlink" title="4.2 ResponseBodyConverter     //这个一般也用不到"></a>4.2 ResponseBodyConverter     //这个一般也用不到</h4><p>前面我们为大家简单示例了如何自定义 RequestBodyConverter，对应的，Retrofit 也支持自定义 ResponseBodyConverter。</p>
+<p>再来看下我们定义的接口：</p>
+<pre><code>public interface GitHubService {  
+   @GET(&quot;users/{user}/repos&quot;)
+  Call&lt;&gt; listRepos(@Path(&quot;user&quot;) String user);
+}
+</code></pre><p><img src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNonMewRmN43HYdsPbic2fmfKkWcdiazvnRCkDs451PmT7w6SqmkaQcZdA/640?wx_fmt=png" alt=""></p>
+<p>当然，别忘了在构造 Retrofit 的时候添加这个 Converter，这样我们就能够愉快的让接口返回 Result 对象了。</p>
+<blockquote>
+<p>注意！！Retrofit 在选择合适的 Converter 时，主要依赖于需要转换的对象类型，在添加 Converter 时，注意 Converter 支持的类型的包含关系以及其顺序。</p>
+</blockquote>
+<p>###Retrofit 原理分析</p>
+<p>####1,是谁实际上完成了接口请求的处理？</p>
+<h3 id="方法总结"><a href="#方法总结" class="headerlink" title="方法总结"></a>方法总结</h3><h4 id="最基本的配置"><a href="#最基本的配置" class="headerlink" title="最基本的配置"></a>最基本的配置</h4><pre><code>Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(&quot;http://192.168.31.242:8080/springmvc_users/user/&quot;)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build();
+IUserBiz userBiz = retrofit.create(IUserBiz.class);
+Call&lt;List&lt;User&gt;&gt; call = userBiz.getUsers();
+call.enqueue(new Callback&lt;List&lt;User&gt;&gt;()
+        {
+            @Override
+            public void onResponse(Call&lt;List&lt;User&gt;&gt; call, Response&lt;List&lt;User&gt;&gt; response)
+            {
+                Log.e(TAG, &quot;normalGet:&quot; + response.body() + &quot;&quot;);
+            }
+
+            @Override
+            public void onFailure(Call&lt;List&lt;User&gt;&gt; call, Throwable t)
+            {
+
+            }
+        });
+</code></pre><h4 id="1-一般的get请求"><a href="#1-一般的get请求" class="headerlink" title="1,一般的get请求"></a>1,一般的get请求</h4><pre><code>  `public interface IUserBiz {
+    @GET(&quot;users&quot;)
+    Call&lt;List&lt;User&gt;&gt; getUsers();
+}`
+这是最基本的get请求,没有任何参数及其他.
+</code></pre><h4 id="2-动态修改地址的get请求-–-使用-Path-注解"><a href="#2-动态修改地址的get请求-–-使用-Path-注解" class="headerlink" title="2,动态修改地址的get请求 – 使用 Path 注解"></a>2,动态修改地址的get请求 – 使用 Path 注解</h4><pre><code>public interface IUserBiz {
+    @GET(&quot;{username}&quot;)
+    Call&lt;User&gt; getUser(@Path(&quot;username&quot;) String username);
+}
+
+这是 使用 Path注解来动态修改url地址的get请求, 但是这个path只能用于修改url而不能用作修改后面的参数, 相当于url中的占位符.
+</code></pre><h4 id="3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解"><a href="#3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解" class="headerlink" title="3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解"></a>3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解</h4><pre><code>public interface IUserBiz {
+    @GET(&quot;users&quot;)
+    Call&lt;List&lt;User&gt;&gt; getUsersBySort(@Query(&quot;sortby&quot;) String sort);
+}
+
+eg: http://baseurl/users?sortby=username
+    http://baseurl/users?sortby=id
+
+这样我们就完成了参数的指定，当然相同的方式也适用于POST，只需要把注解修改为@POST即可。
+不同点在于, 这个 Query 注解代表的是在 url后面添加 参数而不是把参数防盗请求体中进行隐藏请求.
+</code></pre><h4 id="4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解"><a href="#4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解" class="headerlink" title="4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解"></a>4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解</h4><pre><code>public interface IUserBiz {
+ @POST(&quot;add&quot;)
+ Call&lt;List&lt;User&gt;&gt; addUser(@Body User user);
+}
+
+这是通过 Gson 把对象变成Json字符串然后传上去, 不过一般不需要这样,一般都是使用参数传的,所以这种情况的使用情况较少(暂时较少)
+</code></pre><h4 id="5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解"><a href="#5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解" class="headerlink" title="5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解"></a>5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解</h4><pre><code>public interface IUserBiz {
+    @POST(&quot;login&quot;)
+    @FormUrlEncoded
+    Call&lt;User&gt; login(@Field(&quot;username&quot;) String username, @Field(&quot;password&quot;) String password);
+}
+
+这是通过 FormUrlEncoded 进行标识后才能使用 field ,这是使用post的时候在请求体中 添加这些键值对(这种最常用) ,FieldMap注解 则是一个map对象, 表示多个field的参数, (一般用 fieldmap进行post请求,因为 一般请求的时候的参数较多,写多个field不合适.)
+</code></pre><h4 id="6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解"><a href="#6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解" class="headerlink" title="6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解"></a>6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解</h4><p>@part可以当成@field来使用,因为 @part是特殊的@field, @part比 @field多支持了文件的类型</p>
+<pre><code>文件上传应有的形式: 
+    Content-Disposition: form-data; name=&quot;file&quot;；filename=&quot;test.jpg&quot;
+普通使用Part注解添加的file:
+    Content-Disposition: form-data; name=&quot;file&quot;
+
+所以中心思想就是把  file 替换成 file&quot;；filename=&quot;test.jpg 通过拼接字符串的方式保存文件
+
+public interface DemoService {
+    @Multipart()
+    @POST(&quot;api/files&quot;)
+    Call&lt;ResponseInfo&gt; uploadFile(@Part(&quot;file\&quot;;filename=\&quot;test.jpg&quot;) RequestBody photo);
+}
+
+
+
+public interface IUserBiz {
+    @Multipart
+    @POST(&quot;register&quot;)
+    Call&lt;User&gt; registerUser(@Part MultipartBody.Part photo, @Part(&quot;username&quot;) 
+                 RequestBody username, @Part(&quot;password&quot;) RequestBody password);
+}
+
+这里@MultiPart的意思就是允许多个@Part了，我们这里使用了3个@Part.
+第一个我们准备上传个文件，使用了MultipartBody.Part类型，
+其余两个均为简单的键值对(这里的键值对说明也可以使用 string,string  的方式 ,上面的 string,requestbody形式并不是必须的 即可以: 
+    public interface IUserBiz {
+        @Multipart
+        @POST(&quot;register&quot;)
+        Call&lt;User&gt; registerUser(@Part MultipartBody.Part photo, @Part(&quot;username&quot;) 
+                    String username, @Part(&quot;password&quot;) String password);
+    }
+)
+
+使用的代码为:
+
+File file = new File(Environment.getExternalStorageDirectory(), &quot;icon.png&quot;);
+RequestBody photoRequestBody = RequestBody.create(MediaType.parse(&quot;image/png&quot;), file);
+MultipartBody.Part photo = MultipartBody.Part.createFormData(&quot;photos&quot;, &quot;icon.png&quot;, photoRequestBody);
+
+Call&lt;User&gt; call = userBiz.registerUser(photo, RequestBody.create(null, &quot;abc&quot;), RequestBody.create(null, &quot;123&quot;));
+</code></pre><h4 id="7-多文件上传-PartMap-–-使用-PartMap注解"><a href="#7-多文件上传-PartMap-–-使用-PartMap注解" class="headerlink" title="7,多文件上传@PartMap – 使用 PartMap注解"></a>7,多文件上传@PartMap – 使用 PartMap注解</h4><pre><code>public interface IUserBiz {
+     @Multipart
+     @POST(&quot;register&quot;)
+      Call&lt;User&gt; registerUser(
+             @PartMap Map&lt;String, RequestBody&gt; params, 
+            @Part(&quot;password&quot;) RequestBody password);
+}
+
+这里使用了一个新的注解@PartMap，这个注解用于标识一个Map，Map的key为String类型，代表上传的键值对的key(与服务器接受的key对应),value即为RequestBody，有点类似@Part的封装版本。
+</code></pre><p>执行代码:</p>
+<pre><code>File file = new File(Environment.getExternalStorageDirectory(), &quot;messenger_01.png&quot;);
+RequestBody photo = RequestBody.create(MediaType.parse(&quot;image/png&quot;, file);
+Map&lt;String,RequestBody&gt; photos = new HashMap&lt;&gt;();
+photos.put(&quot;photos\&quot;; filename=\&quot;icon.png&quot;, photo);
+             &quot;file\&quot;; filename=\&quot;test.jpg&quot;
+photos.put(&quot;username&quot;,  RequestBody.create(null, &quot;abc&quot;));
+
+Call&lt;User&gt; call = userBiz.registerUser(photos, RequestBody.create(null, &quot;123&quot;));
+
+可以看到，可以在Map中put进一个或多个文件，键值对等，当然你也可以分开，
+单独的键值对也可以使用 @Part，这里又看到设置文件的时候，相对应的key很奇怪，
+例如上例&quot;photos\&quot;; filename=\&quot;icon.png&quot;,前面的photos就是与服务器对应的key，
+后面filename是服务器得到的文件名，ok，参数虽然奇怪，但是也可以动态的设置文件名，不太影响使用
+
+这个的优势是可以动态的修改名字了,(因为 使用Part注解 value是写死的,所以值没法改,但是使用 PartMap注解 value是创建好传进去的,所以这个名字就可以修改了)
+</code></pre><h4 id="8-下载文件"><a href="#8-下载文件" class="headerlink" title="8,下载文件"></a>8,下载文件</h4><pre><code>public interface IUserBiz {
+    @GET(&quot;download&quot;)
+    Call&lt;ResponseBody&gt; downloadTest();
+}
+
+然后调用: 
+
+Call&lt;ResponseBody&gt; call = userBiz.downloadTest();
+call.enqueue(new Callback&lt;ResponseBody&gt;() {
+    @Override
+    public void onResponse(Call&lt;ResponseBody&gt; call, Response&lt;ResponseBody&gt; response)
+    {
+        InputStream is = response.body().byteStream();
+        //save file
+    }
+
+    @Override
+    public void onFailure(Call&lt;ResponseBody&gt; call, Throwable t)
+    {
+
+    }
+});
+</code></pre><h4 id="field-和-part-和-query-的区别"><a href="#field-和-part-和-query-的区别" class="headerlink" title="field 和 part 和 query 的区别:"></a>field 和 part 和 query 的区别:</h4><blockquote>
+<p>field 用于简单键值对的提交, 用在post请求中, 需要进行 @formurlencoude 注解进行标识(get无法使用,这个只能用于post请求体中)</p>
+<p>part 用于post请求中在field的基础上 可以携带文件进行提交(这个只能用于post请求体中)</p>
+<p>query 用于在url后面添加参数, post和get请求均可以使用</p>
+</blockquote>
+<p><a href="https://github.com/square/retrofit/issues/1063" target="_blank" rel="noopener">可以查看 直接使用requestbody的上传文件的解决 retrofit#1063</a></p>
+<p>@Part(“image\”; filename=\”image.jpg\” “) RequestBody image</p>
+<pre><code>public interface ApiInterface {
+    @Multipart
+    @POST (&quot;/api/Accounts/editaccount&quot;)
+    Call&lt;User&gt; editUser (
+         @Header(&quot;Authorization&quot;) String authorization, 
+         @Part(&quot;file\&quot;; filename=\&quot;pp.png&quot;) RequestBody file , 
+        @Part(&quot;FirstName&quot;) RequestBody fname, 
+        @Part(&quot;Id&quot;) RequestBody id);
+}
+</code></pre><h2 id="配置OkHttpClient"><a href="#配置OkHttpClient" class="headerlink" title="配置OkHttpClient"></a>配置OkHttpClient</h2><p>1,</p>
+<pre><code>.callFactory(new okhttp3.Call.Factory() {
+                    @Override
+                    public okhttp3.Call newCall(Request request) {
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        return okHttpClient.newCall(request);
+                    }
+                })
+
+可以单独写一个OkhttpClient的单例生成类，在这个里面完成你所需的所有的配置，然后将OkhttpClient实例通过方法公布出来，设置给retrofit
+callFactory方法接受一个okhttp3.Call.Factory对象，OkHttpClient即为一个实现类
+</code></pre><p>2,</p>
+<pre><code>.client(okhttpclient)
+
+也可以配置client
+</code></pre><p>//转换器 , 请求原始数据转换成对象(addConverterFactory()),一般将该数据转换成json</p>
+<p>Scalars (primitives, boxed, and String): com.squareup.retrofit2:converter-scalars:2.1.0</p>
+<p>Gson: com.squareup.retrofit2:converter-gson:2.1.0</p>
+<p>Jackson: com.squareup.retrofit2:converter-jackson:{最新版本号}</p>
+<p>Moshi: com.squareup.retrofit2:converter-moshi:{最新版本号}</p>
+<p>Protobuf: com.squareup.retrofit2:converter-protobuf:{最新版本号}</p>
+<p>Wire: com.squareup.retrofit2:converter-wire:{最新版本号}</p>
+<p>Simple XML: com.squareup.retrofit2:converter-simplexml:{最新版本号}</p>
+<p>//转换器 , 将返回的Call对象转换成其他 (addCallAdapterFactory()),一般将该数据转换成rxjava</p>
+<h1 id="注-添加header的方法"><a href="#注-添加header的方法" class="headerlink" title="注: 添加header的方法"></a>注: 添加header的方法</h1><p>该文章见<a href="http://blog.csdn.net/ghost_programmer/article/details/52372065" target="_blank" rel="noopener">retrofit 网络请求库 : http://blog.csdn.net/ghost_programmer/article/details/52372065</a></p>
+<h2 id="headers-和-header"><a href="#headers-和-header" class="headerlink" title="@headers 和 @header"></a>@headers 和 @header</h2><p>headers是在方法上部声明, 不能动态修改, 不可覆盖 , header 是在方法的参数中代表的, 可以动态设置</p>
+<h2 id="OKhttp-配置的时候在所有的request中添加header-Interceptor"><a href="#OKhttp-配置的时候在所有的request中添加header-Interceptor" class="headerlink" title="OKhttp  配置的时候在所有的request中添加header   Interceptor"></a>OKhttp  配置的时候在所有的request中添加header   Interceptor</h2><p>官方demo见 <a href="https://github.com/square/okhttp/wiki/Interceptors" target="_blank" rel="noopener">https://github.com/square/okhttp/wiki/Interceptors</a></p>
+<pre><code>Request request = chain.request();
+
+Response response = chain.proceed(request);
+</code></pre><h4 id="通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。"><a href="#通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。" class="headerlink" title="通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。"></a>通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。</h4><h4 id="对所有的请求都添加请求头"><a href="#对所有的请求都添加请求头" class="headerlink" title="对所有的请求都添加请求头"></a>对所有的请求都添加请求头</h4><pre><code>public okhttp3.Response intercept(Chain chain) throws IOException {
+    Request request = chain.request();
+    // 重写request
+    Request requestOverwrite = request.newBuilder().header(&quot;User-Agent&quot;,&quot;Android&quot;).build();
+
+    return chain.proceed(requestOverwrite);
+}
+</code></pre><h4 id="同理-要对所有的请求相应-response-添加header的话"><a href="#同理-要对所有的请求相应-response-添加header的话" class="headerlink" title="同理, 要对所有的请求相应 response 添加header的话"></a>同理, 要对所有的请求相应 response 添加header的话</h4><pre><code>@Override
+public okhttp3.Response intercept(Chain chain) throws IOException {
+    Request request = chain.request();
+    okhttp3.Response originalResponse = chain.proceed(request);
+
+    return originalResponse.newBuilder().header(&quot;Cache-Control&quot;,&quot;max-age=100&quot;).build();
+}
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/rxjava学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/15/rxjava学习/" itemprop="url">Rxjava</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1,创建观察者:  observer  subscriber</p>
 <pre><code>Observer 即观察者，它决定事件触发的时候将有怎样的行为。 RxJava 中的 Observer 接口的实现方式：
 
 Observer&lt;String&gt; observer = new Observer&lt;String&gt;() {
@@ -2129,777 +3219,6 @@ getToken()
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Retrofit学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/15/Retrofit学习/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
-                2018-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#Retrofit学习</p>
-<p><a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869</a></p>
-<p>##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)<br>关于配置可以查看<a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">Retrofit2 完全解析 探索与okhttp之间的关系</a></p>
-<h4 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1,添加依赖"></a>1,添加依赖</h4><blockquote>
-<p>compile ‘com.squareup.retrofit2:retrofit:2.1.0’</p>
-</blockquote>
-<h4 id="2-定义接口"><a href="#2-定义接口" class="headerlink" title="2,定义接口"></a>2,定义接口</h4><blockquote>
-<pre><code>`public interface GitHubService {  
-   @GET(&quot;users/{user}/repos&quot;)
-   Call&lt;String&gt; listRepos(@Path(&quot;user&quot;) String user);
- }`
-</code></pre><p>path 代表的是路径 {} 里面代表被替换的网址</p>
-</blockquote>
-<h4 id="3-构造Retrofit"><a href="#3-构造Retrofit" class="headerlink" title="3,构造Retrofit"></a>3,构造Retrofit</h4><blockquote>
-<pre><code>Retrofit retrofit = new Retrofit.Builder()
-.baseUrl(&quot;https://api.github.com/&quot;)
-.addConverterFactory(ScalarsConverterFactory.create())    //添加转换器, 这是必须的
-.addCallAdapterFactory(RxJavaCallAdapterFactory.create())    //如果和rxjava配合,需要添加这个转换, 其目的是将 Call&lt;Object&gt; 转换成 Observable&lt;Object&gt;
-.build();
-</code></pre></blockquote>
-<h4 id="4-通过Retrofit的create方法得到所需的对象"><a href="#4-通过Retrofit的create方法得到所需的对象" class="headerlink" title="4,通过Retrofit的create方法得到所需的对象"></a>4,通过Retrofit的create方法得到所需的对象</h4><blockquote>
-<p>   GitHubService service = retrofit.create(GitHubService.class);</p>
-</blockquote>
-<h4 id="5-使用得到的对象调用方法-这里像是标记一下指令"><a href="#5-使用得到的对象调用方法-这里像是标记一下指令" class="headerlink" title="5,使用得到的对象调用方法,这里像是标记一下指令"></a>5,使用得到的对象调用方法,这里像是标记一下指令</h4><blockquote>
-<p>   Call<restaurantresponse> version = service.getVersion();//设置参数</restaurantresponse></p>
-</blockquote>
-<h4 id="6-标记指令完毕后在合适的时候调用来获取数据"><a href="#6-标记指令完毕后在合适的时候调用来获取数据" class="headerlink" title="6,标记指令完毕后在合适的时候调用来获取数据"></a>6,标记指令完毕后在合适的时候调用来获取数据</h4><blockquote>
-<p>同步调用<br>   Response<updateversionresponse> execute = version.execute();</updateversionresponse></p>
-<p>异步调用</p>
-<pre><code>version.enqueue(new Callback&lt;UpdateVersionResponse&gt;() {
-    @Override
-    public void onResponse(Call&lt;UpdateVersionResponse&gt; call, Response&lt;UpdateVersionResponse&gt; response) {
-        Log.i(&quot;hehe&quot;, &quot;成功&quot; + response.toString());
-    }
-</code></pre></blockquote>
-<blockquote>
-</blockquote>
-<pre><code>    @Override
-    public void onFailure(Call&lt;UpdateVersionResponse&gt; call, Throwable t) {
-        Log.i(&quot;hehe&quot;, &quot;访问失败&quot;);
-    }
-});
-</code></pre><p>##2,Url配置</p>
-<p>####Retrofit 支持的协议包括 GET/POST/PUT/DELETE/HEAD/PATCH，当然你也可以直接用 HTTP 来自定义请求。这些协议均以注解的形式进行配置</p>
-<p>###2.1,GET 的用法</p>
-<blockquote>
-<pre><code>@GET(&quot;users/{user}/repos&quot;)
-Call&lt;Object&gt; listRepos(@Path(&quot;user&quot;) String user);
-</code></pre></blockquote>
-<p>  这些注解都有一个参数 value，用来配置其路径,但是不能用于后缀的添加</p>
-<p>path 是相对路径，baseUrl 是目录形式：</p>
-<pre><code>path = &quot;apath&quot;，baseUrl = &quot;http://host:port/a/b/&quot;
-Url = &quot;http://host:port/a/b/apath&quot;
-</code></pre><p>配置共有四种配置方法</p>
-<p>配置的时候采取这种配置方式(baseurl最后以”/“结尾, path中不以”/“开头)</p>
-<p>###2.2,参数类型</p>
-<h4 id="0-Path"><a href="#0-Path" class="headerlink" title="0,Path"></a>0,Path</h4><p>path用于在url中动态配置url</p>
-<h4 id="1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field"><a href="#1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field" class="headerlink" title="1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)"></a>1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)</h4><pre><code>@GET(&quot;list&quot;)
-Call&lt;要转化成的对象&gt; list(@Query(&quot;page&quot;) int page);
-</code></pre><p>Query 其实就是 Url 中 ‘?’ 后面的 key-value，比如：<a href="http://www.println.net/?cate=android" target="_blank" rel="noopener">http://www.println.net/?cate=android</a></p>
-<p>这里的 cate=android 就是一个 Query，而我们在配置它的时候只需要在接口方法中增加一个参数，即可：</p>
-<pre><code>interface PrintlnServer{    
-   @GET(&quot;&quot;)    
-   Call&lt;Object&gt; cate(@Query(&quot;cate&quot;) String cate);
-}
-</code></pre><p>QueryMap用来表示多个(方法为)</p>
-<p>Query (Call<restaurantresponse> getVersion(@QueryMap HashMap&lt;String, String&gt; params);)</restaurantresponse></p>
-<p>2,Field &amp; FieldMap(用于POST方法提交表单请求体中的键值对, 此时仍然能在连接后面以Query添加参数)</p>
-<h4 id="PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。"><a href="#PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。" class="headerlink" title="PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。"></a>PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。</h4><pre><code>   @FormUrlEncoded
-   @POST(&quot;/&quot;)   
-   Call example(
-       @Field(&quot;name&quot;) String name,
-       @Field(&quot;occupation&quot;) String occupation);
-
-其实也很简单，我们只需要定义上面的接口就可以了，我们用 Field 声明了表单的项，这样提交表单就跟普通的函数调用一样简单直接了
-</code></pre><p>如果表单项不确定个数,可以使用FieldMap</p>
-<p>Call<restaurantresponse> getVersion(@FieldMap HashMap&lt;String, String&gt; params);</restaurantresponse></p>
-<p>3,Part &amp; PartMap(用于POST方法上传文件,get也可以使用该参数上传文件)</p>
-<p>表示请求正文是多部分的。零件应声明为参数并注释@Part。</p>
-<pre><code>public interface FileUploadService {  
-    @Multipart
-    @POST(&quot;upload&quot;)    
-    Call upload(@Part(&quot;description&quot;) RequestBody description,
-                                  @Part MultipartBody.Part file);
-}
-</code></pre><p>如果你需要上传文件，和我们前面的做法类似，定义一个接口方法，需要注意的是，这个方法不再有 @FormUrlEncoded 这个注解，而换成了 @Multipart，后面只需要在参数中增加 Part 就可以了。也许你会问，这里的 Part 和 Field 究竟有什么区别，其实从功能上讲，无非就是客户端向服务端发起请求携带参数的方式不同，并且前者可以携带的参数类型更加丰富，包括数据流。也正是因为这一点，我们可以通过这种方式来上传文件</p>
-<p><img src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png" alt=""></p>
-<h3 id="4-Converter-让入参和返回类型丰富"><a href="#4-Converter-让入参和返回类型丰富" class="headerlink" title="4,Converter 让入参和返回类型丰富"></a>4,Converter 让入参和返回类型丰富</h3><h4 id="4-1-RequestBodyConverter-自定义请求体"><a href="#4-1-RequestBodyConverter-自定义请求体" class="headerlink" title="4.1, RequestBodyConverter(自定义请求体)"></a>4.1, RequestBodyConverter(自定义请求体)</h4><pre><code>Retrofit 上传文件，这个上传的过程其实。。还是有那么点儿不够简练，我们只是要提供一个文件用于上传，可我们前后构造了三个对象：
-    file -- &gt; requestbody -- &gt; multipartbody.part
-</code></pre><p>Retrofit 允许我们自己定义入参和返回的类型，不过，如果这些类型比较特别，我们还需要准备相应的 Converter，也正是因为 Converter 的存在， Retrofit 在入参和返回类型上表现得非常灵活.</p>
-<p>###新的上传文件的接口</p>
-<pre><code>public interface FileUploadService {  
-    @Multipart
-    @POST(&quot;upload&quot;)    
-    Call upload(@Part(&quot;description&quot;) RequestBody description,        
-                //注意这里的参数 &quot;aFile&quot; 之前是在创建 MultipartBody.Part 的时候传入的
-                @Part(&quot;aFile&quot;) File file);
-}
-把入参类型改成了我们熟悉的 File，如果你就这么拿去发请求，服务端收到的结果是一个jsonstring(内部默认的是GsonRequestBodyConverter)
-</code></pre><p>所以就只能自己实现一个 FileRequestBodyConverter</p>
-<pre><code>static class FileRequestBodyConverterFactory extends Converter.Factory {    
-        @Override
-    public Converter requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {      
-       return new FileRequestBodyConverter();
-    }
-  }  
-
- static class FileRequestBodyConverter implements Converter&lt;File, RequestBody&gt; {    
-    @Override
-    public RequestBody convert(File file) throws IOException {      
-      return RequestBody.create(MediaType.parse(&quot;application/otcet-stream&quot;), file);
-    }
-  }
-</code></pre><p>然后在创建 Retrofit 的时候记得配置上它:</p>
-<pre><code>addConverterFactory(new FileRequestBodyConverterFactory())
-</code></pre><p>这样，我们的文件内容就能上传了</p>
-<h4 id="4-2-ResponseBodyConverter-这个一般也用不到"><a href="#4-2-ResponseBodyConverter-这个一般也用不到" class="headerlink" title="4.2 ResponseBodyConverter     //这个一般也用不到"></a>4.2 ResponseBodyConverter     //这个一般也用不到</h4><p>前面我们为大家简单示例了如何自定义 RequestBodyConverter，对应的，Retrofit 也支持自定义 ResponseBodyConverter。</p>
-<p>再来看下我们定义的接口：</p>
-<pre><code>public interface GitHubService {  
-   @GET(&quot;users/{user}/repos&quot;)
-  Call&lt;&gt; listRepos(@Path(&quot;user&quot;) String user);
-}
-</code></pre><p><img src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNonMewRmN43HYdsPbic2fmfKkWcdiazvnRCkDs451PmT7w6SqmkaQcZdA/640?wx_fmt=png" alt=""></p>
-<p>当然，别忘了在构造 Retrofit 的时候添加这个 Converter，这样我们就能够愉快的让接口返回 Result 对象了。</p>
-<blockquote>
-<p>注意！！Retrofit 在选择合适的 Converter 时，主要依赖于需要转换的对象类型，在添加 Converter 时，注意 Converter 支持的类型的包含关系以及其顺序。</p>
-</blockquote>
-<p>###Retrofit 原理分析</p>
-<p>####1,是谁实际上完成了接口请求的处理？</p>
-<h3 id="方法总结"><a href="#方法总结" class="headerlink" title="方法总结"></a>方法总结</h3><h4 id="最基本的配置"><a href="#最基本的配置" class="headerlink" title="最基本的配置"></a>最基本的配置</h4><pre><code>Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(&quot;http://192.168.31.242:8080/springmvc_users/user/&quot;)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build();
-IUserBiz userBiz = retrofit.create(IUserBiz.class);
-Call&lt;List&lt;User&gt;&gt; call = userBiz.getUsers();
-call.enqueue(new Callback&lt;List&lt;User&gt;&gt;()
-        {
-            @Override
-            public void onResponse(Call&lt;List&lt;User&gt;&gt; call, Response&lt;List&lt;User&gt;&gt; response)
-            {
-                Log.e(TAG, &quot;normalGet:&quot; + response.body() + &quot;&quot;);
-            }
-
-            @Override
-            public void onFailure(Call&lt;List&lt;User&gt;&gt; call, Throwable t)
-            {
-
-            }
-        });
-</code></pre><h4 id="1-一般的get请求"><a href="#1-一般的get请求" class="headerlink" title="1,一般的get请求"></a>1,一般的get请求</h4><pre><code>  `public interface IUserBiz {
-    @GET(&quot;users&quot;)
-    Call&lt;List&lt;User&gt;&gt; getUsers();
-}`
-这是最基本的get请求,没有任何参数及其他.
-</code></pre><h4 id="2-动态修改地址的get请求-–-使用-Path-注解"><a href="#2-动态修改地址的get请求-–-使用-Path-注解" class="headerlink" title="2,动态修改地址的get请求 – 使用 Path 注解"></a>2,动态修改地址的get请求 – 使用 Path 注解</h4><pre><code>public interface IUserBiz {
-    @GET(&quot;{username}&quot;)
-    Call&lt;User&gt; getUser(@Path(&quot;username&quot;) String username);
-}
-
-这是 使用 Path注解来动态修改url地址的get请求, 但是这个path只能用于修改url而不能用作修改后面的参数, 相当于url中的占位符.
-</code></pre><h4 id="3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解"><a href="#3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解" class="headerlink" title="3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解"></a>3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解</h4><pre><code>public interface IUserBiz {
-    @GET(&quot;users&quot;)
-    Call&lt;List&lt;User&gt;&gt; getUsersBySort(@Query(&quot;sortby&quot;) String sort);
-}
-
-eg: http://baseurl/users?sortby=username
-    http://baseurl/users?sortby=id
-
-这样我们就完成了参数的指定，当然相同的方式也适用于POST，只需要把注解修改为@POST即可。
-不同点在于, 这个 Query 注解代表的是在 url后面添加 参数而不是把参数防盗请求体中进行隐藏请求.
-</code></pre><h4 id="4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解"><a href="#4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解" class="headerlink" title="4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解"></a>4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解</h4><pre><code>public interface IUserBiz {
- @POST(&quot;add&quot;)
- Call&lt;List&lt;User&gt;&gt; addUser(@Body User user);
-}
-
-这是通过 Gson 把对象变成Json字符串然后传上去, 不过一般不需要这样,一般都是使用参数传的,所以这种情况的使用情况较少(暂时较少)
-</code></pre><h4 id="5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解"><a href="#5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解" class="headerlink" title="5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解"></a>5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解</h4><pre><code>public interface IUserBiz {
-    @POST(&quot;login&quot;)
-    @FormUrlEncoded
-    Call&lt;User&gt; login(@Field(&quot;username&quot;) String username, @Field(&quot;password&quot;) String password);
-}
-
-这是通过 FormUrlEncoded 进行标识后才能使用 field ,这是使用post的时候在请求体中 添加这些键值对(这种最常用) ,FieldMap注解 则是一个map对象, 表示多个field的参数, (一般用 fieldmap进行post请求,因为 一般请求的时候的参数较多,写多个field不合适.)
-</code></pre><h4 id="6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解"><a href="#6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解" class="headerlink" title="6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解"></a>6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解</h4><p>@part可以当成@field来使用,因为 @part是特殊的@field, @part比 @field多支持了文件的类型</p>
-<pre><code>文件上传应有的形式: 
-    Content-Disposition: form-data; name=&quot;file&quot;；filename=&quot;test.jpg&quot;
-普通使用Part注解添加的file:
-    Content-Disposition: form-data; name=&quot;file&quot;
-
-所以中心思想就是把  file 替换成 file&quot;；filename=&quot;test.jpg 通过拼接字符串的方式保存文件
-
-public interface DemoService {
-    @Multipart()
-    @POST(&quot;api/files&quot;)
-    Call&lt;ResponseInfo&gt; uploadFile(@Part(&quot;file\&quot;;filename=\&quot;test.jpg&quot;) RequestBody photo);
-}
-
-
-
-public interface IUserBiz {
-    @Multipart
-    @POST(&quot;register&quot;)
-    Call&lt;User&gt; registerUser(@Part MultipartBody.Part photo, @Part(&quot;username&quot;) 
-                 RequestBody username, @Part(&quot;password&quot;) RequestBody password);
-}
-
-这里@MultiPart的意思就是允许多个@Part了，我们这里使用了3个@Part.
-第一个我们准备上传个文件，使用了MultipartBody.Part类型，
-其余两个均为简单的键值对(这里的键值对说明也可以使用 string,string  的方式 ,上面的 string,requestbody形式并不是必须的 即可以: 
-    public interface IUserBiz {
-        @Multipart
-        @POST(&quot;register&quot;)
-        Call&lt;User&gt; registerUser(@Part MultipartBody.Part photo, @Part(&quot;username&quot;) 
-                    String username, @Part(&quot;password&quot;) String password);
-    }
-)
-
-使用的代码为:
-
-File file = new File(Environment.getExternalStorageDirectory(), &quot;icon.png&quot;);
-RequestBody photoRequestBody = RequestBody.create(MediaType.parse(&quot;image/png&quot;), file);
-MultipartBody.Part photo = MultipartBody.Part.createFormData(&quot;photos&quot;, &quot;icon.png&quot;, photoRequestBody);
-
-Call&lt;User&gt; call = userBiz.registerUser(photo, RequestBody.create(null, &quot;abc&quot;), RequestBody.create(null, &quot;123&quot;));
-</code></pre><h4 id="7-多文件上传-PartMap-–-使用-PartMap注解"><a href="#7-多文件上传-PartMap-–-使用-PartMap注解" class="headerlink" title="7,多文件上传@PartMap – 使用 PartMap注解"></a>7,多文件上传@PartMap – 使用 PartMap注解</h4><pre><code>public interface IUserBiz {
-     @Multipart
-     @POST(&quot;register&quot;)
-      Call&lt;User&gt; registerUser(
-             @PartMap Map&lt;String, RequestBody&gt; params, 
-            @Part(&quot;password&quot;) RequestBody password);
-}
-
-这里使用了一个新的注解@PartMap，这个注解用于标识一个Map，Map的key为String类型，代表上传的键值对的key(与服务器接受的key对应),value即为RequestBody，有点类似@Part的封装版本。
-</code></pre><p>执行代码:</p>
-<pre><code>File file = new File(Environment.getExternalStorageDirectory(), &quot;messenger_01.png&quot;);
-RequestBody photo = RequestBody.create(MediaType.parse(&quot;image/png&quot;, file);
-Map&lt;String,RequestBody&gt; photos = new HashMap&lt;&gt;();
-photos.put(&quot;photos\&quot;; filename=\&quot;icon.png&quot;, photo);
-             &quot;file\&quot;; filename=\&quot;test.jpg&quot;
-photos.put(&quot;username&quot;,  RequestBody.create(null, &quot;abc&quot;));
-
-Call&lt;User&gt; call = userBiz.registerUser(photos, RequestBody.create(null, &quot;123&quot;));
-
-可以看到，可以在Map中put进一个或多个文件，键值对等，当然你也可以分开，
-单独的键值对也可以使用 @Part，这里又看到设置文件的时候，相对应的key很奇怪，
-例如上例&quot;photos\&quot;; filename=\&quot;icon.png&quot;,前面的photos就是与服务器对应的key，
-后面filename是服务器得到的文件名，ok，参数虽然奇怪，但是也可以动态的设置文件名，不太影响使用
-
-这个的优势是可以动态的修改名字了,(因为 使用Part注解 value是写死的,所以值没法改,但是使用 PartMap注解 value是创建好传进去的,所以这个名字就可以修改了)
-</code></pre><h4 id="8-下载文件"><a href="#8-下载文件" class="headerlink" title="8,下载文件"></a>8,下载文件</h4><pre><code>public interface IUserBiz {
-    @GET(&quot;download&quot;)
-    Call&lt;ResponseBody&gt; downloadTest();
-}
-
-然后调用: 
-
-Call&lt;ResponseBody&gt; call = userBiz.downloadTest();
-call.enqueue(new Callback&lt;ResponseBody&gt;() {
-    @Override
-    public void onResponse(Call&lt;ResponseBody&gt; call, Response&lt;ResponseBody&gt; response)
-    {
-        InputStream is = response.body().byteStream();
-        //save file
-    }
-
-    @Override
-    public void onFailure(Call&lt;ResponseBody&gt; call, Throwable t)
-    {
-
-    }
-});
-</code></pre><h4 id="field-和-part-和-query-的区别"><a href="#field-和-part-和-query-的区别" class="headerlink" title="field 和 part 和 query 的区别:"></a>field 和 part 和 query 的区别:</h4><blockquote>
-<p>field 用于简单键值对的提交, 用在post请求中, 需要进行 @formurlencoude 注解进行标识(get无法使用,这个只能用于post请求体中)</p>
-<p>part 用于post请求中在field的基础上 可以携带文件进行提交(这个只能用于post请求体中)</p>
-<p>query 用于在url后面添加参数, post和get请求均可以使用</p>
-</blockquote>
-<p><a href="https://github.com/square/retrofit/issues/1063" target="_blank" rel="noopener">可以查看 直接使用requestbody的上传文件的解决 retrofit#1063</a></p>
-<p>@Part(“image\”; filename=\”image.jpg\” “) RequestBody image</p>
-<pre><code>public interface ApiInterface {
-    @Multipart
-    @POST (&quot;/api/Accounts/editaccount&quot;)
-    Call&lt;User&gt; editUser (
-         @Header(&quot;Authorization&quot;) String authorization, 
-         @Part(&quot;file\&quot;; filename=\&quot;pp.png&quot;) RequestBody file , 
-        @Part(&quot;FirstName&quot;) RequestBody fname, 
-        @Part(&quot;Id&quot;) RequestBody id);
-}
-</code></pre><h2 id="配置OkHttpClient"><a href="#配置OkHttpClient" class="headerlink" title="配置OkHttpClient"></a>配置OkHttpClient</h2><p>1,</p>
-<pre><code>.callFactory(new okhttp3.Call.Factory() {
-                    @Override
-                    public okhttp3.Call newCall(Request request) {
-                        OkHttpClient okHttpClient = new OkHttpClient();
-                        return okHttpClient.newCall(request);
-                    }
-                })
-
-可以单独写一个OkhttpClient的单例生成类，在这个里面完成你所需的所有的配置，然后将OkhttpClient实例通过方法公布出来，设置给retrofit
-callFactory方法接受一个okhttp3.Call.Factory对象，OkHttpClient即为一个实现类
-</code></pre><p>2,</p>
-<pre><code>.client(okhttpclient)
-
-也可以配置client
-</code></pre><p>//转换器 , 请求原始数据转换成对象(addConverterFactory()),一般将该数据转换成json</p>
-<p>Scalars (primitives, boxed, and String): com.squareup.retrofit2:converter-scalars:2.1.0</p>
-<p>Gson: com.squareup.retrofit2:converter-gson:2.1.0</p>
-<p>Jackson: com.squareup.retrofit2:converter-jackson:{最新版本号}</p>
-<p>Moshi: com.squareup.retrofit2:converter-moshi:{最新版本号}</p>
-<p>Protobuf: com.squareup.retrofit2:converter-protobuf:{最新版本号}</p>
-<p>Wire: com.squareup.retrofit2:converter-wire:{最新版本号}</p>
-<p>Simple XML: com.squareup.retrofit2:converter-simplexml:{最新版本号}</p>
-<p>//转换器 , 将返回的Call对象转换成其他 (addCallAdapterFactory()),一般将该数据转换成rxjava</p>
-<h1 id="注-添加header的方法"><a href="#注-添加header的方法" class="headerlink" title="注: 添加header的方法"></a>注: 添加header的方法</h1><p>该文章见<a href="http://blog.csdn.net/ghost_programmer/article/details/52372065" target="_blank" rel="noopener">retrofit 网络请求库 : http://blog.csdn.net/ghost_programmer/article/details/52372065</a></p>
-<h2 id="headers-和-header"><a href="#headers-和-header" class="headerlink" title="@headers 和 @header"></a>@headers 和 @header</h2><p>headers是在方法上部声明, 不能动态修改, 不可覆盖 , header 是在方法的参数中代表的, 可以动态设置</p>
-<h2 id="OKhttp-配置的时候在所有的request中添加header-Interceptor"><a href="#OKhttp-配置的时候在所有的request中添加header-Interceptor" class="headerlink" title="OKhttp  配置的时候在所有的request中添加header   Interceptor"></a>OKhttp  配置的时候在所有的request中添加header   Interceptor</h2><p>官方demo见 <a href="https://github.com/square/okhttp/wiki/Interceptors" target="_blank" rel="noopener">https://github.com/square/okhttp/wiki/Interceptors</a></p>
-<pre><code>Request request = chain.request();
-
-Response response = chain.proceed(request);
-</code></pre><h4 id="通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。"><a href="#通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。" class="headerlink" title="通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。"></a>通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。</h4><h4 id="对所有的请求都添加请求头"><a href="#对所有的请求都添加请求头" class="headerlink" title="对所有的请求都添加请求头"></a>对所有的请求都添加请求头</h4><pre><code>public okhttp3.Response intercept(Chain chain) throws IOException {
-    Request request = chain.request();
-    // 重写request
-    Request requestOverwrite = request.newBuilder().header(&quot;User-Agent&quot;,&quot;Android&quot;).build();
-
-    return chain.proceed(requestOverwrite);
-}
-</code></pre><h4 id="同理-要对所有的请求相应-response-添加header的话"><a href="#同理-要对所有的请求相应-response-添加header的话" class="headerlink" title="同理, 要对所有的请求相应 response 添加header的话"></a>同理, 要对所有的请求相应 response 添加header的话</h4><pre><code>@Override
-public okhttp3.Response intercept(Chain chain) throws IOException {
-    Request request = chain.request();
-    okhttp3.Response originalResponse = chain.proceed(request);
-
-    return originalResponse.newBuilder().header(&quot;Cache-Control&quot;,&quot;max-age=100&quot;).build();
-}
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/RecycleView学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/15/RecycleView学习/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
-                2018-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#RecycleView </p>
-<p>参考 <a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="noopener">Android RecyclerView 使用完全解析 体验艺术般的控件</a><br>和<br><a href="http://www.jianshu.com/p/804790b4c957" target="_blank" rel="noopener">RecycleView的基本使用</a></p>
-<p>##概述<br>RecycleView 在 support-v7包下</p>
-<p>其作用是用来代替 ListView和GridView</p>
-<p>其优点是:</p>
-<pre><code>提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现令人瞠目的效果。
-</code></pre><p>例如: </p>
-<p>1,你想要控制其显示的方式，请通过布局管理器LayoutManager</p>
-<p>2,你想要控制Item间的间隔（可绘制），请通过ItemDecoration</p>
-<p>3,你想要控制Item增删的动画，请通过ItemAnimator</p>
-<p>缺点是: </p>
-<pre><code>想要实现点击、长按事件，需要自己定义
-</code></pre><p>##基本使用方法</p>
-<pre><code>mRecyclerView = findView(R.id.id_recyclerview);
-//设置布局管理器
-mRecyclerView.setLayoutManager(layout);
-//设置adapter
-mRecyclerView.setAdapter(adapter)
-//设置Item增加、移除动画
-mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//添加分割线
-mRecyclerView.addItemDecoration(new DividerItemDecoration(
-                getActivity(), DividerItemDecoration.HORIZONTAL_LIST));
-</code></pre><p>###Just like ListView(主要流程的代码)</p>
-<p>主界面:</p>
-<pre><code>recyclerView = (RecyclerView) findViewById(gridRv);
-
-initData();
-//设置布局适配器
-recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//设置adapter
-mAdapter = new RecycleViewListAdapter(this, mDatas);
-recyclerView.setAdapter(mAdapter);
-</code></pre><p>adapter:</p>
-<pre><code>public class RecycleViewListAdapter extends RecyclerView.Adapter {
-    private List&lt;String&gt; mDatas;
-    private Context mContext;
-
-    public RecycleViewListAdapter(Context mContext, List&lt;String&gt; mDatas) {
-        this.mContext = mContext;
-        this.mDatas = mDatas;
-    }
-
-    public void setImages(List&lt;String&gt; mDatas) {
-        this.mDatas = mDatas;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_list_recycleview, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
-        return myViewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder myViewHolder = (MyViewHolder) holder;
-        myViewHolder.tv.setText(mDatas.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mDatas.size();
-    }
-
-    class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv;
-        public MyViewHolder(View view) {
-            super(view);
-            tv = (TextView) view.findViewById(R.id.recy_tv);
-        }
-    }
-}
-</code></pre><p>###ItemDecoration(添加分割线)<br>主要方法为:  mRecyclerView.addItemDecoration(ItemDecoration)</p>
-<p>该方法的参数为RecyclerView.ItemDecoration，该类为抽象类,该类的源码为: </p>
-<pre><code>public static abstract class ItemDecoration {
-
-    public void onDraw(Canvas c, RecyclerView parent, State state) {
-                onDraw(c, parent);
-     }
-
-
-    public void onDrawOver(Canvas c, RecyclerView parent, State state) {
-                onDrawOver(c, parent);
-     }
-
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
-                getItemOffsets(outRect, ((LayoutParams) view.getLayoutParams()).getViewLayoutPosition(),
-                        parent);
-    }
-
-    @Deprecated
-    public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent){
-                outRect.set(0, 0, 0, 0);
-    }
-}
-</code></pre><p>当我们调用mRecyclerView.addItemDecoration(ItemDecoration)方法添加decoration的时候，RecyclerView在绘制的时候，去会绘制decorator，即调用该类的onDraw和onDrawOver方法;</p>
-<p>1,onDraw方法先于drawChildren</p>
-<p>2,onDrawOver在drawChildren之后，一般我们选择复写其中一个即可。</p>
-<p>3,getItemOffsets 可以通过outRect.set()为每个Item设置一定的偏移量，主要用于绘制Decorator。</p>
-<p>需要自定义 可以参考: <a href="http://blog.csdn.net/lmj623565791/article/details/38173061" target="_blank" rel="noopener">Android 自定义RecyclerView 实现真正的Gallery效果</a></p>
-<p>###LayoutManager</p>
-<p>RecyclerView.LayoutManager, 这是一个抽象类，系统提供了3个实现类;</p>
-<p>1,LinearLayoutManager 现行管理器，支持横向、纵向。</p>
-<p>2,GridLayoutManager 网格布局管理器</p>
-<p>3,StaggeredGridLayoutManager 瀑布就式布局管理器</p>
-<p>使用GridLayoutManager , 代码为:</p>
-<pre><code>//mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-</code></pre><p>只需要修改LayoutManager即可</p>
-<p>但是改为GridLayoutManager以后，对于分割线，前面的DividerItemDecoration就不适用了，主要是因为它在绘制的时候，比如水平线，针对每个child的取值为:</p>
-<pre><code>final int left = parent.getPaddingLeft();
-final int right = parent.getWidth() - parent.getPaddingRight();
-</code></pre><p>因为每个Item一行，这样是没问题的。而GridLayoutManager时，一行有多个childItem，这样就多次绘制了，并且GridLayoutManager时，Item如果为最后一列（则右边无间隔线）或者为最后一行（底部无分割线）。</p>
-<p>这样的话需要修改gridview中的分割线item</p>
-<p>可以参考: <a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="noopener">文章开头的地址</a></p>
-<p>主要在getItemOffsets方法中，去判断如果是最后一行，则不需要绘制底部；如果是最后一列，则不需要绘制右边，整个判断也考虑到了StaggeredGridLayoutManager的横向和纵向，所以稍稍有些复杂。最重要还是去理解，如何绘制什么的不重要。一般如果仅仅是希望有空隙，还是去设置item的margin方便。</p>
-<p>StaggeredGridLayoutManager可以有三种用法<br>使用, StaggeredGridLayoutManager,代码: StaggeredGridLayoutManager.VERTICAL</p>
-<pre><code>// mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-</code></pre><p>这两种写法显示的效果是一致的，但是注意StaggeredGridLayoutManager构造的第二个参数传一个orientation，如果传入的是StaggeredGridLayoutManager.VERTICAL代表有多少列；那么传入的如果是StaggeredGridLayoutManager.HORIZONTAL就代表有多少行，比如本例如果改为：StaggeredGridLayoutManager.HORIZONTAL</p>
-<pre><code>mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.HORIZONTAL));
-</code></pre><p>固定为4行，变成了左右滑动。有一点需要注意，如果是横向的时候，item的宽度需要注意去设置，毕竟横向的宽度没有约束了，应为控件可以横向滚动了。 </p>
-<p>适用在需要横向滚动的情况下的listview 或者 gridview</p>
-<p>###条目动画 ItemAnimator</p>
-<p>item增加、删除的动画也是可配置的。</p>
-<p>ItemAnimator也是一个抽象类，好在系统为我们提供了一种默认的实现类</p>
-<pre><code>// 设置item动画
-mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-</code></pre><p>PS:这里更新数据集不是用adapter.notifyDataSetChanged()</p>
-<p>而是 notifyItemInserted(position)与notifyItemRemoved(position) </p>
-<p>否则没有动画效果。</p>
-<p>可以为adapter中添加了两个方法：<br>    public void addData(int position) {<br>            mDatas.add(position, “Insert One”);<br>            notifyItemInserted(position);<br>        }</p>
-<pre><code>    public void removeData(int position) {
-        mDatas.remove(position);
-        notifyItemRemoved(position);
-    }
-}
-</code></pre><p>因为只有一种动画, 所以可以去网上搜索一些比较好看的动画效果</p>
-<p><a href="https://github.com/search?l=Java&amp;o=desc&amp;p=1&amp;q=RecyclerView&amp;s=stars&amp;type=Repositories&amp;utf8=✓" target="_blank" rel="noopener">RecyclerView的一些动画效果</a></p>
-<p><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper" target="_blank" rel="noopener">一个比较好的动画的library</a></p>
-<p>###Click and LongClick(点击事件,,,recyclerview没有提供,所以需要自己写)</p>
-<p>实现的方式比较多，你可以通过mRecyclerView.addOnItemTouchListener去监听然后去判断手势，<br>当然你也可以通过adapter中自己去提供回调，这里我们选择后者，前者的方式，大家有兴趣自己去实现。</p>
-<pre><code>class HomeAdapter extends RecyclerView.Adapter&lt;HomeAdapter.MyViewHolder&gt; {
-
-//...
-    public interface OnItemClickLitener {
-        void onItemClick(View view, int position);
-        void onItemLongClick(View view , int position);
-    }
-
-    private OnItemClickLitener mOnItemClickLitener;
-
-    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
-    }
-
-    @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        holder.tv.setText(mDatas.get(position));
-
-        // 如果设置了回调，则设置点击事件
-        if (mOnItemClickLitener != null) {
-            holder.itemView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
-                }
-            });
-
-            holder.itemView.setOnLongClickListener(new OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
-                    return false;
-                }
-            });
-        }
-    }
-//...
-}
-</code></pre><p>adapter中自己定义了个接口，然后在onBindViewHolder中去为holder.itemView去设置相应<br>的监听最后回调我们设置的监听。</p>
-<p>然后在activity中添加监听</p>
-<pre><code>mAdapter.setOnItemClickLitener(new OnItemClickLitener(){
-
-            @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(HomeActivity.this, position + &quot; click&quot;,
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                Toast.makeText(HomeActivity.this, position + &quot; long click&quot;,
-                        Toast.LENGTH_SHORT).show();
-                        mAdapter.removeData(position);
-            }
-        });
-}
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/okhttp学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2919,7 +3238,7 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/okhttp学习/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2018/05/15/okhttp学习/" itemprop="url">OKhttp学习</a></h1>
         
 
         <div class="post-meta">
@@ -2931,7 +3250,7 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
                 2018-05-15
               </time>
             
@@ -2971,8 +3290,7 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
       
         
           
-            <p>###OKhttp学习</p>
-<p>1,http请求和响应步骤(7步)</p>
+            <p>1,http请求和响应步骤(7步)</p>
 <pre><code>1,经过三次握手简历tcp连接,在HTTP工作开始之前, Web浏览器首先要通过网络与Web服务器建立连接, 
     该连接是通过TCP来完成的, 该协议与IP协议共同构建Internet, 即著名的TCP/IP协议族
 
@@ -3549,1067 +3867,6 @@ try()代码块括号中的ResponseBody也实现了Closeable和AutoCloseable接�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Kotlin笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/15/Kotlin笔记/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:16:56+08:00">
-                2018-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#kotlin笔记</p>
-<p>###通过kotlin可以得到什么</p>
-<p>1,易表现</p>
-<p>通过Kotlin,可以更容易地避免模版代码,因为大部分的典型情况都在语言中默认覆盖实现了。(例如 javabean 类的编写)</p>
-<p>java中</p>
-<pre><code>`public class Artist {
-     private long id;
-     private String name;
-     public long getId() {
-         return id;
-     }
-     public void setId(long id) {
-         this.id = id;
-     }
-     public String getName() {
-         return name;
-     }
-     public void setName(String name) {
-         this.name = name;
-     }
-     @Override public String toString() {
-         return &quot;Artist{&quot; +
-         &quot;id=&quot; + id +
-         &quot;, name=&apos;&quot; + name + &apos;\&apos;&apos; +
-         &apos;}&apos;;
-     }
-}`
-</code></pre><p>kotlin中,我们只需要通过数据类：</p>
-<pre><code>data class Artist(
-    var id: Long,
-    var name: String,
-    var url: String,
-    var mbid: String)
-</code></pre><p>这个数据类，它会自动生成所有属性和它们的访问器，以及一些有用的方法，比如， toString()</p>
-<p>2,空安全</p>
-<p>Java中,如果我们不想遇到 NullPointerException ，我们就需要在使用它之前不停地去判断它是否为null</p>
-<p>而kotlin中,还有很多现代的语言，是空安全的,因为我们需要通过一个 安全调用操作符（写做?）来明确地指定一个对象是否能为空。<br>因此非空调用方法可以使用:  ?. 方法, 表示非空的时候调用方法, 如果为空的时候执行某方法的化 使用  ?:let{}    ,即?表示空判断 .表示非空调用方法 :表示为空的时候执行 后面接 let{} 方法体就执行let方法中的内容.</p>
-<pre><code>// 这里不能通过编译. Artist 不能是null
-var notNullArtist: Artist = null
-
-// Artist 可以是 null , 即如果一个数据可能为空时需要声明的,默认没有空值, 而java中默认是空
-var artist: Artist? = null
-
-// 无法编译, artist可能是null，我们需要进行处理
-artist.print()  可以通过 artist?.print()
-
-// 智能转换. 如果我们在之前进行了空检查，则不需要使用安全调用操作符调用    类似的还有 as :as 和java中的instenceof 相似,但是使用as后如果为true 就会自动转换为 as 之后的对象了
-if (artist != null) {
-    artist.print()
-}
-
-// 只有在确保artist不是null的情况下才能这么调用，否则它会抛出异常
-artist!!.print()    //!! 应该尽量少用,可以使用?.
-
-// 使用Elvis操作符来给定一个在是null的情况下的替代值
-val name = artist?.name?: &quot;empty&quot;
-</code></pre><p>3,扩展方法</p>
-<p>我们可以给任何类添加函数。它比那些我们项目中典型的工具类更加具有可读性。这样做的优点是 不需要为了给一些共有函数的共有方法抽取父类来进行统一添加某个方法, 可以直接在其父类中扩展一个 方法来使得其子类都含有该内容</p>
-<p>我们可以给fragment增加一个显示toast的函数：</p>
-<pre><code>fun Fragment.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(getActivity(), message, duration).show()
-}
-</code></pre><p>这样当我们在任何地方有该fragment或者其子类的时候都可以调用</p>
-<pre><code>fragment.toast(&quot;Hello world!&quot;)
-</code></pre><p>4,函数式支持(Lambdas) 将函数当做参数传入</p>
-<pre><code>有如下规则: 函数表达式的基本形式是 (参数) -&gt; 返回值
-所以传入的方法是 : view.setOnClickListener(listener(View) -&gt; { toast(&quot;Hello world!&quot;) })  //参数为 View , 结果为 toast()
-由于 当参数没有用到的时候 可以省略参数 
-
-每次我们去声明一个点击所触发的事件，可以只需要定义我们需要做些什么，而不是不得不去实现一个内部类？我们确实可以这么做，这个我们需要感谢lambda： 本质上就是 匿名内部类的 简写
-{ new OnclickListener(){} 省略 然后直接写其中的方法}
-
-`view.setOnClickListener { toast(&quot;Hello world!&quot;) }`
-</code></pre><p>即我们可以省略内部类的运用 具体调用方式为:当需要传入一个内部类作为参数的时候 可以 使用直接 {} 的方式代替, 然后{}中直接写入需要实现的方法体即可.</p>
-<p>##app</p>
-<p>###1,类的继承</p>
-<p>当一个类继承父类的时候, 如果父类是一个类, 则继承的时候需要实现super方法,就像这样:</p>
-<pre><code>class MainActivity : AppCompatActivity(){}
-</code></pre><p>但是如果父类是一个接口 ,则实现(继承)的时候可以不体现出super方法来 ,就像这样</p>
-<pre><code>class MainActivity : OnClickListener{}
-</code></pre><p>默认任何类都是基础继承自 Any  （与java中的 Object  类似），但是我们可以继承其它类。所有的类默认都是不可继承的（final），所以我们只能继承那些明确声明 open  或者 abstract  的类:</p>
-<pre><code>open class Animal(name: String)
-
-class Person(name: String, surname: String) : Animal(name)
-</code></pre><p>当我们只有单个构造器时，我们需要在从父类继承下来的构造器中指定需要的参数。这是用来替换Java中的 super  调用的。</p>
-<p>###2,定义一个类</p>
-<p>kotlin中 表示一个类 的关键字是 class。</p>
-<pre><code>class MainActivity{}
-</code></pre><p>它有一个默认唯一的构造器。如果需要参数只需要在类名后面写上它的参数。如果这个类没有任何内容可以省略大括号：</p>
-<pre><code>class Person(name: String, surname: String)    
-</code></pre><p>kotlin中没有static关键字, 也就没有静态代码块的说法, 所以如果想要在调用类之前初始化数据 需要使用 init{} 方法,即</p>
-<pre><code>class Person(name: String, surname: String) {
-    init{
-        //...
-    }
-}
-</code></pre><p>###3,函数</p>
-<p>函数可以使用 fun 关键字来定义:</p>
-<pre><code>fun onCreate(savedInstanceState: Bundle?) {
-}
-</code></pre><p>如果你没有指定它的返回值，它就会返回 Unit，与Java中的 void  类似，但是 Unit 是一个真正的对象。也可以指定任何其它的返回类型：</p>
-<pre><code>fun add(x: Int, y: Int) : Int {
-    return x + y
-}
-</code></pre><blockquote>
-<p>kotlin中每行代码后面的分号不是必须的</p>
-</blockquote>
-<p>然而如果返回的结果可以使用一个表达式计算出来，你可以不使用括号而是使用等号： 这里的重点是可以使用一个表达式 才可以使用等号</p>
-<pre><code>fun add(x: Int,y: Int) : Int = x + y
-</code></pre><p>###4,构造方法和函数参数</p>
-<p>Kotlin中的参数与Java中有些不同.我们需要先写参数的名字再写它的类型:    </p>
-<pre><code>fun add(x: Int, y: Int) : Int {
-    return x + y
-}
-</code></pre><p>我们可以给参数指定一个默认值使得它们变得可选，这是非常有帮助的。这里有一个例子，在Activity中创建了一个函数用来toast一段信息：</p>
-<pre><code>fun toast(message: String, length: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, length).show()
-}
-
-fun niceToast(message: String,
-tag: String = javaClass&lt;MainActivity&gt;().getSimpl
-eName(),
-length: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, &quot;[$tag] $message&quot;, length).show()
-}
-</code></pre><blockquote>
-<p>String模版</p>
-<p>在String中直接使用模版表达式。它可以帮助你很简单地在静态值和<br>变量的基础上编写复杂的String。在kotlin中任何时候使用一个 $  符号就可以插入一个表达式。如果这个表达式有一点复杂，则需要使用一对大括号括起来：”Your name is${user.name}”。</p>
-</blockquote>
-<p>##1,主界面</p>
-<p>####对象实例化</p>
-<blockquote>
-<p>对象实例化也是与Java中有些不同。kotlin中去掉了 new 关键字。这时构造函数仍然会被调用，但是省略了宝贵的四个字符.LinearLayoutManager(this)  创建了一个对象的实例.</p>
-</blockquote>
-<p>getter和setter的使用</p>
-<blockquote>
-<p>当类中有setter 和getter方法的时候 ,在kotlin中来调用很简单,例如 在recycler 中:</p>
-</blockquote>
-<blockquote>
-<p>recyclerView.layoutManager 或者 recyclerView.adapter表示 getter方法, 即他们表示 结果</p>
-</blockquote>
-<blockquote>
-<p>recyclerView.layoutManager = LinearLayoutManager(this) 和 recyclerView.adapter = WeatherAdapter(this, items) 则表示setter 方法 表示设置,结合对象的实例化则可以设置和获取了.</p>
-</blockquote>
-<p>list集合的创建</p>
-<blockquote>
-<p>可以通过使用一个函数 listOf  创建一个常量的List。它接收一个任何类型的 vararg  （可变长的参数），它会自动推断出结果的类型。</p>
-</blockquote>
-<blockquote>
-<p>还有很多其它的函数可以选择，比如 setOf  ， arrayListOf  或者 hashSetOf  。</p>
-</blockquote>
-<p>####变量和属性</p>
-<p>在Kotlin中，一切都是对象。没有像Java中那样的原始基本类型。这个是非常有帮助的，因为我们可以使用一致的方式来处理所有的可用的类型。</p>
-<p>####基本类型</p>
-<p>kotlin中像integer，float或者boolean等类型仍然存在，但是它们全部都会作为对象存在的。基本类型的名字和它们工作方式都是与Java非常相似的，但是有一些不同之处：</p>
-<p>1,数字类型中不会自动转型: 不能给 Double  变量分配一个 Int  。必须要做一个明确的类型转换，可以使用众多的函数之一：</p>
-<pre><code>val i:Int=7
-val d: Double = i.toDouble()
-</code></pre><p>2,字符（Char）不能直接作为一个数字来处理。在需要时我们需要把他们转换为一个数字：</p>
-<pre><code>val c:Char=&apos;c&apos;
-val i: Int = c.toInt()
-</code></pre><p>3,位运算也有一点不同。在Android中，我们经常在 flags  中使用“或”，所以我使用”and”和”or来举例：</p>
-<pre><code>// Java
-int bitwiseOr = FLAG1 | FLAG2;
-int bitwiseAnd = FLAG1 &amp; FLAG2;
-
-// Kotlin
-val bitwiseOr = FLAG1 or FLAG2
-val bitwiseAnd = FLAG1 and FLAG2
-</code></pre><p>4,字面上可以写明具体的类型。这个不是必须的，但是一个通用的Kotlin实践时省略变量的类型,所以我们可以让编译器自己去推断出具体的类型。</p>
-<pre><code>val i = 12     //int直接写
-val iHex = 0x0f //一个十六进制的Int类型 十六进制用 0x表示
-val l = 3L // A Long long类型在末位 加上 L 大写字母表示
-val d = 3.5 // int 和double 都可以自动识别
-val f = 3.5F // float 是在 double的基础上 加上大写的F表示
-</code></pre><p>string也可以自动识别</p>
-<p>5,一个String可以像数组那样访问，并且被迭代：<br>    val s = “Example”<br>    val c = s[2] // 这是一个字符’a’<br>    // 迭代String<br>    val s = “Example”<br>    for(c in s){<br>        print(c)<br>    }</p>
-<p>####变量</p>
-<p>kotlin中 变量可以很简单地定义成可变( var  )和不可变（ val  ）的变量。这个与Java中使用的 final  很相似。但是不可变在Kotlin（和其它很多现代语言）中是一个很重要的概念。</p>
-<p>kotlin中一个类的声明默认是不可变的 ,如果可以继承必须显式的标识为 abstract 或者 open 的, 但是java中默认是 可以修改或者继承的, 如果不可变是需要 用final修饰的</p>
-<blockquote>
-<p>一个不可变对象意味着它在实例化之后就不能再去改变它的状态了。如果你需要一个这个对象修改之后的版本，那就会再创建一个新的对象。这个让编程更加具有健壮性和预估性。在Java中，大部分的对象是可变的，那就意味着任何可以访问它这个对象的代码都可以去修改它，从而影响整个程序的其它地方。</p>
-</blockquote>
-<blockquote>
-<p>不可变对象也可以说是线程安全的，因为它们无法去改变，也不需要去定义访问控法去改变，也不需要去定义访问控</p>
-</blockquote>
-<p>我们通常不需要去指明类的类型，它会自动从后面分配的语句中推断出来，这样可以让代码更加清晰和快速修改。例如下面的例子:</p>
-<pre><code>val s = &quot;Example&quot; // A String
-val i = 23 // An Int
-val actionBar = supportActionBar // An ActionBar in an Activity context
-</code></pre><p>如果我们需要使用更多的范型类型，则需要指定：</p>
-<pre><code>val a: Any = 23        //因为默认只有一种, 如果想要用其他标识的化则需要声明类型,不过一般用不到, 因为声明的类型一般是其父类型.
-val c: Context = activity
-</code></pre><p>####属性</p>
-<p>kotlin中属性与Java中的字段是相同的，但是更加强大。属性做的事情是字段加上getter加上setter。 java中字段安全访问和修改需要getter和setter方法来处理, 而在kotlin中,只需要一个属性就可以了</p>
-<pre><code>public class Person {
-    var name: String = &quot;&quot;
-}
-
-val person = Person()
-person.name = &quot;name&quot;    //这个代表set方法
-val name = person.name    //这个代表get方法
-</code></pre><p>如果没有任何指定，属性会默认使用getter和setter。当然它也可以修改为你自定义的代码，并且不修改存在的代码：</p>
-<pre><code>public classs Person {
-    var name: String = &quot;&quot;
-        get() = field.toUpperCase()
-        set(value){
-        field = &quot;Name: $value&quot;
-    }
-}
-</code></pre><p>可以使用 field  这个预留字段来访问，它会被编译器找到正在使用的并自动创建。</p>
-<p>####Anko<br>Anko是JetBrains开发的一个强大的库。它主要的目的是用来替代以前XML的方式来使用代码生成UI布局。</p>
-<p>####扩展函数</p>
-<p>扩展函数数是指在一个类上增加一种新的行为，甚至我们没有这个类代码的访问权限。这是一个在缺少有用函数的类上扩展的方法。Kotlin中扩展函数的一个优势是我们不需要在调用方法的时候把整个对象当作参数传入。扩展函数表现得就像是属于这个类的一样，而且我们可以使用 this  关键字和调用所有public方法。 </p>
-<blockquote>
-<p>扩展函数的具体写法为: fun XXX(//要扩展的类).yyy(//要扩展的方法)(a:Any,b:Any)(//方法的参数){}(//方法体(方法体中的 this 关键字代表 该类))</p>
-<p>同时 ,这个函数的位置是属于方法级别的或者包级别的 ,不是在方法内部的.而且可以写在任何地方,所以可以抽取出来单独将同一类函数放在文件中</p>
-</blockquote>
-<p>例如:我们可以创建一个toast函数，这个函数不需要传入任何context，它可以被任何Context或者它的子类调用，比如Activity或者Service：</p>
-<pre><code>fun Context.toast(message:String, duration:Int = Toast.LENGTH_SHORT){
-    Toast.makeText(this,message,duration).show()
-}
-</code></pre><p>这个方法可以在Activity内部直接调用：</p>
-<pre><code>toast(&quot;Hello world!&quot;)
-toast(&quot;Hello world!&quot;, Toast.LENGTH_LONG)
-</code></pre><p>Anko已经包括了自己的toast扩展函数，跟上面这个很相似。Anko提供了一些针对 CharSequence  和 resource  的函数，还有两个不同的toast和longToast方法：</p>
-<pre><code>toast(&quot;Hello world!&quot;)
-longToast(R.id.hello_world)
-</code></pre><p>扩展函数也可以是一个属性。所以我们可以通过相似的方法来扩展属性。</p>
-<blockquote>
-<p>anko包本质上是一个工具类, org.jetbrains.anko:anko-commons 包中主要是对类的扩展方法, 包括不限于: AlertDialog 的封装扩展, Context 的封装扩展 , Logging 的封装扩展, Toast的扩展等等</p>
-</blockquote>
-<p>扩展函数并不是真正地修改了原来的类，它是以静态导入的方式来实现的。扩展函数可以被声明在任何文件中，因此有个通用的实践是把一系列有关的函数放在一个新建的文件里。</p>
-<blockquote>
-<p>即针对不同扩展可以进行抽取,因为可以在任何文件中声明,而且声明后可以在任何地方即时的使用.</p>
-</blockquote>
-<p>####执行一个请求</p>
-<blockquote>
-<p>使用网址: <a href="http://openweathermap.org/" target="_blank" rel="noopener">open weather</a></p>
-</blockquote>
-<blockquote>
-<p>一个简单的读取 某个 url 的返回值  </p>
-</blockquote>
-<blockquote>
-<pre><code>val forecastJsonStr = URL(url).readText()
-Log.i(&quot;alog&quot;, forecastJsonStr)
-</code></pre></blockquote>
-<blockquote>
-<p>Url(url).readText() 是kotlin中的保准扩展库,这个方法不推荐结果很大的json。相比较与 java 节省了大量的代码。比如 HttpURLConnection  、 BufferedReader  和需要达到相同效果所必要的迭代结果，管理连接状态、reader等部分的代码。</p>
-</blockquote>
-<p>####在主线程以外执行请求</p>
-<p>网络请求不允许在主线程中执行,Android中一般使用AsyncTask , 但是这个类使用效果比较差, Anko提供了非常简单的DSL来处理异步任务，它满足大部分的需求。</p>
-<blockquote>
-<p>Anko 中的 async  函数用于在其它线程执行代码，也可以选择通过调用 uiThread  的方式回到主线程。在子线程中执行请求如下这么简单：</p>
-</blockquote>
-<pre><code>doAsync() {
-    Request(url).run()
-    uiThread { longToast(&quot;Request performed&quot;) }
-}
-</code></pre><blockquote>
-<p>uiThread  有一个很不错的一点就是可以依赖于调用者。如果它是被一个 Activity  调用的，那么如果 activity.isFinishing()  返回 true  ，则 uiThread  不会执行，这样就不会在Activity销毁的时候遇到崩溃的情况了。</p>
-</blockquote>
-<p>##数据类</p>
-<p>数据类是一种非常强大的类，它可以让你避免创建Java中的用于保存状态但又操作非常简单的POJO的模版代码。它们通常只提供了用于访问它们属性的简单的getter和setter。定义一个新的数据类非常简单：</p>
-<pre><code>data class Forecast(val date: Date, val temperature: Float, val details: String)
-</code></pre><p>####额外的函数</p>
-<p>通过数据类，我们可以方便地得到很多有趣的函数，一部分是来自属性.</p>
-<blockquote>
-<p>equals(): 它可以比较两个对象的属性来确保他们是相同的。(kotlin 的equals 比较的是对象的属性, 而java中比较的是对象的地址)<br>hashCode(): 我们可以得到一个hash值，也是从属性中计算出来的。<br>copy(): 你可以拷贝一个对象，可以根据你的需要去修改里面的属性。<br>一系列可以映射对象到变量中的函数。</p>
-</blockquote>
-<p>####复制一个数据类</p>
-<p>可以使用copy 的方法</p>
-<pre><code>val f1 = Forecast(Date(), 27.5f, &quot;Shiny day&quot;)
-val f2 = f1.copy(temperature = 30f)
-</code></pre><p>####映射对象到变量中</p>
-<p>映射对象的每一个属性到一个变量中，这个过程就是我们知道的多声明。</p>
-<pre><code>val f1 = Forecast(Date(), 27.5f, &quot;Shiny day&quot;)
-val (date, temperature, details) = f1
-</code></pre><p>上面这个多声明会被编译成下面的代码：</p>
-<pre><code>val date = f1.component1()
-val temperature = f1.component2()
-val details = f1.component3()
-</code></pre><p>这个特性背后的逻辑是非常强大的，它可以在很多情况下帮助我们简化代码。举个例子， Map  类含有一些扩展函数的实现，允许它在迭代时使用key和value：</p>
-<pre><code>for ((key, value) in map) {
-    Log.d(&quot;map&quot;, &quot;key:$key, value:$value&quot;)
-}
-</code></pre><p>####转换json到数据类</p>
-<p>使用 GsonToKotlin 的 plugs 来进行对gson 的转换</p>
-<blockquote>
-<p>伴随对象 Companion objects</p>
-<blockquote>
-<p>Kotlin允许我们去定义一些行为与静态对象一样的对象。尽管这些对象可以用众所周知的模式来实现，比如容易实现的单例模式。</p>
-<p>我们需要一个类里面有一些静态的属性、常量或者函数，我们可以使用 companion objecvt  。这个对象被这个类的所有对象所共享，就像Java中的静态属性或者方法。</p>
-</blockquote>
-<p>这是因为 kotln 中没有 statc 的关键字, 所以想要使用静态常量就必须伴随对象了</p>
-</blockquote>
-<p>伴随对象的写法:</p>
-<pre><code>public class ForecastRequest(val zipCode: String=&quot;1816670&quot;) {
-    companion object {
-        private val URL = &quot;http://samples.openweathermap.org/data/2.5/forecast/daily?appid=b1b15e88fa797225412429c1c50c122a1&amp;id=&quot;
-        private val COMPLETE_URL = &quot;$URL&amp;id=&quot;
-    }
-
-    fun execute(): ForecastResult {
-        val forecastJsonStr = URL(COMPLETE_URL + zipCode).readText()
-        return Gson().fromJson(forecastJsonStr, ForecastResult::class.java)
-    }
-}
-</code></pre><p>####构建domain层<br>我们现在创建一个新的包作为 domain  层。这一层中会包含一些 Commands  的实现来为app执行任务。</p>
-<p>首先，必须要定义一个 Command  ：</p>
-<pre><code>public interface Command&lt;T&gt; {
-    fun execute(): T
-}
-</code></pre><p>这个command会执行一个操作并且返回某种类型的对象，这个类型可以通过范型被指定。</p>
-<blockquote>
-<p>一切kotlin函数都会返回一个值。如果没有指定，它就默认返回一个 Unit  类。<br>所以如果我们想让Command不返回数据，我们可以指定它的类型为Unit。<br>1 ,如果当 返回值可以句代码来处理可以直接使用 = 结果操作 的方式来快速返回<br>2 , Kotlin 中的接口 中声明的方法可以包含代码<br>3 , 当我们使用了两个相同名字的类，我们可以给其中一个指定一个别名，这样我们就不需要写完整的包名了：</p>
-<blockquote>
-<p>import com.czb.weatherkotlin.bean.Forecast as ModelForecast</p>
-</blockquote>
-</blockquote>
-<p>#####知识点: 在创建 list 的时候 可以使用方法 </p>
-<pre><code>list.map { convertForecastItemToDomain(it) }
-</code></pre><blockquote>
-<p>这个 map 方法是 kotlin 中对 collectons 类的标准扩展库, 用来将一个 可迭代的 数据转换成一个 list<r> 数据,其源码是:</r></p>
-</blockquote>
-<pre><code>public inline fun &lt;T, R&gt; Iterable&lt;T&gt;.map(transform: (T) -&gt; R): List&lt;R&gt; {
-    return mapTo(ArrayList&lt;R&gt;(collectionSizeOrDefault(10)), transform)
-}
-</code></pre><blockquote>
-<p>通过这一条语句，我们就可以循环这个集合并且返回一个转换后的新的List。<br>Kotlin在List中扩展提供了很多不错的函数操作符，它们可以在这个List的每个item中应用这个操作并且任何方式转换它们。<br>it 指代的是 list 中迭代的每一个数据</p>
-</blockquote>
-<p>adapter 中:</p>
-<pre><code>class WeatherAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter&lt;WeatherAdapter.WeatherViewHolder&gt;() {
-
-    override fun getItemCount(): Int {
-        TODO(&quot;not implemented&quot;) //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
-        with(weekForecast.forecast[position]) {
-            holder.itemView as TextView
-            holder.itemView.text = &quot;$date - $notice - $high - $low&quot;
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
-        return WeatherViewHolder(TextView(parent.context))
-    }
-
-    class WeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    }
-}
-</code></pre><blockquote>
-<p>with函数  </p>
-<blockquote>
-<p>with是一个非常有用的函数，它包含在Kotlin的标准库的util工具包中。<br>它接收一个对象和一个扩展函数作为它的参数，然后使这个对象扩展这个函数。<br>这表示所有我们在括号中编写的代码都是作为对象（第一个参数）的一个扩展函数，我们可以就像作为this一样使用所有它的public方法和属性。<br>当我们针对同一个对象做很多操作的时候这个非常有利于简化代码。</p>
-</blockquote>
-</blockquote>
-<p>with函数的使用方法是:  with(扩展对象){扩展函数}</p>
-<pre><code>with(object){
-    //该方法体内可以直接使用object的方法, 就相当于在 object内部一样来操作其中的数据
-}
-</code></pre><p>##操作符重载</p>
-<p>Kotin有一些固定数量象征性的操作符，我们可以在任何类中很容易地使用它们。</p>
-<blockquote>
-<p>创建一个方法，方法名为保留的操作符关键字，这样就可以让这个操作符的行为映射到这个方法。重载这些操作符可以增加代码可读性和简洁性。</p>
-</blockquote>
-<p>####操作符表</p>
-<p> 操作符  和 对应方法 对应方法必须在指定的类中通过各种可能性被实现。</p>
-<blockquote>
-<p>操作符是运用在代码中的运算方式, java中直接对操作符进行操作, 而在kotlin中会对操作符进行统一,即将进行对象进行 方法计算</p>
-</blockquote>
-<p>一元操作符</p>
-<blockquote>
-<p>+a –&gt; a.unaryPlus()</p>
-<p>-a –&gt; a.unaryMinus()</p>
-<p>!a –&gt; a.not()</p>
-<p>a++ –&gt; a.inc()</p>
-<p>a– –&gt; a.dec()</p>
-</blockquote>
-<p>二元操作符</p>
-<blockquote>
-<p>a+b  –&gt;  a.plus(b)</p>
-<p>a-b  –&gt;  a.minus(b)</p>
-<p>a*b  –&gt;  a.times(b)</p>
-<p>a/b  –&gt;  a.div(b)</p>
-<p>a%b  –&gt;  a.mod(b)</p>
-<p>a..b –&gt;  a.rangeTo(b)   –  表示从 a到 b(1..4表示 从1到4)</p>
-<p>a in b  –&gt;  a.contans(b) – 表示a是否在b中</p>
-<p>a !in b –&gt;  !a.contains(b)</p>
-<p>a+=b –&gt;  a.plusAssign(b)  –  表示a+b的结果赋值给a</p>
-<p>a-=b –&gt;  a.minusAssign(b)</p>
-<p>a*=b –&gt;  a.tiimesAssign(b)</p>
-<p>a/=b –&gt;  a.divAssign(b)</p>
-<p>a%=b –&gt;  a.modAssign(b)</p>
-</blockquote>
-<p>数组操作符</p>
-<blockquote>
-<p>a[i]  –&gt;  a.get(i)</p>
-<p>a[i,j] –&gt; a.get(i,j)</p>
-<p>a[i_1,…,i_n] –&gt; a.get(i_1,…,i_n)</p>
-<p>a[i]=b –&gt; a.set(i,b)</p>
-<p>a[i,j]=b –&gt;  a.set(i,j,b)</p>
-<p>a[i_q,…,i_n]=b  –&gt;  a.set(i_1,…,i_n,b)</p>
-</blockquote>
-<p>等于操作符</p>
-<blockquote>
-<p>a==b –&gt; a?.equels(b)?:b===null – 表示a若不为null和b进行比较</p>
-<p>a!=b –&gt; !(a?.equals(b)?:b===null)</p>
-<blockquote>
-<p>相等操作符有一点不同，为了达到正确合适的相等检查做了更复杂的转换</p>
-</blockquote>
-<blockquote>
-<p>kotlin中的 === 符号相当于 java中的 == ,!== 相当于 !=</p>
-</blockquote>
-</blockquote>
-<p>函数调用</p>
-<blockquote>
-<p>a(i)  –&gt;  a.invoke(i)</p>
-<p>a(i,j) –&gt; a.invoke(i,j)</p>
-<p>a(i_1,…,i_n)  –&gt;  a.invoke(i_1,…,i_n)</p>
-</blockquote>
-<blockquote>
-<p>kotln list是实现了 数字操作符的,所以可以像java中的数组一样访问list的每一项.</p>
-</blockquote>
-<p>####扩展函数中的操作符 –&gt;  将操作符灵活运用(因为kotlin中的每一个操作符 都是有其对应的方法,扩展这些方法就可以实现更加方便的功能)</p>
-<blockquote>
-<p>如果要扩展操作符 , 则要扩展的方法 必须用 operator 关键字修饰</p>
-<p>操作符的本质就是 通过操作符可以用来替换 其代表的方法 , 所以当 想要使用  a[i] 的时候 则代表 调用 a.get(i) 的方法, 因此 a中必须要有 get(position:Int) 的方法. 同时由于想要使用 操作符,则 get方法必须用 operator 修饰, 否则只能使用 a.get(i)方法 而不能使用操作符 a[i], 因此operator 本质上表示声明一下该方法可以被使用作操作符<br>List 中可以使用 a[i] 来方便快捷的获取到i位置的 对象就是因为 List集合被 kotlin 扩展了 get() 方法, 同时该方法用 operator 来修饰了.</p>
-</blockquote>
-<p>我们不需要去扩展我们自己的类，但是我需要去使用扩展函数扩展我们已经存在的类来让第三方的库能提供更多的操作。</p>
-<p>例如:我们可以去像访问List的方式去访问 ViewGroup  的view：</p>
-<pre><code>operator fun ViewGroup.get(position: Int): View = getChildAt(position)
-</code></pre><p>在代码中</p>
-<pre><code>val container: ViewGroup = find(R.id.container)
-val view = container[2]
-</code></pre><blockquote>
-<p>对类的扩展可以分为两种, 扩展方法和扩展属性, 扩展属性的化需要为其设置 get()={} ,的获取方法</p>
-</blockquote>
-<p>扩展 Context 的一个属性 ctx</p>
-<pre><code>val View.ctx: Context
-    get() = context
-</code></pre><p>####kotlin中创建匿名内部类</p>
-<pre><code>recyclerView.adapter = WeatherAdapter(result, object : OnItemClickListener {
-                    override fun invoke(forecast: Forecast) {
-                        toast(&quot;设置成功&quot;)
-                    }
-                })
-</code></pre><p>创建一个匿名内部类，我们去创建了一个实现了刚刚创建的接口的对象。</p>
-<p>##Lambdas</p>
-<p>####Lambda表达式是一种很简单的方法，去定义一个匿名函数。Lambda是非常有用的，因为它们避免我们去写一些包含了某些函数的抽象类或者接口，然后在类中去实现它们。在Kotlin中，我们把一个函数作为另一个函数的参数。</p>
-<blockquote>
-<p>lambdas表达式的主要功能有</p>
-<blockquote>
-<p>1,避免抽象类的接口, 可以使代码更加简洁  a.setOnclickListener{toast(“aa”)}</p>
-</blockquote>
-</blockquote>
-<p>####lambdas 使用 1 ,简化setOnClickListener()</p>
-<p>在java中 , 首先要编写一个 OnClickListener  接口,然后要编写一个匿名内部类去实现这个接口. 当使用匿名内部类的时候 , 需要使用 object 来声明匿名,, 因为如果使用其他名字就不是匿名了</p>
-<p>将java函数转换成kotlin,也是使用了 内部类的方式</p>
-<pre><code>view.setOnClickListener(object : OnClickListener {
-    override fun onClick(v: View) {
-        toast(&quot;Click&quot;)
-    }
-}
-</code></pre><p>Kotlin允许Java库的一些优化</p>
-<p>当Interface中包含单个函数可以被替代为一个函数。因此,上面的代码会正常执行这段代码:</p>
-<pre><code>fun setOnClickListener(listener: (View) -&gt; Unit)
-
-这样表示 setOnclickListener 方法中接收一个 Listener , 参数为 View,返回值Unit    
-</code></pre><p>一个lambda表达式通过参数的形式被定义在箭头的左边（被圆括号包围），然后在箭头的右边返回结果值。在这个例子中，我们接收一个View，然后返回一个Unit（没有东西）。所以根据这种思想，我们可以把前面的代码简化成这样：</p>
-<pre><code>view.setOnClickListener({ view -&gt; toast(&quot;Click&quot;)})
-</code></pre><p>当我们定义了一个方法，我们必须使用大括号包围，然后在箭头的左边指定参数，在箭头的右边返回函数执行的结果。##### 如果左边的参数没有使用到，我们甚至可以省略左边的参数： </p>
-<pre><code>view.setOnClickListener({ toast(&quot;Click&quot;) })
-</code></pre><p>如果这个函数的#### 最后一个 ####参数是一个函数，我们可以把这个函数移动到圆括号外面：最后一个参数是函数可以移出来, 意味着如果一个函数移出来了说明该函数是最后一个参数</p>
-<pre><code>view.setOnClickListener() { toast(&quot;Click&quot;) }
-</code></pre><p>并且，最后，如果这个函数没有其他的参数，我们可以省略这个圆括号：</p>
-<pre><code>view.setOnClickListener { toast(&quot;Click&quot;) }
-</code></pre><p>比原始的Java代码简短了5倍多，并且更加容易理解它所做的事情。非常让人影响深刻。</p>
-<p>####lambdas 使用 2 , 简化其他代码<br>因此,在实际使用的时候 WeatherAdapter 接收的参数变成了<br>    WeatherAdapter(val weekForecast: ForecastList, val itemClick: (Forecast) -&gt; Unit) </p>
-<blockquote>
-<p>上面的代码表示 adapter中接收一个 名字为 itemClick 的参数 , 该参数是 lambdas 表达式 ,表示 接收一个 Forecast 对象的函数 ,返回一个 Unit ,因此 ,adapter就成了</p>
-</blockquote>
-<pre><code>val adapter = WeatherAdapter(result, { forecast -&gt; toast(&quot;aa&quot;) })
-</code></pre><blockquote>
-<p>由于最后一个参数是一个函数 ,所以将函数移动到括号外面</p>
-</blockquote>
-<pre><code>val adapter = WeatherAdapter(result) { forecast -&gt; toast(&quot;aa&quot;) }
-</code></pre><blockquote>
-<p>因为还有其他的参数 ,不能省略括号, 参数没有用到 所以最终的代码为</p>
-</blockquote>
-<pre><code>val adapter = WeatherAdapter(result) { toast(&quot;aa&quot;) }
-</code></pre><blockquote>
-<p>同时, 如果一个函数只接受一个参数, 那我们可以使用 it  引用，而不用去指定左边的参数。因此 ,adapter 的实际代码为:</p>
-</blockquote>
-<pre><code>val adapter = ForecastListAdapter(result) { toast(it.date) }
-</code></pre><p>####lambdas 使用 3 , 扩展语言</p>
-<p>我们可以去创建自己的 builder  和代码块。我们已经在使用一些有趣的函数，比如 with  。如下简单的实现：<br>    inline fun <t> with(t: T, body: T.() -&gt; Unit) { t.body() }</t></p>
-<blockquote>
-<p>这里的第二个参数  body: T.() -&gt; Unit 也是一个lambdas表达式</p>
-</blockquote>
-<blockquote>
-<p>方法是with ,接受两个参数 t:T ,表示一个对象; body:T.() ,表示接收一个函数,这个函数的方法名为body ; -&gt; Unit ,表示无返回值 ;{t.body()} ,这是 with方法的方法体, 和调用with方法的对象无关, 这个方法体表示 对象 t 调用传入的方法 body() ,因此, with 在使用的时候一般是:()</p>
-</blockquote>
-<pre><code>with(object,{})
-</code></pre><p>因为没有返回值,或者第二个参数是一个函数,所以将内容放在括号外面<br>    with(object){<br>    }</p>
-<p>这个函数接收一个 T  类型的对象和一个被作为扩展函数的函数。它的实现仅仅是让这个对象去执行这个函数。因为第二个参数(最后一个参数)是一个函数，所以我们可以把它放在圆括号外面，所以我们可以创建一个代码块，在这这个代码块中我们可以使用 this  和直接访问所有的public的方法和属性：<br>    with(forecast) {<br>        Picasso.with(itemView.ctx).load(iconUrl).into(iconView)<br>        dateView.text = date<br>        descriptionView.text = description<br>        maxTemperatureView.text = “$high”<br>        minTemperatureView.text = “$low”<br>        itemView.setOnClickListener { itemClick(this) }<br>    }</p>
-<blockquote>
-<p>内联函数</p>
-<blockquote>
-<p>内联函数与普通的函数有点不同。一个内联函数会在编译的时候被替换掉，而不是真正的方法调用。<br>这在一些情况下可以减少内存分配和运行时开销。<br>例如:如果我们有一个函数，只接收一个函数作为它的参数。如果是一个普通的函数，内部会创建一个含有那个函数的对象。<br>另一方面，内联函数会把我们调用这个函数的地方替换掉，所以它不需要为此生成一个内部的对象。</p>
-</blockquote>
-</blockquote>
-<p>例如: 我们可以创建代码块只提供 Lollipop  或者更高版本来执行：</p>
-<pre><code>inlne fun supportsLollipop(code:()-&gt;Unit){
-    if(Build.VERSION.SDK_INT &gt;= Build.VERSIION_CODES.LOLLIIPOP){
-        code()
-    }
-}
-</code></pre><p>它只是检查版本，然后如果满足条件则去执行。现在我们可以这么做：</p>
-<pre><code>supportsLollipop {
-    window.setStatusBarColor(Color.BLACK)
-}
-</code></pre><p>Anko也是基于这个思想来实现 Android Layout  的 DSL  化。</p>
-<p>##可见性修饰符</p>
-<p>Kotlin中的修饰符是与我们Java中的使用有些不同的。在这个语言中默认的修饰符是 public  ，这节约了很多的时间和字符。因为 默认是 public的 ,所以在其他地方默认的参数都是可以使用的, java中默认是 default 的,它的权限和 protected 差不多, 所以其他地方默认不可使用</p>
-<p>###修饰符</p>
-<p>####private – 可以修饰 类,接口,成员 </p>
-<p>private  修饰符是我们使用的最限制的修饰符。它表示它只能被自己所在的文件可见,如果我们给一个类声明为 private , 我们就不能再定义这个类之外的文件中使用它.</p>
-<p>另一方面,如果我们在一个类里面使用了 private 修饰符,那访问权限就被限制在这个类里面了.甚至是继承这个类的子类也不能使用它.</p>
-<p>所以一等公民，类、对象、接口……（也就是包成员）如果被定义为 private  ，那么它们只会对被定义所在的文件可见。如果被定义在了类或者接口中，那它们只对这个类或者接口可见。</p>
-<p>####protected – 可以修饰 成员</p>
-<p>这个修饰符只能被用在类或者接口中的成员上。一个包成员不能被定义为 protected  。</p>
-<p>定义在一个成员中，就与Java中的方式一样了：它可以被成员自己和继承它的成员可见（比如，类和它的子类）。</p>
-<p>####internal – 可以修饰 类,接口,成员 </p>
-<p>如果是一个定义为 internal  的包成员的话，对所在的整个 module  可见。</p>
-<blockquote>
-<p>如果是 类或者接口 对module可见</p>
-</blockquote>
-<p>如果它是一个 成员，它就需要依赖那个领域的可见性了。</p>
-<blockquote>
-<p>比如，如果我们写了一个 private  类，那么它的 internal  修饰的函数的可见性就会限制与它所在的这个类的可见性。<br>成员用 internal 修饰的时候理论上也是可以被 module 中访问, 但是由于类可能被 private 修饰了, 造成了其他地方不可以访问了</p>
-</blockquote>
-<p>我们可以访问同一个 module  中的 internal  修饰的类，但是不能访问其它 module  的。</p>
-<blockquote>
-<p>什么是 module</p>
-<blockquote>
-<p>根据Jetbrains的定义，一个 module  应该是一个单独的功能性的单位，它应该是可以被单独编译、运行、测试、debug的。<br>根据我们项目不同的模块，可以在Android Studio中创建不同的 module。<br>即一个module就是一个模块, 实际项目中 app 属于一个模块,当依赖第三方库的时候,第三方库就是一个module</p>
-</blockquote>
-</blockquote>
-<p>####public – 可以修饰 类,接口,成员</p>
-<p>最没有限制的修饰符。默认的修饰符，成员在任何地方被修饰为 public  ，很明显它只限制于它的领域。</p>
-<p>一个定义为 public  的成员被包含在一个 private  修饰的类中，这个成员在这个类以外也是不可见的。</p>
-<blockquote>
-<p>public默认修饰类的, 所以这个类可以轻易被找到; 而java中默认不是public ,所以没有被public修饰的类不能访问.<br>kotlin中 的类不仅默认被public修饰, 而且默认被 final 修饰,final 和 open,protected 是互斥的 ,被final修饰的类不能被继承,所以kotlin中需要被继承的类是需要用 open 或者 protected 修饰的, 而java中 默认没有被final修饰, 所以是默认可以继承的.<br>即 public修饰 可见性, open 修饰可否被继承, protected修饰的类 默认是 open的,因为 protected如果默认被 final修饰的话没意义.</p>
-</blockquote>
-<p>###构造器 – 构造函数的多种样式</p>
-<p>所有构造函数默认都是 public  的，它们类是可见的，可以被其它地方使用。我们也可以使用这个语法来把构造函数修改为 private  ：在 类声明后 添加 private constructor</p>
-<pre><code>class C ( a: Int ){ ... } 
-
-class C private constructor(a: Int) { ... }
-</code></pre><p>在Kotlin中，我们不需要去指定一个函数的返回值类型，它可以让编译器推断出来。例如:</p>
-<pre><code>data class ForecastList(val city: String, val date: String,
-                        private val forecast: List&lt;Forecast&gt;) {
-    operator fun get(position: Int) = forecast[position]
-    fun size(): Int = forecast?.size
-}
-</code></pre><blockquote>
-<p>这里的 operator fun get(position: Int) = forecast[position] 方法就非常好用<br>首先 operator+get(position)方法可以使用 obj[position] 来获取<br>其次 forecast[position] 获取到的是一个非常明确的 Forecast 对象,因此当get方法返回的是一个 Forecast 对象的时候就可以不指定返回值类型 进而让编译器自动推断出来返回结果.</p>
-</blockquote>
-<p>我们可以省略返回值类型的典型情景是当我们要给一个函数或者一个属性赋值的时候。而不需要去写代码块去实现。 即当调用  =xxx 方法的时候因为赋值的时候对象很明确,所以可以不需要声明返回值类型.如果有代码块的时候一般的返回值是不确定的.</p>
-<p>##Kotlin Android Extensions – 类似于databinding 的 kotlin插件</p>
-<p>使用方式: </p>
-<p> 在activity中需要手动导入activity 的 layout </p>
-<pre><code>import kotlinx.android.synthetic.main.activity_main.*
-</code></pre><p> 如果actvity 中 通过 include 标签增加了 内嵌的布局, 还需要手工导入这个layout</p>
-<pre><code>import kotlinx.android.synthetic.main.content_main.*
-</code></pre><p> 如果在 adapter 或者 自定义 view 中,也需要 导入这个 layout</p>
-<pre><code>import kotlinx.android.synthetic.main.item_forecast.view.*
-</code></pre><p> 如果我们需要一个adapter，比如，我们现在要从inflater的View中访问属性：</p>
-<pre><code>view.textView.text = &quot;Hello&quot;
-</code></pre><blockquote>
-<p>新版的中 ,最简单的方法就是直接使用, 然后会自动导入, 添加上classespath 之后就可以直接使用了.</p>
-</blockquote>
-<p>##Application单例化和属性的Delegated</p>
-<h3 id="Application单例化"><a href="#Application单例化" class="headerlink" title="Application单例化"></a>Application单例化</h3><p>原因:Android有一个问题，就是我们不能去控制很多类的构造函数。比如，我们不能初始化一个非null属性，因为它的值需要在构造函数中去定义。所以我们需要一个可null的变量，和一个返回非null值的函数。我们知道我们一直都有一个 App  实例，但是在它调用 onCreate  之前我们不能去操作任何事情，所以我们为了安全性，我们假设 instance()  函数将会总是返回一个非null的 app  实例。</p>
-<p>但是这个方案看起来有点不自然。我们需要定义个一个属性，然后通过一个函数来返回那个属性。因此,我们可以通过委托这个属性的值给另外一个类。这个就是我们知道的 委托属性  。</p>
-<h3 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h3><p>我们可能需要一个属性具有一些相同的行为，使用 lazy  或者 observable  可以被很有趣地实现重用。而不是一次又一次地去声明那些相同的代码，Kotlin提供了一个委托属性到一个类的方法。这就是 委托属性  。</p>
-<blockquote>
-<p>委托属性 指的是 将 一个类的属性的值 委托到另一个类, 在一个单例类中, 就可以将自己的单例的 instence 属性委托到另一个类 , 这样当其他的 类中需要单例的时候也可以委托 其instence 到这个类中, 就避免重复的每个类都为自己的 单例 来赋值,这样就不需要声明 单例创建的那些相同的代码了</p>
-</blockquote>
-<p>当我们使用属性的 get  或者 set  的时候，属性委托 的 getValue  和 setValue  就会被调用。</p>
-<p>属性委托的结构如下：</p>
-<pre><code>class Delegate&lt;T&gt; : ReadWriteProperty&lt;Any?, T&gt; {
-    fun getValue(thisRef: Any?, property: KProperty&lt;*&gt;): T {
-        return ...
-    }
-    fun setValue(thisRef: Any?, property: KProperty&lt;*&gt;, value: T) {
-        ...
-    }
-}
-</code></pre><p>这个T是委托属性的类型. getValue 函数接收一个类的引用和一个属性的 元数据.<br>setValue函数又接收了一个 被设置的值. 如果这个属性是不可修改(val),就只会有一个getValue函数</p>
-<p>属性委托的设置方法：</p>
-<pre><code>class Example {
-    var p: String by Delegate()
-}
-</code></pre><p>使用了 by  这个关键字来指定一个委托对象。</p>
-<blockquote>
-<p>委托的 关键字就是 by关键字, 通过by可以指定委托对象.</p>
-</blockquote>
-<h3 id="标准委托"><a href="#标准委托" class="headerlink" title="标准委托"></a>标准委托</h3><p>Kotlin的标准库中有一系列的标准委托。它们包括了大部分有用的委托，但是我们也可以创建我们自己的委托。</p>
-<h4 id="Lazy"><a href="#Lazy" class="headerlink" title="Lazy"></a>Lazy</h4><p>它包含一个lambda，当第一次执行 getValue  的时候这个lambda会被调用，所以这个属性可以被延迟初始化。之后的调用都只会返回同一个值。当我们在它们第一次真正调用之前不是必须需要它们的时候。我们可以节省内存，在这些属性真正需要前不进行初始化。</p>
-<blockquote>
-<p>延迟初始化, 即在首次调用之前不进行初始化, 类似于java中的instence的恶汉式</p>
-</blockquote>
-<pre><code>class App : Application() {
-    val database: SQLiteOpenHelper by lazy {
-        MyDatabaseHelper(applicationContext)
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        val db = database.writableDatabase
-    }
-}
-</code></pre><p>database并没有被真正初始化，直到第一次调用 onCreate  时才会执行 MyDatabaseHelper(applicationContext) 来进行初始化,  lazy  操作符是线程安全的。</p>
-<blockquote>
-<p>如果不担心多线程问题或者想提高更多的性能，也可以使用 lazy(LazyThreadSafeMode.NONE){ … } 。</p>
-</blockquote>
-<blockquote>
-<p>lazy 的函数内部表示的是 初始化 ,例如</p>
-</blockquote>
-<pre><code>val a = 5  
-</code></pre><blockquote>
-<p>这样表示 直接给a初始化为5 ,不论a是否用到</p>
-</blockquote>
-<pre><code>val a: Int by lazy {
-    5
-}
-</code></pre><blockquote>
-<p>这样表示 a 是没有初始化的, 只有当使用a的时候 才会对a进行赋值,此时的a就被赋值了</p>
-</blockquote>
-<h4 id="Observable"><a href="#Observable" class="headerlink" title="Observable"></a>Observable</h4><p>这个委托会帮我们监测我们希望观察的属性的变化。当被观察属性的 set  方法被调用的时候，它就会自动执行我们指定的lambda表达式。所以一旦该属性被赋了新的值，我们就会接收到被委托的属性、旧值和新值。</p>
-<pre><code>class ViewModel(val db: MyDatabase) {
-    var myProperty by Delegates.observable(&quot;&quot;) {
-        d, old, new -&gt;
-        db.saveChanges(this, new)
-    }
-}
-</code></pre><blockquote>
-<p>这个例子展示了，一些我们需要关心的ViewMode，每次值被修改了，就会保存它们到数据库。</p>
-</blockquote>
-<pre><code>var my: String by Delegates.observable(&quot;&quot;) { d, old, new -&gt;
-    println(&quot;d=$d----old=$old----new=$new&quot;)
-}
-println(&quot;my=$my&quot;)
-my = &quot;是镂空的解放路口时代峻峰&quot;
-println(&quot;my=$my&quot;)
-</code></pre><blockquote>
-<p>参数有两个 , 1, my的初始化值,等于 oid的值 , 2,lamadas表达式 .<br>结果的参数有三个 1,d表示代理的名字, 结果为 my .2,oid表示 之前的值. 3,new表示变化后的值</p>
-</blockquote>
-<h4 id="Vetoable"><a href="#Vetoable" class="headerlink" title="Vetoable"></a>Vetoable</h4><p>这是一个特殊的 observable  ，它让你决定是否这个值需要被保存。它可以被用于在真正保存之前进行一些条件判断。</p>
-<pre><code>var positiveNumber = Delegates.vetoable(0) {
-    d, old, new -&gt;
-    new &gt;= 0
-}
-</code></pre><blockquote>
-<p>上面这个委托只允许在新的值是正数的时候执行保存。在lambda中，最后一行表示返回值。但是不需要使用return关键字</p>
-</blockquote>
-<h4 id="Not-Null"><a href="#Not-Null" class="headerlink" title="Not Null"></a>Not Null</h4><p>有时候我们需要在某些地方初始化这个属性，但是我们 1, 不能在构造函数中确定，或者 2 ,我们不能在构造函数中做任何事情。</p>
-<p>第二种情况在Android中很常见：在Activity、fragment、service、receivers……无论如何，一个非抽象的属性在构造函数执行完之前需要被赋值。为了给这些属性赋值，我们无法让它一直等待到我们希望给它赋值的时候。我们至少有两种选择方案。</p>
-<p>第一种就是使用可null类型并且赋值为null，直到我们有了真正想赋的值。但是我们就需要在每个地方不管是否是null都要去检查。如果我们确定这个属性在任何我们使用的时候都不会是null，这可能会使得我们要编写一些必要的代码了。</p>
-<p>第二种选择是使用 notNull  委托。它会含有一个可null的变量并会在我们设置这个属性的时候分配一个真实的值。如果这个值在被获取之前没有被分配，它就会抛出一个异常。</p>
-<pre><code>class App : Application() {
-    companion object {
-        var instance: App by Delegates.notNull()
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        instance = this
-    }
-}
-</code></pre><h3 id="从Map中映射值"><a href="#从Map中映射值" class="headerlink" title="从Map中映射值"></a>从Map中映射值</h3><p>另外一种属性委托方式就是，属性的值会从一个map中获取value，属性的名字对应这个map中的key。这个委托可以让我们做一些很强大的事情，因为我们可以很简单地从一个动态地map中创建一个对象实例。</p>
-<pre><code>import kotlin.properties.getValue
-
-class Configuration(map: Map&lt;String, Any?&gt;) {
-    val width: Int by map
-    val height: Int by map
-    val dp: Int by map
-    val deviceName: String by map
-}
-</code></pre><blockquote>
-<p>对于这个类去创建一个必须要map 的方法：</p>
-</blockquote>
-<pre><code>conf = Configuration(mapOf(
-    &quot;width&quot; to 1080,
-    &quot;height&quot; to 720,
-    &quot;dp&quot; to 240,
-    &quot;deviceName&quot; to &quot;mydevice&quot;
-))
-</code></pre><p>###创建一个自定义的委托##</p>
-<p>创建一个 Single  的委托，它只能被赋值一次，如果第二次赋值，它就会抛异常。</p>
-<p>Kotlin库提供了几个接口，我们自己的委托必须要实现： ReadOnlyProperty(只读)  和 ReadWriteProperty(可读可写)  。具体取决于我们被委托的对象是 val  还是 var  。</p>
-<p>1, 创建一个类然后继承 ReadWriteProperty  ：</p>
-<pre><code>private class NotNullSingleValue&lt;T&gt;() : ReadWriteProperty&lt;Any?, T&gt; {
-    private var value: T? = null
-    override fun setValue(thisRef: Any?, property: KProperty&lt;*&gt;, value: T) {
-        return value ?: throw IllegalStateException(&quot;not initialized&quot;)
-    }
-
-    override fun getValue(thisRef: Any?, property: KProperty&lt;*&gt;): T {
-           this.value = if (this.value == null) value
-        else throw IllegalStateException(&quot;already initialized&quot;)
-    }
-}    
-</code></pre><p>这个委托可以作用在任何非null的类型。它接收任何类型的引用，然后像getter和setter那样使用T。现在我们需要去实现这些函数。</p>
-<ul>
-<li>Getter函数 如果已经被初始化，则会返回一个值，否则会抛异常。</li>
-<li>Setter函数 如果是null，则赋值，否则会抛异常。</li>
-</ul>
-<p>创建一个对象，然后添加函数使用委托：</p>
-<pre><code>object DelegatesExt {
-    fun notNullSingleValue&lt;T&gt;():
-        ReadWriteProperty&lt;Any?, T&gt; = NotNullSingleValueVar()
-}
-</code></pre><h3 id="创建一个SQLiteOpenHelper"><a href="#创建一个SQLiteOpenHelper" class="headerlink" title="创建一个SQLiteOpenHelper"></a>创建一个SQLiteOpenHelper</h3><h4 id="ManagedSqliteOpenHelper"><a href="#ManagedSqliteOpenHelper" class="headerlink" title="ManagedSqliteOpenHelper"></a>ManagedSqliteOpenHelper</h4><p>Anko提供了很多强大的SqliteOpenHelper来可以大量简化代码。<br>使用 ManagedSqliteOpenHelper  我们只需要：</p>
-<pre><code>forecastDbHelper.use {
-    ...
-}
-</code></pre><h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><h2 id="集合和函数操作符"><a href="#集合和函数操作符" class="headerlink" title="集合和函数操作符"></a>集合和函数操作符</h2><p>关于函数式编程很不错的一点是我们不用去解释我们怎么去做，而是直接说我想做什么。</p>
-<p>比如，如果我想去过滤一个list，不用去创建一个list，遍历这个list的每一项，然后如果满足一定的条件则放到一个新的集合中，而是直接使用 filer 函数并指明我想用的过滤器。用这种方式，我们可以节省大量的代码。</p>
-<p>kotliin中关于集合操作的 本地接口 有:</p>
-<ul>
-<li><strong>Iterable</strong>:父类.所有我们可以遍历的一系列工具都是实现这个接口。</li>
-<li><strong>MutableIterable</strong>:一个支持遍历的同时可以执行增加和删除的Iterables。 MutableIterable<out t=""> : Iterable<t></t></out></li>
-<li><strong>Collection</strong>:这个类相是一个泛型集合。我们通过函数访问可以返回集合的size、是否为空、是否包含一个或者一些item。这个集合的所有方法提供查询，因为connections是不可修改的。</li>
-<li><strong>MutableCollection</strong>:一个支持增加和删除item的Collection。它提供了额外的函数，比如 add  、 remove  、 clear  等等。</li>
-<li><strong>List</strong>:可能是最流行的集合类型。它是一个泛型有序的集合。因为它的有序，我们可以使用 get  函数通过position来访问。</li>
-<li><strong>MutableList</strong>:一个支持增加和删除item的List。</li>
-<li><strong>Set</strong>:一个无序并不支持重复item的集合。</li>
-<li><strong>MutableSet</strong>:一个支持增加和删除item的Set集合</li>
-<li><strong>Map</strong>:一个key-value对的collection。key在map中是唯一的，也就是说不能有两对key是一样的键值对存在于一个map中。</li>
-<li><strong>MutableMap</strong>:一个支持增加和删除item的map.</li>
-</ul>
-<p>有很多不同集合可用的函数操作符。</p>
-<h3 id="总数操作符-–-一般对-list中item中为-Int-的集合进行操作"><a href="#总数操作符-–-一般对-list中item中为-Int-的集合进行操作" class="headerlink" title="总数操作符 – 一般对 list中item中为 Int 的集合进行操作"></a>总数操作符 – 一般对 list中item中为 Int 的集合进行操作</h3><h4 id="any"><a href="#any" class="headerlink" title="any"></a><strong>any</strong></h4><p>如果至少有一个元素复合给出的判断条件,就返回true</p>
-<pre><code>val list = listof(1,2,3,4,5,6)
-val a = list.any { it % 2 == 0 }
-val b = list.any { it &gt; 10 }
-</code></pre><blockquote>
-<p>any 方法表示任何一个, 其参数接收一个 函数,改函数是一个条件, 这个方法的意味着便利集合,如果 集合中 有一个item 的元素符合该函数条件,就返回true,否则返回false. 每个item 可以使用it表示 ,kotlin 中的条目 it 是 一个函数内只有一个参数时对这个参数的简称</p>
-<blockquote>
-<p>any还有一个重载函数没有任何参数 , 如果是集合则返回 是否不为空,如果不是是集合则返回 是否有值</p>
-</blockquote>
-</blockquote>
-<h4 id="all"><a href="#all" class="headerlink" title="all"></a><strong>all</strong></h4><p>如果全部的元素符合给出的判断条件，则返回true。</p>
-<pre><code>val a = list.all { it % 2 == 0 }
-val b = list.all { it &lt; 10 }
-</code></pre><blockquote>
-<p>all 方法表示便利所有的 item ,如果全部满足 条件返回true ,否则返回false</p>
-</blockquote>
-<h4 id="count"><a href="#count" class="headerlink" title="count"></a><strong>count</strong></h4><p>返回符合给出判断条件的元素总数。</p>
-<pre><code>val a = list.count { it % 2 == 0 }
-</code></pre><blockquote>
-<p>count方法表示 遍历item 后复合条件的个数</p>
-<blockquote>
-<p>count方法有个重载函数是没有任何参数的,返回的是集合的size</p>
-</blockquote>
-</blockquote>
-<h4 id="fold"><a href="#fold" class="headerlink" title="fold"></a><strong>fold</strong></h4><p>在一个初始值的基础上从第一项到最后一项通过一个函数累计所有的元素。</p>
-<pre><code>val a = list.fold(1) { acc, i -&gt; acc + i }
-</code></pre><h4 id="foldRight"><a href="#foldRight" class="headerlink" title="foldRight"></a><strong>foldRight</strong></h4><p>与 fold  一样，但是顺序是从最后一项到第一项。</p>
-<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a><strong>forEach</strong></h4><p>遍历所有元素，并执行给定的操作。</p>
-<pre><code>list.forEach { println(it) }
-</code></pre><h4 id="forEachIndexed"><a href="#forEachIndexed" class="headerlink" title="forEachIndexed"></a><strong>forEachIndexed</strong></h4><p>与 forEach  ，但是我们同时可以得到元素的index。</p>
-<pre><code>list.forEachIndexed { index, i -&gt; println(&quot;第${index}个值的结果为$i&quot;) }
-</code></pre><h4 id="max"><a href="#max" class="headerlink" title="max"></a><strong>max</strong></h4><p>返回最大的一项，如果没有则返回null。</p>
-<h4 id="maxBy"><a href="#maxBy" class="headerlink" title="maxBy"></a><strong>maxBy</strong></h4><p>根据给定的函数返回最大的一项，如果没有则返回null。</p>
-<pre><code>list.maxBy { -it }
-</code></pre><blockquote>
-<p>maxBy的过程是 将每一个item 通过函数中的方法进行转换后,再进行比较, 但是如果函数中没有对 it 或者 i-&gt; 进行转换 ,那就相当于没有对数值进行转换</p>
-</blockquote>
-<h4 id="min"><a href="#min" class="headerlink" title="min"></a><strong>min</strong></h4><p>返回最小的一项，如果没有则返回null。</p>
-<h4 id="minBy"><a href="#minBy" class="headerlink" title="minBy"></a><strong>minBy</strong></h4><p>根据给定的函数返回最小的一项，如果没有则返回null。</p>
-<h4 id="none"><a href="#none" class="headerlink" title="none"></a><strong>none</strong></h4><p>如果没有任何元素与给定的函数匹配，则返回true。</p>
-<pre><code>list.none()
-list.none { it % 3 == 0 }
-</code></pre><blockquote>
-<p>none代表如果没有符合条件就返回true </p>
-<blockquote>
-<p>其重载函数返回 如果为空 就返回true ,如果不是集合 就判断如果没有值就返回true</p>
-</blockquote>
-</blockquote>
-<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a><strong>reduce</strong></h4><p>与 fold  一样，但是没有一个初始值。通过一个函数从第一项到最后一项进行累计。</p>
-<pre><code>val a = list.reduce{ acc, i -&gt; acc + i }
-</code></pre><h4 id="reduceRight"><a href="#reduceRight" class="headerlink" title="reduceRight"></a><strong>reduceRight</strong></h4><p>与 reduce  一样，但是顺序是从最后一项到第一项。</p>
-<h4 id="sumBy"><a href="#sumBy" class="headerlink" title="sumBy"></a><strong>sumBy</strong></h4><p>返回所有每一项通过函数转换之后的数据的总和。</p>
-<pre><code>list.sumBy { it / 2 }
-</code></pre><h3 id="过滤操作符"><a href="#过滤操作符" class="headerlink" title="过滤操作符"></a>过滤操作符</h3><p><strong>分为 drop (去除—一般用于去除某个或某些不符合条件的,根据item处理) 和 filter(过滤 — 一般用于获取某个或某些符合条件的,根据item处理) 和 take(获取 — 一般用于根据角标获取数据,根据角标进行处理)三大类    </strong></p>
-<h4 id="drop-去除"><a href="#drop-去除" class="headerlink" title="drop(去除)"></a><strong>drop(去除)</strong></h4><p>返回包含去掉前n个元素的所有元素的列表。</p>
-<pre><code>list.drop(3).forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>返回去掉前三个item 后的集合 即 第4项到最后一项的集合</p>
-</blockquote>
-<h4 id="dropWhile"><a href="#dropWhile" class="headerlink" title="dropWhile"></a><strong>dropWhile</strong></h4><p>返回根据给定函数条件从第一项开始去掉符合条件元素的列表。</p>
-<pre><code>list.dropWhile { it &lt; 4 }.forEach { println(&quot;number=$it&quot;) }
-</code></pre><h4 id="dropLastWhile-dropLast"><a href="#dropLastWhile-dropLast" class="headerlink" title="dropLastWhile , dropLast"></a><strong>dropLastWhile , dropLast</strong></h4><p>返回根据给定函数从最后一项开始去掉指定元素的列表。</p>
-<h4 id="filter-筛选"><a href="#filter-筛选" class="headerlink" title="filter(筛选)"></a><strong>filter(筛选)</strong></h4><p>过滤出所有符合给定函数条件的元素。(过滤出符合的取出来)</p>
-<pre><code>list.filter { it &gt; 4 }.forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>返回的参数为 item 的具体值,这个值和 position 无关, filter 方法的过滤条件表示 一个 list中符合条件的, 是将 符合条件的取出来而非过滤掉 ,也就是说拿到的结果是所有符合条件的元素集合</p>
-</blockquote>
-<h4 id="filterNot"><a href="#filterNot" class="headerlink" title="filterNot"></a><strong>filterNot</strong></h4><p>过滤掉出所有符合给定函数条件的元素。 (过滤掉符合的,剩下不符合条件的)</p>
-<blockquote>
-<p>与 filter相反, 这个方法会把 符合条件的过滤掉, 把剩下的取出来,与 filter 互补</p>
-</blockquote>
-<h4 id="filterNotNull"><a href="#filterNotNull" class="headerlink" title="filterNotNull"></a><strong>filterNotNull</strong></h4><p>过滤掉所有元素中不是null的元素。</p>
-<blockquote>
-<p>这个方法是 filterNot 的进阶版, 只是条件是 it==null ,即 过滤掉符合 item为空的,剩下 item != null 的</p>
-</blockquote>
-<h4 id="slice"><a href="#slice" class="headerlink" title="slice"></a><strong>slice</strong></h4><p>过滤出一个list中指定index的元素。</p>
-<pre><code>list.slice(listOf(2, 4, 5)).forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>slice接收一个 数组 或 集合 参数, 改集合的值代表 list的角标.返回list中这个角标集合的值 . 实际使用的时候 不会处理角标越界的问题 ,所以是有可能出现角标越界的</p>
-</blockquote>
-<h4 id="take"><a href="#take" class="headerlink" title="take"></a><strong>take</strong></h4><p>返回从第一个开始的n个元素。即前 n 个元素</p>
-<pre><code>list.take(5).forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>这个take 主要是通过角标获取值, 相当于 slice 方法的参数为 0–n</p>
-</blockquote>
-<h4 id="takeLast"><a href="#takeLast" class="headerlink" title="takeLast"></a><strong>takeLast</strong></h4><p>返回从最后一个开始的n个元素</p>
-<h4 id="takeWhile-takeLastWhile"><a href="#takeWhile-takeLastWhile" class="headerlink" title="takeWhile , takeLastWhile"></a><strong>takeWhile , takeLastWhile</strong></h4><p>返回从第一个开始(takeWhile)或者从最后一个开始(takeLastWhile) 直到首个不符合条件的 的元素集合。</p>
-<pre><code>list.takeWhile { it &lt;3 }.forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>这个传过来的参数是 item 而非角标 , 当item符合的时候才会会继续判断下一个, 直至首个不符合条件的会 break 返回, 即如果第一个 item 不符合 条件,即使后面的所有item都符合,也会返回一个空集合</p>
-</blockquote>
-<h3 id="映射操作符"><a href="#映射操作符" class="headerlink" title="映射操作符"></a>映射操作符</h3><h4 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a><strong>flatMap</strong></h4><p>遍历所有的元素，为每一个创建一个集合，最后把所有的集合放在一个集合中。</p>
-<pre><code>list.flatMap { listOf(it, it + 1) }.forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>结果为: listOf(1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7)</p>
-</blockquote>
-<blockquote>
-<p>调用flatmap的时候 会遍历 list中的数据 ,然后每个 item 值会在 listOf(it , it+1) 中进行转换形成新的 list, 即 会形成 list.size 个分集合, 每个集合 都是 item 形成的子集合, 最终把所有的集合合并, 返回这个最终的集合.</p>
-</blockquote>
-<h4 id="groupBy"><a href="#groupBy" class="headerlink" title="groupBy"></a><strong>groupBy</strong></h4><p>返回一个根据给定函数分组后的map。条件会返回 key ,所有符合这个key的value会形成一个集合</p>
-<pre><code>list.groupBy { if(it%2==0)&quot;event&quot; else &quot;oil&quot; }.forEach { println(&quot;number=${it.key}--${it.value}&quot;) }
-</code></pre><blockquote>
-<p>groupBy会遍历每个item , 然后通过 it 来指代这个item进行区分, 如果不指定默认使用 Koilin.Unit 对item区分后会分成不同组</p>
-<blockquote>
-<p>使用groupBy 最终会生成 key: Any 和 value:List<e> 的map对象</e></p>
-</blockquote>
-</blockquote>
-<h4 id="map-–-转换"><a href="#map-–-转换" class="headerlink" title="map – 转换"></a><strong>map – 转换</strong></h4><p>返回一个每一个元素根据给定的函数转换所组成的List。</p>
-<pre><code>list.map { it * 2 }.forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>groupBy返回map集合, 但是 map方法会返回list集合 , map 的含义是 , 遍历list中的每个item ,然后将 item 根据给定的函数进行转换, 即 最终行程的集合是  list中的每个item 根据函数转换后 形成的集合.</p>
-</blockquote>
-<h4 id="mapIndexed"><a href="#mapIndexed" class="headerlink" title="mapIndexed"></a><strong>mapIndexed</strong></h4><p>返回一个每一个元素根据给定的包含元素index的函数转换所组成的List。</p>
-<pre><code>list.mapIndexed { index, i -&gt; index + i }.forEach { println(&quot;number=$it&quot;) }
-
-list.mapIndexed { _, i -&gt; i *2}.forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>mapindexed 方法会吧 index 也传入参数中, 相对于 map多了一个 index 角标的可用参数, 如果 index 参数不用的话 可以简写成 _ 即 {_,i-&gt;index*2} , 一般的如果 index参数不用的话 可以使用 map方法而非 mapIndexed方法</p>
-</blockquote>
-<h4 id="mapNotNull"><a href="#mapNotNull" class="headerlink" title="mapNotNull"></a><strong>mapNotNull</strong></h4><p>返回一个每一个非null元素根据给定的函数转换所组成的List。</p>
-<pre><code>list.mapNotNull { it + 1 }.forEach { println(&quot;number=$it&quot;) }
-</code></pre><blockquote>
-<p>mapNotNull方法最终会形成一个集合 , 该集合首先会排除 null元素, 然后将非null元素根据函数进行转换 . 如果没有任何函数进行转换, 可以理解为 只是将list中所有item 为null 的条目进行删除.当然 如果 不需要任何 转换的话 可以使用 filterNotNull 方法</p>
-</blockquote>
-<h3 id="元素操作符-–-主要是对-list-中对-item-进行查找操作"><a href="#元素操作符-–-主要是对-list-中对-item-进行查找操作" class="headerlink" title="元素操作符 – 主要是对 list 中对 item 进行查找操作"></a>元素操作符 – 主要是对 list 中对 item 进行查找操作</h3><h4 id="contains-–-包含"><a href="#contains-–-包含" class="headerlink" title="contains – 包含"></a><strong>contains – 包含</strong></h4><p>如果指定元素可以在集合中找到，则返回true。底层调用 了 list.indexOf(object o)</p>
-<h4 id="elementAt-–-通过-positon-获取"><a href="#elementAt-–-通过-positon-获取" class="headerlink" title="elementAt – 通过 positon 获取"></a><strong>elementAt – 通过 positon 获取</strong></h4><p>返回给定index对应的元素，如果index数组越界则会抛出 IndexOutOfBoundsException  。底层中会调用 get方法,所以一般不使用这个方法</p>
-<blockquote>
-<p>一般不用这个方法, 一般都使用 list.get(pos) 或者 list[pos]</p>
-</blockquote>
-<h4 id="elementAtOrElse"><a href="#elementAtOrElse" class="headerlink" title="elementAtOrElse"></a><strong>elementAtOrElse</strong></h4><p>返回给定index对应的元素，如果index数组越界则会根据给定函数返回默认值。</p>
-<pre><code>println(&quot;${list.elementAtOrElse(4) { 0 }}&quot;)
-</code></pre><blockquote>
-<p>如果能取到 角标为 4 的值则返回, 如果数组越界, 则 返回默认的值, 这个值不是角标的值, 是直接返回该值 , 即如果数组越界结果就是这个默认的值 .因为如果参数是 角标的化 那么 这个默认的角标仍然是有可能越界的</p>
-</blockquote>
-<h4 id="elementAtOrNull"><a href="#elementAtOrNull" class="headerlink" title="elementAtOrNull"></a><strong>elementAtOrNull</strong></h4><p>返回给定index对应的元素，如果index数组越界则会返回null。</p>
-<h4 id="first"><a href="#first" class="headerlink" title="first"></a><strong>first</strong></h4><p>返回符合给定函数条件的第一个元素。 函数 会将item作为参数对item进行筛选</p>
-<pre><code>println(&quot;${list.first { it &gt; 3 }}&quot;)
-</code></pre><h4 id="firstOrNull"><a href="#firstOrNull" class="headerlink" title="firstOrNull"></a><strong>firstOrNull</strong></h4><p>返回符合给定函数条件的第一个元素，如果没有符合则返回null。</p>
-<h4 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a><strong>indexOf</strong></h4><p>返回指定元素的第一个index 角标，如果不存在，则返回 -1  。<br>    println(“${list.indexOf(5)}”)</p>
-<blockquote>
-<p>就是 list.indexOf(object o) 获取某个对象的 角标.</p>
-</blockquote>
-<h4 id="indexOfFirst"><a href="#indexOfFirst" class="headerlink" title="indexOfFirst"></a><strong>indexOfFirst</strong></h4><p>返回第一个符合给定函数条件的元素的index，如果没有符合则返回 -1  。</p>
-<blockquote>
-<p>返回 第一个 对 item进行函数转换后的角标</p>
-</blockquote>
-<h4 id="last"><a href="#last" class="headerlink" title="last"></a><strong>last</strong></h4><p>返回符合给定函数条件的最后一个元素。 </p>
-<pre><code>println(&quot;${list.last { it % 2 == 0 }}&quot;)
-</code></pre><blockquote>
-<p>元素和角标需要分清楚, 因为一般返回的都是 元素, 即 item 而非 角标 position.</p>
-</blockquote>
-<h4 id="lastIndexOf"><a href="#lastIndexOf" class="headerlink" title="lastIndexOf"></a><strong>lastIndexOf</strong></h4><p>返回指定元素的最后一个index，如果不存在，则返回 -1  。返回 object 的index</p>
-<h4 id="lastOrNull"><a href="#lastOrNull" class="headerlink" title="lastOrNull"></a><strong>lastOrNull</strong></h4><p>返回符合给定函数条件的最后一个元素，如果没有符合则返回null。</p>
-<h4 id="single"><a href="#single" class="headerlink" title="single"></a><strong>single</strong></h4><p>返回符合给定函数的单个元素，如果没有符合或者超过一个，则抛出异常。<br>    list.single { it % 5 == 0 }</p>
-<blockquote>
-<p>这个一般用不到</p>
-</blockquote>
-<h4 id="singleOrNull"><a href="#singleOrNull" class="headerlink" title="singleOrNull"></a><strong>singleOrNull</strong></h4><p>返回符合给定函数的单个元素，如果没有符合或者超过一个，则返回null。</p>
-<h3 id="生产操作符"><a href="#生产操作符" class="headerlink" title="生产操作符"></a>生产操作符</h3><h4 id="merge"><a href="#merge" class="headerlink" title="merge"></a><strong>merge</strong></h4><p>把两个集合合并成一个新的，相同index的元素通过给定的函数进行合并成新的元素作为新的集合的一个元素，返回这个新的集合。新的集合的大小由最小的那个集合大小决定。</p>
-<pre><code>assertEquals(listOf(3, 4, 6, 8, 10, 11), list.merge(listRepeated) { it1, it2 -&gt; it1 + it2 })
-</code></pre><blockquote>
-<p>使用 merge 来讲两个集合合并成一个集合, 该集合size 是 最小的那个集合的size<br>新集合的每个元素 是通过 相同index 的相对元素来进行处理的.</p>
-</blockquote>
-<h4 id="partition"><a href="#partition" class="headerlink" title="partition"></a><strong>partition</strong></h4><p>把一个给定的集合分割成两个，第一个集合是由原集合每一项元素匹配给定函数条件返回 true  的元素组成，第二个集合是由原集合每一项元素匹配给定函数条件返回 false  的元素组成。</p>
-<pre><code>assertEquals(
-    Pair(listOf(2, 4, 6), listOf(1, 3, 5)), list.partition { it % 2 == 0 }
-)
-</code></pre><h4 id="plus"><a href="#plus" class="headerlink" title="plus"></a><strong>plus</strong></h4><p>返回一个包含原集合和给定集合中所有元素的集合，因为函数的名字原因，我们可以使用 +  操作符。</p>
-<pre><code>assertEquals(
-    listOf(1, 2, 3, 4, 5, 6, 7, 8),list + listOf(7, 8)
-)
-</code></pre><blockquote>
-<p>因为 plus 方法是用 operter 修饰的,可以使用运算操作符替代</p>
-</blockquote>
-<h4 id="zip"><a href="#zip" class="headerlink" title="zip"></a><strong>zip</strong></h4><p>返回由 pair  组成的List，每个 pair  由两个集合中相同index的元素组成。这个返回的List的大小由最小的那个集合决定。</p>
-<pre><code>assertEquals(
-    listOf(Pair(1, 7), Pair(2, 8)), list.zip(listOf(7, 8))
-)
-</code></pre><h4 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a><strong>unzip</strong></h4><p>从包含pair的List中生成包含List的Pair。</p>
-<pre><code>assertEquals(
-    Pair(listOf(5, 6), listOf(7, 8)),listOf(Pair(5, 7), Pair(6, 8)).unzip()
-)
-</code></pre><h3 id="顺序操作符"><a href="#顺序操作符" class="headerlink" title="顺序操作符"></a>顺序操作符</h3><h4 id="reverse-–-反转"><a href="#reverse-–-反转" class="headerlink" title="reverse – 反转"></a><strong>reverse – 反转</strong></h4><p>返回一个与指定list相反顺序的list。</p>
-<pre><code>val unsortedList = listOf(3, 2, 7, 5)
-assertEquals(listOf(5, 7, 2, 3), unsortedList.reverse())
-</code></pre><h4 id="sort-–-排序"><a href="#sort-–-排序" class="headerlink" title="sort – 排序"></a><strong>sort – 排序</strong></h4><p>返回一个自然排序后的list。</p>
-<pre><code>assertEquals(listOf(2, 3, 5, 7), unsortedList.sort())
-</code></pre><h4 id="sortBy"><a href="#sortBy" class="headerlink" title="sortBy"></a><strong>sortBy</strong></h4><p>返回一个根据指定函数排序后的list。</p>
-<pre><code>assertEquals(listOf(3, 7, 2, 5), unsortedList.sortBy { it % 3 })
-</code></pre><blockquote>
-<p>这个是通过item进行计算后再根据结果进行排序,最终返回其真实元素</p>
-</blockquote>
-<h4 id="sortDescending"><a href="#sortDescending" class="headerlink" title="sortDescending"></a><strong>sortDescending</strong></h4><p>返回一个降序排序后的List。</p>
-<pre><code>assertEquals(listOf(7, 5, 3, 2), unsortedList.sortDescending())
-</code></pre><h4 id="sortDescendingBy"><a href="#sortDescendingBy" class="headerlink" title="sortDescendingBy"></a><strong>sortDescendingBy</strong></h4><p>返回一个根据指定函数降序排序后的list。</p>
-<pre><code>assertEquals(listOf(2, 5, 7, 3), unsortedList.sortDescendingBy {it % 3 })
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4660,7 +3917,7 @@ assertEquals(listOf(5, 7, 2, 3), unsortedList.reverse())
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
