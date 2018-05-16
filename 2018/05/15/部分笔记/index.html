@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一些比较杂的知识">
+<meta name="description" content="包含了   圆角截取 Android的权限结构 关于Fragment的小坑 弹出dialog的时候弹出软键盘 CardView使用">
 <meta name="keywords" content="圆角">
 <meta property="og:type" content="article">
 <meta property="og:title" content="部分笔记">
 <meta property="og:url" content="http://zhaozehui.cn/2018/05/15/部分笔记/index.html">
 <meta property="og:site_name" content="zzh1026it">
-<meta property="og:description" content="一些比较杂的知识">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-16T06:39:48.214Z">
+<meta property="og:description" content="包含了   圆角截取 Android的权限结构 关于Fragment的小坑 弹出dialog的时候弹出软键盘 CardView使用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-16T11:00:03.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="部分笔记">
-<meta name="twitter:description" content="一些比较杂的知识">
+<meta name="twitter:description" content="包含了   圆角截取 Android的权限结构 关于Fragment的小坑 弹出dialog的时候弹出软键盘 CardView使用">
 
 
 
@@ -98,7 +98,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -106,7 +106,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -133,12 +133,22 @@
 
 
 
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e1d3207f597e5755f17072f0711098cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -186,7 +196,37 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -196,7 +236,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -238,7 +278,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/headers.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -260,9 +300,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
                 2018-05-15
               </time>
             
@@ -281,7 +321,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -308,10 +348,6 @@
           
 
           
-              <div class="post-description">
-                  一些比较杂的知识
-              </div>
-          
 
         </div>
       </header>
@@ -326,32 +362,71 @@
       
 
       
-        <p>####图片上面两个是圆角,下面不是圆角</p>
+        <p>包含了 </p>
+<ul>
+<li>圆角截取</li>
+<li>Android的权限结构</li>
+<li>关于Fragment的小坑</li>
+<li>弹出dialog的时候弹出软键盘</li>
+<li>CardView使用</li>
+</ul>
+<a id="more"></a>
+<p>####图片上面两个是圆角,下面不是圆角</p>
 <p>#1,使用自定义Imageview ,在onDraw里面实现</p>
-<pre><code>    `
-    @Override
-    protected void onDraw(Canvas canvas) {
-        BitmapShader shader;
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) getDrawable();
-        shader = new BitmapShader(bitmapDrawable.getBitmap(),
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        //设置映射否则图片显示不全
-        RectF rect = new RectF(0.0f, 0.0f, getWidth(), getHeight() + yRadius);
-        int width = bitmapDrawable.getBitmap().getWidth();
-        int height = bitmapDrawable.getBitmap().getHeight() + (int) yRadius;
-        RectF src = new RectF(0.0f, 0.0f, width, height);
-        Matrix matrix = new Matrix();
-        matrix.setRectToRect(src, rect, Matrix.ScaleToFit.CENTER);
-        shader.setLocalMatrix(matrix);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setShader(shader);
-        //根据图片圆角矩形的半径进行裁剪
-        canvas.clipRect(new Rect(0, 0, (int) (rect.right), (int) (rect.bottom - yRadius)));
-        //这样就把下面的部分剪裁掉了,只剩下上面两个圆角了
-        canvas.drawRoundRect(rect, xRadius, yRadius, paint);
+<pre><code>    public class RoundImageView extends ImageView {
+        private float mRoundRadius;    //圆角大小
+        private int mRoundShowType;     //展示圆角的方式
+        private Path clipPath;
+
+        public RoundImageView(Context context) {
+            this(context, null);
+        }
+
+        public RoundImageView(Context context, @Nullable AttributeSet attrs) {
+            this(context, attrs, 0);
+        }
+
+        public RoundImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+
+            initnAttributes(context, attrs);
+        }
+
+        private void initnAttributes(Context context, AttributeSet attrs) {
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundImageView);
+            mRoundRadius = ta.getDimension(R.styleable.RoundImageView_riv_radius, 10);
+            mRoundShowType = ta.getInt(R.styleable.RoundImageView_riv_show_type, 5);
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            clipPath = new Path();
+            if (mRoundShowType == 0) {      //展示所有
+                clipPath.addRoundRect(new RectF(0, 0, getWidth(), getHeight()), mRoundRadius, mRoundRadius, Path.Direction.CW);
+            } else if (mRoundShowType == 1) {       //上半部分
+                clipPath.moveTo(0, mRoundRadius);
+                clipPath.quadTo(0, 0, mRoundRadius, 0);
+                clipPath.lineTo(getWidth() - mRoundRadius, 0);
+                clipPath.quadTo(getWidth(), 0, getWidth(), mRoundRadius);
+                clipPath.lineTo(getWidth(), getHeight());
+                clipPath.lineTo(0, getHeight());
+                clipPath.close();
+            } else if (mRoundShowType == 2) {       //下半部分
+                clipPath.moveTo(0, getHeight() - mRoundRadius);
+                clipPath.quadTo(0, getHeight(), mRoundRadius, getHeight());
+                clipPath.lineTo(getWidth() - mRoundRadius, getHeight());
+                clipPath.quadTo(getWidth(), getHeight(), getWidth(), getHeight() - mRoundRadius);
+                clipPath.lineTo(getWidth(), 0);
+                clipPath.lineTo(0, 0);
+                clipPath.close();
+            } else if (mRoundShowType == 3) {        //左半部分
+            } else if (mRoundShowType == 4) {       //右半部分
+            }
+
+            canvas.clipPath(clipPath);
+            super.onDraw(canvas);
+        }
     }
-    `
 同理,可以实现左边右边上面下面四种建材,缺点是只能两两实现圆角剪裁而不能自定义某一个角
 </code></pre><p>关于Cavans的方法:</p>
 <pre><code>Canvas():创建一个空的画布，可以使用setBitmap()方法来设置绘制的具体画布；
@@ -485,7 +560,7 @@ dialog中window的地址为:com.android.internal.policy.PhoneWindow@960ec5c
 <p>3, WindowManager继承自ViewManager(间接证明Window其实对应的是View?)，常用的只有三个方法：addView、updateView和removeView</p>
 <p>4,各种Window的不同, 主要是 token及type的不同</p>
 <p>5,app中控制window, 是通过WindowManager.LayoutParams去控制, eg: 通过x,y,gravity去控制位置…</p>
-<h1 id="CardView使用"><a href="#CardView使用" class="headerlink" title="CardView使用"></a>CardView使用</h1><p>参考资料: <a href="http://www.jianshu.com/p/e693e395e729" target="_blank" rel="noopener">CardView的使用</a></p>
+<h1 id="5-CardView使用"><a href="#5-CardView使用" class="headerlink" title="5, CardView使用"></a>5, CardView使用</h1><p>参考资料: <a href="http://www.jianshu.com/p/e693e395e729" target="_blank" rel="noopener">CardView的使用</a></p>
 <h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1,基本使用"></a>1,基本使用</h2><pre><code>&lt;android.support.v7.widget.CardView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    
     xmlns:cardview=&quot;http://schemas.android.com/apk/res-auto&quot;   
     cardview:cardElevation=&quot;5dp&quot;   
@@ -559,14 +634,18 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/05/15/SomeUsefulCommands/" rel="next" title="Some Useful Commands">
+                <i class="fa fa-chevron-left"></i> Some Useful Commands
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/15/SomeUsefulCommands/" rel="prev" title="Some Useful Commands">
-                Some Useful Commands <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/15/rxjava学习/" rel="prev" title="Rxjava学习">
+                Rxjava学习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -621,10 +700,10 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -632,6 +711,10 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headers.png"
+                alt="zzh" />
             
               <p class="site-author-name" itemprop="name">zzh</p>
               <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
@@ -645,7 +728,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
                 <a href="/archives/">
               
                   <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -654,10 +737,10 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
               </div>
             
 
@@ -665,10 +748,10 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">tags</span>
-                
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
               </div>
             
 
@@ -676,6 +759,22 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zzh1026" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/zzh1026it" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -699,7 +798,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><span class="nav-number">1.</span> <span class="nav-text">1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><span class="nav-number">2.</span> <span class="nav-text">2,摄像机组:     CAMERA “android.permission-group.CAMERA”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><span class="nav-number">3.</span> <span class="nav-text">3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><span class="nav-number">4.</span> <span class="nav-text">4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-手机使用组-PHONE-“android-permission-group-PHONE”"><span class="nav-number">5.</span> <span class="nav-text">5,手机使用组: PHONE “android.permission-group.PHONE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”"><span class="nav-number">6.</span> <span class="nav-text">6,传感器组: SENSORS “android.permission-group.SENSORS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-短信组-SMS-“android-permission-group-SMS”"><span class="nav-number">7.</span> <span class="nav-text">7,短信组: SMS “android.permission-group.SMS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><span class="nav-number">8.</span> <span class="nav-text">8,sd卡组:  STORAGE “android.permission-group.STORAGE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-位置组-LOCATION-“android-permission-group-LOCATION”"><span class="nav-number">9.</span> <span class="nav-text">9,位置组:    LOCATION “android.permission-group.LOCATION”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number"></span> <span class="nav-text">PS:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口"><span class="nav-number">1.</span> <span class="nav-text">1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样"><span class="nav-number">2.</span> <span class="nav-text">2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CardView使用"><span class="nav-number"></span> <span class="nav-text">CardView使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本使用"><span class="nav-number"></span> <span class="nav-text">1,基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-拓展属性介绍"><span class="nav-number"></span> <span class="nav-text">2,拓展属性介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-一些问题和一些实现"><span class="nav-number"></span> <span class="nav-text">3,一些问题和一些实现</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><span class="nav-number">1.</span> <span class="nav-text">1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><span class="nav-number">2.</span> <span class="nav-text">2,摄像机组:     CAMERA “android.permission-group.CAMERA”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><span class="nav-number">3.</span> <span class="nav-text">3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><span class="nav-number">4.</span> <span class="nav-text">4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-手机使用组-PHONE-“android-permission-group-PHONE”"><span class="nav-number">5.</span> <span class="nav-text">5,手机使用组: PHONE “android.permission-group.PHONE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”"><span class="nav-number">6.</span> <span class="nav-text">6,传感器组: SENSORS “android.permission-group.SENSORS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-短信组-SMS-“android-permission-group-SMS”"><span class="nav-number">7.</span> <span class="nav-text">7,短信组: SMS “android.permission-group.SMS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><span class="nav-number">8.</span> <span class="nav-text">8,sd卡组:  STORAGE “android.permission-group.STORAGE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-位置组-LOCATION-“android-permission-group-LOCATION”"><span class="nav-number">9.</span> <span class="nav-text">9,位置组:    LOCATION “android.permission-group.LOCATION”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number"></span> <span class="nav-text">PS:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口"><span class="nav-number">1.</span> <span class="nav-text">1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样"><span class="nav-number">2.</span> <span class="nav-text">2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-CardView使用"><span class="nav-number"></span> <span class="nav-text">5, CardView使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本使用"><span class="nav-number"></span> <span class="nav-text">1,基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-拓展属性介绍"><span class="nav-number"></span> <span class="nav-text">2,拓展属性介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-一些问题和一些实现"><span class="nav-number"></span> <span class="nav-text">3,一些问题和一些实现</span></a></div>
             
 
           </div>
@@ -729,7 +828,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -737,7 +836,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -784,6 +883,8 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
   
 
 
+  
+
 
 
 
@@ -824,6 +925,11 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
 
   
 
@@ -836,6 +942,13 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

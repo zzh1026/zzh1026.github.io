@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="AndroidBoradcastReceiver学习">
+<meta name="description" content="BroadcastReceiver翻译为广播接收者，Broadcast是一种广泛运用在应用程序之间的传输信息的机制，简单的可以理解为传统意义上的电台广播，通俗一点，发布失物招领。 广播机制是一个典型的发布—订阅模式，也就是我们所说的观察者模式。广播最大的特点就是发送方并不关心接收方是否接到数据，也不关心接收方是如何处理数据的，通过这样的形式来达到接、收双方的完全解耦合">
 <meta name="keywords" content="Android,Boradcast,Receiver">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BoradcastReceiver的使用">
 <meta property="og:url" content="http://zhaozehui.cn/2018/05/16/BoradcastReceiver的学习/index.html">
 <meta property="og:site_name" content="zzh1026it">
-<meta property="og:description" content="AndroidBoradcastReceiver学习">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-16T06:16:23.052Z">
+<meta property="og:description" content="BroadcastReceiver翻译为广播接收者，Broadcast是一种广泛运用在应用程序之间的传输信息的机制，简单的可以理解为传统意义上的电台广播，通俗一点，发布失物招领。 广播机制是一个典型的发布—订阅模式，也就是我们所说的观察者模式。广播最大的特点就是发送方并不关心接收方是否接到数据，也不关心接收方是如何处理数据的，通过这样的形式来达到接、收双方的完全解耦合">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-16T10:52:03.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BoradcastReceiver的使用">
-<meta name="twitter:description" content="AndroidBoradcastReceiver学习">
+<meta name="twitter:description" content="BroadcastReceiver翻译为广播接收者，Broadcast是一种广泛运用在应用程序之间的传输信息的机制，简单的可以理解为传统意义上的电台广播，通俗一点，发布失物招领。 广播机制是一个典型的发布—订阅模式，也就是我们所说的观察者模式。广播最大的特点就是发送方并不关心接收方是否接到数据，也不关心接收方是如何处理数据的，通过这样的形式来达到接、收双方的完全解耦合">
 
 
 
@@ -98,7 +98,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -106,7 +106,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -133,12 +133,22 @@
 
 
 
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e1d3207f597e5755f17072f0711098cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -186,7 +196,37 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -196,7 +236,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -238,7 +278,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/headers.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -260,9 +300,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
                 2018-05-16
               </time>
             
@@ -281,7 +321,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -308,10 +348,6 @@
           
 
           
-              <div class="post-description">
-                  AndroidBoradcastReceiver学习
-              </div>
-          
 
         </div>
       </header>
@@ -328,6 +364,7 @@
       
         <p>BroadcastReceiver翻译为广播接收者，Broadcast是一种广泛运用在应用程序之间的传输信息的机制，简单的可以理解为传统意义上的电台广播，通俗一点，发布失物招领。</p>
 <p>广播机制是一个典型的发布—订阅模式，也就是我们所说的观察者模式。广播最大的特点就是发送方并不关心接收方是否接到数据，也不关心接收方是如何处理数据的，通过这样的形式来达到接、收双方的完全解耦合</p>
+<a id="more"></a>
 <h2 id="1-普通广播"><a href="#1-普通广播" class="headerlink" title="1,普通广播"></a>1,普通广播</h2><p>普通广播是完全异步的，通过Context的sendBroadcast()方法来发送，消息传递效率比较高，但所有receivers（接收器）的执行顺序不确定。</p>
 <p>缺点是：接收者不能将处理结果传递给下一个接收者，并且无法终止广播Intent的传播，直到没有与之匹配的广播接收器为止。</p>
 <h3 id="自定义广播"><a href="#自定义广播" class="headerlink" title="自定义广播"></a>自定义广播</h3><h4 id="1-创建广播"><a href="#1-创建广播" class="headerlink" title="1,创建广播"></a>1,创建广播</h4><p>继承BroadcastReceiver并实现onReceive()方法</p>
@@ -543,8 +580,8 @@ instance.sendBroadcast(intent);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/16/Android软键盘/" rel="next" title="Android软键盘">
-                <i class="fa fa-chevron-left"></i> Android软键盘
+              <a href="/2018/05/16/RecycleView学习/" rel="next" title="RecycleView学习">
+                <i class="fa fa-chevron-left"></i> RecycleView学习
               </a>
             
           </div>
@@ -553,8 +590,8 @@ instance.sendBroadcast(intent);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/16/Markdown-编辑器常用知识/" rel="prev" title="Markdown 编辑器常用知识">
-                Markdown 编辑器常用知识 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/16/Android软键盘/" rel="prev" title="Android软键盘">
+                Android软键盘 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -609,10 +646,10 @@ instance.sendBroadcast(intent);
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -620,6 +657,10 @@ instance.sendBroadcast(intent);
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headers.png"
+                alt="zzh" />
             
               <p class="site-author-name" itemprop="name">zzh</p>
               <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
@@ -633,7 +674,7 @@ instance.sendBroadcast(intent);
                 <a href="/archives/">
               
                   <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -642,10 +683,10 @@ instance.sendBroadcast(intent);
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
               </div>
             
 
@@ -653,10 +694,10 @@ instance.sendBroadcast(intent);
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">tags</span>
-                
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
               </div>
             
 
@@ -664,6 +705,22 @@ instance.sendBroadcast(intent);
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zzh1026" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/zzh1026it" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -717,7 +774,7 @@ instance.sendBroadcast(intent);
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -725,7 +782,7 @@ instance.sendBroadcast(intent);
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -772,6 +829,8 @@ instance.sendBroadcast(intent);
   
 
 
+  
+
 
 
 
@@ -812,6 +871,11 @@ instance.sendBroadcast(intent);
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
 
   
 
@@ -824,6 +888,13 @@ instance.sendBroadcast(intent);
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

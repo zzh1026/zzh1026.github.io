@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="Retrofit学习笔记">
+<meta name="description" content="查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrofit2:retrofit:2">
 <meta name="keywords" content="Retrofit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit学习">
 <meta property="og:url" content="http://zhaozehui.cn/2018/05/16/Retrofit学习/index.html">
 <meta property="og:site_name" content="zzh1026it">
-<meta property="og:description" content="Retrofit学习笔记">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrofit2:retrofit:2">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png">
 <meta property="og:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNonMewRmN43HYdsPbic2fmfKkWcdiazvnRCkDs451PmT7w6SqmkaQcZdA/640?wx_fmt=png">
-<meta property="og:updated_time" content="2018-05-16T06:39:48.199Z">
+<meta property="og:updated_time" content="2018-05-16T11:02:39.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit学习">
-<meta name="twitter:description" content="Retrofit学习笔记">
+<meta name="twitter:description" content="查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrofit2:retrofit:2">
 <meta name="twitter:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png">
 
 
@@ -101,7 +101,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -109,7 +109,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -136,12 +136,22 @@
 
 
 
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e1d3207f597e5755f17072f0711098cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -189,7 +199,37 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -199,7 +239,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -241,7 +281,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/headers.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -263,9 +303,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
                 2018-05-16
               </time>
             
@@ -284,7 +324,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -311,10 +351,6 @@
           
 
           
-              <div class="post-description">
-                  Retrofit学习笔记
-              </div>
-          
 
         </div>
       </header>
@@ -330,10 +366,11 @@
 
       
         <p><a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869</a></p>
-<p>##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)<br>关于配置可以查看<a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">Retrofit2 完全解析 探索与okhttp之间的关系</a></p>
+<h2 id="1-Hello-Retrofit-这里是需要配置两个东西-1-baseurl-2-Converter"><a href="#1-Hello-Retrofit-这里是需要配置两个东西-1-baseurl-2-Converter" class="headerlink" title="1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)"></a>1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)</h2><p>关于配置可以查看<a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">Retrofit2 完全解析 探索与okhttp之间的关系</a></p>
 <h4 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1,添加依赖"></a>1,添加依赖</h4><blockquote>
 <p>compile ‘com.squareup.retrofit2:retrofit:2.1.0’</p>
 </blockquote>
+<a id="more"></a>
 <h4 id="2-定义接口"><a href="#2-定义接口" class="headerlink" title="2,定义接口"></a>2,定义接口</h4><blockquote>
 <pre><code>`public interface GitHubService {  
    @GET(&quot;users/{user}/repos&quot;)
@@ -689,8 +726,8 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/rxjava学习/" rel="next" title="Rxjava学习">
-                <i class="fa fa-chevron-left"></i> Rxjava学习
+              <a href="/2018/05/16/Kotlin笔记/" rel="next" title="kotlin笔记">
+                <i class="fa fa-chevron-left"></i> kotlin笔记
               </a>
             
           </div>
@@ -699,8 +736,8 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/16/Glide/" rel="prev" title="Glide学习">
-                Glide学习 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/16/Markdown-编辑器常用知识/" rel="prev" title="Markdown 编辑器常用知识">
+                Markdown 编辑器常用知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -755,10 +792,10 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -766,6 +803,10 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headers.png"
+                alt="zzh" />
             
               <p class="site-author-name" itemprop="name">zzh</p>
               <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
@@ -779,7 +820,7 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
                 <a href="/archives/">
               
                   <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -788,10 +829,10 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
               </div>
             
 
@@ -799,10 +840,10 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">tags</span>
-                
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
               </div>
             
 
@@ -810,6 +851,22 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zzh1026" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/zzh1026it" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -833,7 +890,7 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加依赖"><span class="nav-number">1.</span> <span class="nav-text">1,添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-定义接口"><span class="nav-number">2.</span> <span class="nav-text">2,定义接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-构造Retrofit"><span class="nav-number">3.</span> <span class="nav-text">3,构造Retrofit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-通过Retrofit的create方法得到所需的对象"><span class="nav-number">4.</span> <span class="nav-text">4,通过Retrofit的create方法得到所需的对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-使用得到的对象调用方法-这里像是标记一下指令"><span class="nav-number">5.</span> <span class="nav-text">5,使用得到的对象调用方法,这里像是标记一下指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-标记指令完毕后在合适的时候调用来获取数据"><span class="nav-number">6.</span> <span class="nav-text">6,标记指令完毕后在合适的时候调用来获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-Path"><span class="nav-number">7.</span> <span class="nav-text">0,Path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field"><span class="nav-number">8.</span> <span class="nav-text">1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。"><span class="nav-number">9.</span> <span class="nav-text">PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Converter-让入参和返回类型丰富"><span class="nav-number"></span> <span class="nav-text">4,Converter 让入参和返回类型丰富</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-RequestBodyConverter-自定义请求体"><span class="nav-number">1.</span> <span class="nav-text">4.1, RequestBodyConverter(自定义请求体)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-ResponseBodyConverter-这个一般也用不到"><span class="nav-number">2.</span> <span class="nav-text">4.2 ResponseBodyConverter     //这个一般也用不到</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法总结"><span class="nav-number"></span> <span class="nav-text">方法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最基本的配置"><span class="nav-number">1.</span> <span class="nav-text">最基本的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-一般的get请求"><span class="nav-number">2.</span> <span class="nav-text">1,一般的get请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-动态修改地址的get请求-–-使用-Path-注解"><span class="nav-number">3.</span> <span class="nav-text">2,动态修改地址的get请求 – 使用 Path 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解"><span class="nav-number">4.</span> <span class="nav-text">3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解"><span class="nav-number">5.</span> <span class="nav-text">4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解"><span class="nav-number">6.</span> <span class="nav-text">5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解"><span class="nav-number">7.</span> <span class="nav-text">6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-多文件上传-PartMap-–-使用-PartMap注解"><span class="nav-number">8.</span> <span class="nav-text">7,多文件上传@PartMap – 使用 PartMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-下载文件"><span class="nav-number">9.</span> <span class="nav-text">8,下载文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#field-和-part-和-query-的区别"><span class="nav-number">10.</span> <span class="nav-text">field 和 part 和 query 的区别:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置OkHttpClient"><span class="nav-number"></span> <span class="nav-text">配置OkHttpClient</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注-添加header的方法"><span class="nav-number"></span> <span class="nav-text">注: 添加header的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#headers-和-header"><span class="nav-number"></span> <span class="nav-text">@headers 和 @header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OKhttp-配置的时候在所有的request中添加header-Interceptor"><span class="nav-number"></span> <span class="nav-text">OKhttp  配置的时候在所有的request中添加header   Interceptor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。"><span class="nav-number">1.</span> <span class="nav-text">通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对所有的请求都添加请求头"><span class="nav-number">2.</span> <span class="nav-text">对所有的请求都添加请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同理-要对所有的请求相应-response-添加header的话"><span class="nav-number">3.</span> <span class="nav-text">同理, 要对所有的请求相应 response 添加header的话</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Hello-Retrofit-这里是需要配置两个东西-1-baseurl-2-Converter"><span class="nav-number">1.</span> <span class="nav-text">1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加依赖"><span class="nav-number">1.0.1.</span> <span class="nav-text">1,添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-定义接口"><span class="nav-number">1.0.2.</span> <span class="nav-text">2,定义接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-构造Retrofit"><span class="nav-number">1.0.3.</span> <span class="nav-text">3,构造Retrofit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-通过Retrofit的create方法得到所需的对象"><span class="nav-number">1.0.4.</span> <span class="nav-text">4,通过Retrofit的create方法得到所需的对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-使用得到的对象调用方法-这里像是标记一下指令"><span class="nav-number">1.0.5.</span> <span class="nav-text">5,使用得到的对象调用方法,这里像是标记一下指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-标记指令完毕后在合适的时候调用来获取数据"><span class="nav-number">1.0.6.</span> <span class="nav-text">6,标记指令完毕后在合适的时候调用来获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-Path"><span class="nav-number">1.0.7.</span> <span class="nav-text">0,Path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field"><span class="nav-number">1.0.8.</span> <span class="nav-text">1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。"><span class="nav-number">1.0.9.</span> <span class="nav-text">PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Converter-让入参和返回类型丰富"><span class="nav-number">1.1.</span> <span class="nav-text">4,Converter 让入参和返回类型丰富</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-RequestBodyConverter-自定义请求体"><span class="nav-number">1.1.1.</span> <span class="nav-text">4.1, RequestBodyConverter(自定义请求体)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-ResponseBodyConverter-这个一般也用不到"><span class="nav-number">1.1.2.</span> <span class="nav-text">4.2 ResponseBodyConverter     //这个一般也用不到</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法总结"><span class="nav-number">1.2.</span> <span class="nav-text">方法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最基本的配置"><span class="nav-number">1.2.1.</span> <span class="nav-text">最基本的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-一般的get请求"><span class="nav-number">1.2.2.</span> <span class="nav-text">1,一般的get请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-动态修改地址的get请求-–-使用-Path-注解"><span class="nav-number">1.2.3.</span> <span class="nav-text">2,动态修改地址的get请求 – 使用 Path 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解"><span class="nav-number">1.2.4.</span> <span class="nav-text">3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解"><span class="nav-number">1.2.5.</span> <span class="nav-text">4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解"><span class="nav-number">1.2.6.</span> <span class="nav-text">5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解"><span class="nav-number">1.2.7.</span> <span class="nav-text">6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-多文件上传-PartMap-–-使用-PartMap注解"><span class="nav-number">1.2.8.</span> <span class="nav-text">7,多文件上传@PartMap – 使用 PartMap注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-下载文件"><span class="nav-number">1.2.9.</span> <span class="nav-text">8,下载文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#field-和-part-和-query-的区别"><span class="nav-number">1.2.10.</span> <span class="nav-text">field 和 part 和 query 的区别:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置OkHttpClient"><span class="nav-number">2.</span> <span class="nav-text">配置OkHttpClient</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注-添加header的方法"><span class="nav-number"></span> <span class="nav-text">注: 添加header的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#headers-和-header"><span class="nav-number">1.</span> <span class="nav-text">@headers 和 @header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OKhttp-配置的时候在所有的request中添加header-Interceptor"><span class="nav-number">2.</span> <span class="nav-text">OKhttp  配置的时候在所有的request中添加header   Interceptor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。"><span class="nav-number">2.0.1.</span> <span class="nav-text">通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对所有的请求都添加请求头"><span class="nav-number">2.0.2.</span> <span class="nav-text">对所有的请求都添加请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同理-要对所有的请求相应-response-添加header的话"><span class="nav-number">2.0.3.</span> <span class="nav-text">同理, 要对所有的请求相应 response 添加header的话</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -863,7 +920,7 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -871,7 +928,7 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -918,6 +975,8 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
   
 
 
+  
+
 
 
 
@@ -958,6 +1017,11 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
 
   
 
@@ -970,6 +1034,13 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
