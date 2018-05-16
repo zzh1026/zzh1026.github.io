@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android,热修复," />
 
 
 
@@ -79,22 +79,23 @@
 
 
 
-<meta name="description" content="热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载机制) 将Class字节">
+<meta name="description" content="Android热修复学习">
+<meta name="keywords" content="Android,热修复">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android热修复">
-<meta property="og:url" content="http://yoursite.com/2018/05/15/Android热修复/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载机制) 将Class字节">
+<meta property="og:url" content="http://zhaozehui.cn/2018/05/16/Android热修复/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="Android热修复学习">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba469740ee5d3?imageslim">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba4697333434b?imageslim">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba46975665b3b?imageslim">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba469739e5b36?imageslim">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba46977048892?imageslim">
-<meta property="og:updated_time" content="2018-05-15T11:37:37.315Z">
+<meta property="og:updated_time" content="2018-05-16T06:14:12.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android热修复">
-<meta name="twitter:description" content="热修复——深入浅出原理与实现 1, 目前较火的热修复方案: 阿里系：DeXposed、andfix：从底层二进制入手（c语言）。 腾讯系：tinker：从java加载机制入手。  2, ClassLoader  在jdk 的dalvik.system包下可以动态加载class文件到内存当中,其作用为:  负责将Class加载到JVM中 审查每个类由谁加载(父类优先的等级加载机制) 将Class字节">
+<meta name="twitter:description" content="Android热修复学习">
 <meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/11/14/15fba469740ee5d3?imageslim">
 
 
@@ -125,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/15/Android热修复/"/>
+  <link rel="canonical" href="http://zhaozehui.cn/2018/05/16/Android热修复/"/>
 
 
 
 
 
-  <title>Android热修复 | Hexo</title>
+  <title>Android热修复 | zzh1026it</title>
   
 
 
@@ -161,12 +162,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">zzh1026it</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">每天都是新的开始</p>
       
   </div>
 
@@ -238,16 +239,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Android热修复/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/Android热修复/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -267,8 +268,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -278,6 +279,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -290,6 +313,10 @@
 
           
 
+          
+              <div class="post-description">
+                  Android热修复学习
+              </div>
           
 
         </div>
@@ -368,6 +395,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Android-热修复/" rel="tag"># Android,热修复</a>
+          
+        </div>
+      
 
       
       
@@ -377,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/Android软键盘/" rel="next" title="Android软键盘">
-                <i class="fa fa-chevron-left"></i> Android软键盘
+              <a href="/2018/05/16/Kotlin笔记/" rel="next" title="kotlin笔记">
+                <i class="fa fa-chevron-left"></i> kotlin笔记
               </a>
             
           </div>
@@ -386,10 +419,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/15/部分笔记/" rel="prev" title="部分笔记">
-                部分笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -455,8 +484,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -466,14 +495,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
@@ -527,7 +574,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
 
   
 </div>

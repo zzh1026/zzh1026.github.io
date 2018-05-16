@@ -79,13 +79,16 @@
 
 
 
+<meta name="description" content="zzh个人博客">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:title" content="zzh1026it">
+<meta property="og:url" content="http://zhaozehui.cn/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="zzh个人博客">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="zzh1026it">
+<meta name="twitter:description" content="zzh个人博客">
 
 
 
@@ -115,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://zhaozehui.cn/"/>
 
 
 
 
 
-  <title>Hexo</title>
+  <title>zzh1026it</title>
   
 
 
@@ -152,12 +155,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">zzh1026it</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">每天都是新的开始</p>
       
   </div>
 
@@ -229,16 +232,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/部分笔记/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/Android热修复/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -248,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/部分笔记/" itemprop="url">部分笔记</a></h1>
+                <a class="post-title-link" href="/2018/05/16/Android热修复/" itemprop="url">Android热修复</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +263,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -270,6 +273,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -299,212 +324,14 @@
 
       
         
-          
-            <p>####图片上面两个是圆角,下面不是圆角</p>
-<p>#1,使用自定义Imageview ,在onDraw里面实现</p>
-<pre><code>    `
-    @Override
-    protected void onDraw(Canvas canvas) {
-        BitmapShader shader;
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) getDrawable();
-        shader = new BitmapShader(bitmapDrawable.getBitmap(),
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        //设置映射否则图片显示不全
-        RectF rect = new RectF(0.0f, 0.0f, getWidth(), getHeight() + yRadius);
-        int width = bitmapDrawable.getBitmap().getWidth();
-        int height = bitmapDrawable.getBitmap().getHeight() + (int) yRadius;
-        RectF src = new RectF(0.0f, 0.0f, width, height);
-        Matrix matrix = new Matrix();
-        matrix.setRectToRect(src, rect, Matrix.ScaleToFit.CENTER);
-        shader.setLocalMatrix(matrix);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setShader(shader);
-        //根据图片圆角矩形的半径进行裁剪
-        canvas.clipRect(new Rect(0, 0, (int) (rect.right), (int) (rect.bottom - yRadius)));
-        //这样就把下面的部分剪裁掉了,只剩下上面两个圆角了
-        canvas.drawRoundRect(rect, xRadius, yRadius, paint);
-    }
-    `
-同理,可以实现左边右边上面下面四种建材,缺点是只能两两实现圆角剪裁而不能自定义某一个角
-</code></pre><p>关于Cavans的方法:</p>
-<pre><code>Canvas():创建一个空的画布，可以使用setBitmap()方法来设置绘制的具体画布；
-
-Canvas(Bitmap bitmap):以bitmap对象创建一个画布，则将内容都绘制在bitmap上，bitmap不得为null;
-
-Canvas(GL gl):在绘制3D效果时使用，与OpenGL有关；
-
-drawColor:设置画布的背景色；
-
-setBitmap:设置具体的画布；
-
-clipRect:设置显示区域，即设置裁剪区；
-
-isOpaque:检测是否支持透明；
-
-rotate:旋转画布；
-
-canvas.drawRect(RectF,Paint)方法用于画矩形，第一个参数为图形显示区域，第二个参数为画笔，设置好图形显示区域Rect和画笔Paint后，即可画图；
-
-canvas.drawRoundRect(RectF, float, float, Paint) 方法用于画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
-
-canvas.drawLine(startX, startY, stopX, stopY, paint)：前四个参数的类型均为float，最后一个参数类型为Paint。表示用画笔paint从点（startX,startY）到点（stopX,stopY）画一条直线；
-
-canvas.drawArc(oval, startAngle, sweepAngle, useCenter, paint)：第一个参数oval为RectF类型，即圆弧显示区域，startAngle和sweepAngle均为float类型，分别表示圆弧起始角度和圆弧度数,3点钟方向为0度，useCenter设置是否显示圆心，boolean类型，paint为画笔；
-
-canvas.drawCircle(float,float, float, Paint)方法用于画圆，前两个参数代表圆心坐标，第三个参数为圆半径，第四个参数是画笔；
-
-Rect（int left,int top,int right,int bottom）
-
-left
-          矩形左上角X坐标值
-top
-          矩形左上角Y坐标值
-right
-          矩形右下角X坐标值
-bottom
-          矩形右下角Y坐标值
-</code></pre><p>#2,关于Android的权限结构: 危险权限(即需要不断申请的权限)</p>
-<p>权限组位于 #Manifest#permission_group 中</p>
-<h4 id="1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><a href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”" class="headerlink" title="1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”"></a>1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</h4><p>读取日历 READ_CALENDAR “android.permission.READ_CALENDAR”</p>
-<p>编辑日历(比如添加行程等) WRITE_CALENDAR “android.permission.WRITE_CALENDAR”</p>
-<h4 id="2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><a href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”" class="headerlink" title="2,摄像机组:     CAMERA “android.permission-group.CAMERA”"></a>2,摄像机组:     CAMERA “android.permission-group.CAMERA”</h4><p>打开摄像机 CAMERA “android.permission.CAMERA”</p>
-<h4 id="3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><a href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”" class="headerlink" title="3,联系人组:    CONTACTS “android.permission-group.CONTACTS”"></a>3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</h4><p>读取联系人 READ_CONTACTS “android.permission.READ_CONTACTS”</p>
-<p>修改联系人(增加删除联系人)    WRITE_CONTACTS “android.permission.WRITE_CONTACTS”</p>
-<h4 id="4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><a href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”" class="headerlink" title="4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”"></a>4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</h4><p>打开麦克风    RECORD_AUDIO “android.permission.RECORD_AUDIO”</p>
-<h4 id="5-手机使用组-PHONE-“android-permission-group-PHONE”"><a href="#5-手机使用组-PHONE-“android-permission-group-PHONE”" class="headerlink" title="5,手机使用组: PHONE “android.permission-group.PHONE”"></a>5,手机使用组: PHONE “android.permission-group.PHONE”</h4><p>读取手机状态 READ_PHONE_STATE “android.permission.READ_PHONE_STATE”</p>
-<p>拨打电话(直接自动拨打,不是跳转到拨打电话界面,任何跳转都不需要权限,如跳转到打电话界面和发送短信界面) CALL_PHONE “android.permission.CALL_PHONE”</p>
-<p>读取通话记录 READ_CALL_LOG “android.permission.READ_CALL_LOG”</p>
-<p>修改通话记录(添加和删除通话记录,如黑名单中挂断电话后还把该通话记录删除) WRITE_CALL_LOG “android.permission.WRITE_CALL_LOG”</p>
-<h4 id="6-传感器组-SENSORS-“android-permission-group-SENSORS”"><a href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”" class="headerlink" title="6,传感器组: SENSORS “android.permission-group.SENSORS”"></a>6,传感器组: SENSORS “android.permission-group.SENSORS”</h4><p>使用身体传感器(其他传感器没题) BODY_SENSORS “android.permission.BODY_SENSORS”</p>
-<h4 id="7-短信组-SMS-“android-permission-group-SMS”"><a href="#7-短信组-SMS-“android-permission-group-SMS”" class="headerlink" title="7,短信组: SMS “android.permission-group.SMS”"></a>7,短信组: SMS “android.permission-group.SMS”</h4><p>发送短信(直接发送短信) SEND_SMS “android.permission.SEND_SMS”</p>
-<p>接收短信 RECEIVE_SMS “android.permission.RECEIVE_SMS”</p>
-<p>读取短信 READ_SMS “android.permission.READ_SMS”</p>
-<p>彩信相关 RECEIVE_MMS “android.permission.RECEIVE_MMS”</p>
-<h4 id="8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><a href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”" class="headerlink" title="8,sd卡组:  STORAGE “android.permission-group.STORAGE”"></a>8,sd卡组:  STORAGE “android.permission-group.STORAGE”</h4><p>读取sd卡数据 READ_EXTERNAL_STORAGE “android.permission.READ_EXTERNAL_STORAGE”</p>
-<p>向sd卡写数据 WRITE_EXTERNAL_STORAGE “android.permission.WRITE_EXTERNAL_STORAGE”</p>
-<h4 id="9-位置组-LOCATION-“android-permission-group-LOCATION”"><a href="#9-位置组-LOCATION-“android-permission-group-LOCATION”" class="headerlink" title="9,位置组:    LOCATION “android.permission-group.LOCATION”"></a>9,位置组:    LOCATION “android.permission-group.LOCATION”</h4><p>获取精确位置 ACCESS_FINE_LOCATION “android.permission.ACCESS_FINE_LOCATION”</p>
-<p>获取大致位置 ACCESS_COARSE_LOCATION “android.permission.ACCESS_COARSE_LOCATION”</p>
-<p>#3,关于Fragment的小坑(不能叫坑,只是我自己的问题,记录下来是为了让自己以后不犯错)</p>
-<pre><code>一般在newInstence中的 fragment是 static的, 所以在合适的时机必须调用 fragment=null ,来销毁该fragment, 否则下次调用的时候该fragment会使用,但是该fragment的各种状态却还在没有重置
-</code></pre><p>#4,弹出dialog的时候弹出软键盘</p>
-<p>背景: 项目中任何界面都是 默认不弹出软键盘的,所以 在baseactivity中有 开启新界面的配置了不弹出软键盘(在onCreate()之前调用:)</p>
-<pre><code>//有EditView的界面，默认不弹窗软键盘
-getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-</code></pre><p>但是在支付界面是需要输入支付密码的, 这个密码用的是dialog, 需求需要在这个dialog弹出的时候自动弹出软键盘,所以这个时候是需要对软键盘进行处理的,具体处理方法如下:</p>
-<p>在dialog的oncreate方法中添加</p>
-<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-</code></pre><p>如果使用的alertDialog,可以</p>
-<pre><code>AlertDialog.Builder builder = new Builder(context);
-final View view = View.inflate(context, R.layout.dialog_enter_pwd, null);
-builder.setView(view);
-builder.setCancelable(false);
-final AlertDialog dialog = builder.show();
-dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-</code></pre><p>至此,我的问题就解决了</p>
-<p>其他的方法如: </p>
-<p>1,在调用dialog之前在activity中调用 </p>
-<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-</code></pre><p>2,在调用完毕后调用</p>
-<pre><code>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-</code></pre><p>总之: SOFT_INPUT_STATE_ALWAYS_VISIBLE , 和 SOFT_INPUT_STATE_VISIBLE 都试试.</p>
-<h3 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h3><h4 id="1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口"><a href="#1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口" class="headerlink" title="1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口"></a>1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口</h4><pre><code>final void attach(Context context, ActivityThread aThread,
-        Instrumentation instr, IBinder token, int ident,
-        Application application, Intent intent, ActivityInfo info,
-        CharSequence title, Activity parent, String id,
-        NonConfigurationInstances lastNonConfigurationInstances,
-        Configuration config, String referrer, IVoiceInteractor voiceInteractor) {
-    attachBaseContext(context);
-    ....
-    //创建对应的Window 并设置callback, 其实为PhoneWindow
-    mWindow = new PhoneWindow(this);
-    mWindow.setCallback(this);
-    mWindow.setOnWindowDismissedCallback(this);
-    ....
-    // 设置Window的WindowManager, 对Window的mWindowManager赋值,
-    // 事实上, Window中 并未使用传递进去的windowManager, 而是在此方法中 调用WindowManagerImpl.createLocalWindowManager 重新创建了一个
-    mWindow.setWindowManager(
-            (WindowManager)context.getSystemService(Context.WINDOW_SERVICE),
-            mToken, mComponent.flattenToString(),
-            (info.flags &amp; ActivityInfo.FLAG_HARDWARE_ACCELERATED) != 0);
-    if (mParent != null) {
-        mWindow.setContainer(mParent.getWindow());
-    }
-    // 把window对象中的 windowManager 关联到 Activity的 mWindowManager
-    mWindowManager = mWindow.getWindowManager();
-    ...
-  }
-</code></pre><p>Activity创建之后, 在ActivityThread中 调用 Activity#attach, 进行一些初始化操作,在Activity#attach中, 创建了一个PhoneWindow对象,这个PhoneWindow就是getWindow中得到的window</p>
-<h4 id="2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样"><a href="#2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样" class="headerlink" title="2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样"></a>2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样</h4><pre><code> Dialog(@NonNull Context context, @StyleRes int themeResId, boolean createContextThemeWrapper) {
-    ......
-    // 用getSystemService获取 WindowManger实例
-    mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-    // 直接创建一个 PhoneWindow的实例
-    final Window w = new PhoneWindow(mContext);
-    mWindow = w;
-    w.setCallback(this);
-    w.setOnWindowDismissedCallback(this);
-    w.setWindowManager(mWindowManager, null, null);
-    w.setGravity(Gravity.CENTER);
-    mListenersHandler = new ListenersHandler(this);
-}
-</code></pre><p>代码很明显, 首先获取windowManager实例, 然后创建window对象,然后在设置callback,对PhoneWindow的实例设置WindowManager;(这里有一点和Activity不同, Activity是调用Window的setWindowManager后, 把Window对应的WindowManger获取,然后赋值给自己的变量Activity#mWindowManger, 而dialog没这个操作; dialog对应的Window对象,就只是传入的Context实例去getSystemService所得); 这个PhoneWindow就是getWindow中得到的window</p>
-<p>所以他们获取到的window是不一样的</p>
-<pre><code>activity中window的地址为:com.android.internal.policy.PhoneWindow@595fa83
-dialog中window的地址为:com.android.internal.policy.PhoneWindow@960ec5c
-</code></pre><p>很明显不一样</p>
-<p>可参考<a href="http://www.jianshu.com/p/c1d7ebc57fb0" target="_blank" rel="noopener">Activity和dialog的窗口添加源码分析</a></p>
-<p>1, Window是一个抽象类, 具体的实现是PhoneWindow</p>
-<p>2,android系统中, 每个界面,对应着一个window; 但其实在android系统中window也是一个抽象的概率,它是以view的形式存在; 在使用中, 无法直接访问Window, 只能通过WindowManager才能访问Window; 每个Window都对应一个View和一个ViewRootImpl, ViewRootImpl是连接Window和WMS的桥梁, WMS的一些消息,通过ViewRootImpl转发给View;</p>
-<p>3, WindowManager继承自ViewManager(间接证明Window其实对应的是View?)，常用的只有三个方法：addView、updateView和removeView</p>
-<p>4,各种Window的不同, 主要是 token及type的不同</p>
-<p>5,app中控制window, 是通过WindowManager.LayoutParams去控制, eg: 通过x,y,gravity去控制位置…</p>
-<h1 id="CardView使用"><a href="#CardView使用" class="headerlink" title="CardView使用"></a>CardView使用</h1><p>参考资料: <a href="http://www.jianshu.com/p/e693e395e729" target="_blank" rel="noopener">CardView的使用</a></p>
-<h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1,基本使用"></a>1,基本使用</h2><pre><code>&lt;android.support.v7.widget.CardView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    
-    xmlns:cardview=&quot;http://schemas.android.com/apk/res-auto&quot;   
-    cardview:cardElevation=&quot;5dp&quot;   
-    cardview:cardCornerRadius=&quot;6dp&quot;   
-    android:layout_width=&quot;match_parent&quot;   
-    android:layout_height=&quot;match_parent&quot;&gt;
-&lt;/android.support.v7.widget.CardView&gt;
-</code></pre><p>cardview:cardElevation 表示cardView 的阴影的 高度</p>
-<p>cardview:cardCornerRadius 表示cardView 的圆角的边缘弧度数</p>
-<h2 id="2-拓展属性介绍"><a href="#2-拓展属性介绍" class="headerlink" title="2,拓展属性介绍"></a>2,拓展属性介绍</h2><pre><code>cardBackgroundColor   : 设置CardView的背景颜色
-cardMaxElevation   : 设置最大高度
-cardUseCompatPadding :设置内边距
-cardPreventCornerOverlap : 是否添加内边距,为了防止卡片内容和边角的重叠
-contentPadding : 设置CardView边界跟内部的间距
-contentPaddingLeft :设置CardView边界跟内部的左间距
-contentPaddingRight:设置CardView边界跟内部的右间距
-contentPaddingTop:设置CardView边界跟内部的上间距
-contentPaddingBottom:设置CardView边界跟内部的下间距
-</code></pre><h2 id="3-一些问题和一些实现"><a href="#3-一些问题和一些实现" class="headerlink" title="3,一些问题和一些实现"></a>3,一些问题和一些实现</h2><p>1,在API21(5.0) 以上,使用起来没有问题;</p>
-<p>2,在API21以下,在CardView 与内部view会有默认的边距, 图 , 原因是因为 在API21以下,为了防止内容与CardView 重叠, 默认使用cardPreventCornerOverlap =true 使会有默认边距 ,解决这个问题, 只需要添加代码 cardPreventCornerOverlap  =false 即可;</p>
-<p>3,CardView设置不了与屏幕的间距, 只需要在CardView外面再套一层布局 再设置CardView的margin值即可;</p>
-<p>4,CardView继承于FrameLayout 可以作为根布局来使用, 具有FrameLayout的一切特点,但是要注意第三点提到的问题,同时也要注意子View的位置;</p>
-<p>5,去除阴影  card_view:cardElevation=”0dp” 即可;</p>
-<p>6,设置点击水波纹效果 android:foreground=”?attr/selectableItemBackground” 但是在5.0以下就没有效果;</p>
-<p>7,实现Material Design 点击阴影效果 需要借助5.0的属性 android:stateListAnimator, 5.0以下没有效果</p>
-<p>创建一个Z轴方向的动画,设置属性为android:stateListAnimator=”@anim/xxx</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    &lt;item android:state_enabled=&quot;true&quot; android:state_pressed=&quot;true&quot;&gt;
-        &lt;objectAnimator
-            android:duration=&quot;@android:integer/config_shortAnimTime&quot;
-            android:propertyName=&quot;translationZ&quot;
-            android:valueTo=&quot;@dimen/touch_raise&quot;
-            android:valueType=&quot;floatType&quot; /&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-        &lt;objectAnimator
-            android:duration=&quot;@android:integer/config_shortAnimTime&quot;
-            android:propertyName=&quot;translationZ&quot;
-            android:valueTo=&quot;0dp&quot;
-            android:valueType=&quot;floatType&quot; /&gt;
-    &lt;/item&gt;
-&lt;/selector&gt;
-</code></pre>
-          
+          Android热修复学习
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/Android热修复/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -551,16 +378,16 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Android热修复/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/Kotlin笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -570,7 +397,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/Android热修复/" itemprop="url">Android热修复</a></h1>
+                <a class="post-title-link" href="/2018/05/16/Kotlin笔记/" itemprop="url">kotlin笔记</a></h1>
         
 
         <div class="post-meta">
@@ -582,8 +409,8 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -592,6 +419,28 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -621,57 +470,14 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
 
       
         
-          
-            <p><a href="https://juejin.im/post/5a0ad2b551882531ba1077a2" title="热修复——深入浅出原理与实现" target="_blank" rel="noopener">热修复——深入浅出原理与实现</a></p>
-<h2 id="1-目前较火的热修复方案"><a href="#1-目前较火的热修复方案" class="headerlink" title="1, 目前较火的热修复方案:"></a>1, 目前较火的热修复方案:</h2><ol>
-<li>阿里系：DeXposed、andfix：从底层二进制入手（c语言）。</li>
-<li>腾讯系：tinker：从java加载机制入手。</li>
-</ol>
-<h2 id="2-ClassLoader-在jdk-的dalvik-system包下"><a href="#2-ClassLoader-在jdk-的dalvik-system包下" class="headerlink" title="2, ClassLoader  在jdk 的dalvik.system包下"></a>2, ClassLoader  在jdk 的dalvik.system包下</h2><p>可以动态加载class文件到内存当中,其作用为:</p>
-<ul>
-<li>负责将Class加载到JVM中</li>
-<li>审查每个类由谁加载(父类优先的等级加载机制)</li>
-<li>将Class字节码重新解析成JVM统一要求的对象格式</li>
-<li>PathClassLoader,只能加载已经安装到Android系统中的apk文件（/data/app目录）,是Android默认使用的类加载器。</li>
-<li>DexClassLoader,可以加载任意目录下的dex/jar/apk/zip文件,一般的补丁都是通过这种方式加载的</li>
-</ul>
-<h4 id="1-PathClassLoader与DexClassLoader的代码区别"><a href="#1-PathClassLoader与DexClassLoader的代码区别" class="headerlink" title="1,PathClassLoader与DexClassLoader的代码区别"></a>1,PathClassLoader与DexClassLoader的代码区别</h4><ul>
-<li>PathClassLoader与DexClassLoader都继承于BaseDexClassLoader。</li>
-<li>PathClassLoader与DexClassLoader在构造函数中都调用了父类的构造函数，但DexClassLoader多传了一个optimizedDirectory。</li>
-</ul>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/14/15fba469740ee5d3?imageslim" alt="Android的类加载器"></p>
-<h4 id="2-BaseDexClassLoader"><a href="#2-BaseDexClassLoader" class="headerlink" title="2,BaseDexClassLoader"></a>2,BaseDexClassLoader</h4><p>BaseDexClassLoader的构造函数:</p>
-<pre><code>public BaseDexClassLoader(String dexPath, File optimizedDirectory, String libraryPath, ClassLoader parent){
-    super(parent);
-    this.pathList = new DexPathList(this, dexPath, libraryPath, optimizedDirectory);
-}
-</code></pre><ul>
-<li>dexPath：要加载的程序文件（一般是dex文件，也可以是jar/apk/zip文件）所在目录。</li>
-<li>optimizedDirectory：dex文件的输出目录（因为在加载jar/apk/zip等压缩格式的程序文件时会解压出其中的dex文件，该目录就是专门用于存放这些被解压出来的dex文件的）。</li>
-<li>libraryPath：加载程序文件时需要用到的库路径。</li>
-<li>parent：父加载器</li>
-</ul>
-<blockquote>
-<p>类加载器加载到的class的方法为 findClass() , 在 BaseDexClassLoader有重写findClass(),<br>该方法主要是通过DexPathList对象（pathList）的findClass()方法来获取class的，而这个DexPathList对象恰好在之前的BaseDexClassLoader构造函数中就已经被创建好了。</p>
-</blockquote>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/14/15fba4697333434b?imageslim" alt="BaseDexClassLoader的内容"></p>
-<h4 id="3-DexPathList"><a href="#3-DexPathList" class="headerlink" title="3,DexPathList"></a>3,DexPathList</h4><ul>
-<li>DexPathList的构造函数是将一个个的程序文件（可能是dex、apk、jar、zip）封装成一个个Element对象，最后添加到Element集合中。</li>
-<li>DexPathList的findClass()方法很简单，就只是对Element数组进行遍历，一旦找到类名与name相同的类时，就直接返回这个class，找不到则返回null。</li>
-</ul>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/14/15fba46975665b3b?imageslim" alt="DexPathList内容"></p>
-<h2 id="3-热修复的实现原理"><a href="#3-热修复的实现原理" class="headerlink" title="3, 热修复的实现原理"></a>3, 热修复的实现原理</h2><p>经过对PathClassLoader、DexClassLoader、BaseDexClassLoader、DexPathList的分析，我们知道，安卓的类加载器在加载一个类时会先从自身DexPathList对象中的Element数组中获取（Element[] dexElements）到对应的类，之后再加载。采用的是数组遍历的方式，不过注意，遍历出来的是一个个的dex文件。</p>
-<p>在for循环中，首先遍历出来的是dex文件，然后再是从dex文件中获取class，所以，我们只要让修复好的class打包成一个dex文件，放于Element数组的第一个元素，这样就能保证获取到的class是最新修复好的class了（当然，有bug的class也是存在的，不过是放在了Element数组的最后一个元素中，所以没有机会被拿到而已）。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/14/15fba469739e5b36?imageslim" alt="dex修复原理图"></p>
-<h2 id="4-热修复的简单实现"><a href="#4-热修复的简单实现" class="headerlink" title="4, 热修复的简单实现"></a>4, 热修复的简单实现</h2><h4 id="1-重新将修改后的java文件编译成class文件"><a href="#1-重新将修改后的java文件编译成class文件" class="headerlink" title="1, 重新将修改后的java文件编译成class文件"></a>1, 重新将修改后的java文件编译成class文件</h4><p><img src="https://user-gold-cdn.xitu.io/2017/11/14/15fba46977048892?imageslim" alt="生成新的dex文件过程"></p>
-<p>将修复好的class文件复制到其他地方，例如桌面上的dex文件夹中。需要注意的是，在复制这个class文件时，需要把它所在的完整包目录一起复制。</p>
-<h4 id="2-通过build-tools-中的-dx指令程序-将class文件打包成dex文件"><a href="#2-通过build-tools-中的-dx指令程序-将class文件打包成dex文件" class="headerlink" title="2, 通过build-tools 中的  dx指令程序 将class文件打包成dex文件"></a>2, 通过build-tools 中的  dx指令程序 将class文件打包成dex文件</h4><p>dx指令也需要有程序来提供，它就在Android SDK的build-tools目录下各个Android版本目录之中。</p>
-<blockquote>
-<p> dx指令<br> dx –dex –output=dex文件完整路径 (空格) 要打包的完整class文件所在目录</p>
-<p> dx –dex –output=C:\Users\Administrator\Desktop\dex\classes2.dex C:\Users\Administrator\Desktop\dex<br> 表示 把 desktop\dex 文件夹下的文件 生成 classes2.dex 文件</p>
-</blockquote>
-
-          
+          kotlin学习笔记
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/Kotlin笔记/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -718,16 +524,16 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Android软键盘/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/okhttp学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -737,7 +543,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/Android软键盘/" itemprop="url">Android软键盘</a></h1>
+                <a class="post-title-link" href="/2018/05/16/okhttp学习/" itemprop="url">OKhttp学习</a></h1>
         
 
         <div class="post-meta">
@@ -749,8 +555,8 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -759,6 +565,28 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -788,139 +616,14 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
 
       
         
-          
-            <h2 id="1-WindowSoftInputMode属性"><a href="#1-WindowSoftInputMode属性" class="headerlink" title="1,WindowSoftInputMode属性"></a>1,WindowSoftInputMode属性</h2><p>活动的主窗口如何与包含屏幕上的软键盘窗口交互,这个属性的设置将会影响两件事情:</p>
-<p>1,软键盘的状态:当活动(Activity)成为用户关注的焦点时，它是否隐藏或显示。</p>
-<p>2,对活动主窗口进行的调整：无论是调整大小以便为软键盘腾出空间，还是在软键盘覆盖窗口的一部分，以便当前焦点内容可见。</p>
-<h3 id="1-属性详解"><a href="#1-属性详解" class="headerlink" title="1,属性详解"></a>1,属性详解</h3><blockquote>
-<p>The setting must be one of the values listed in the following table, or a combination of one “state…” value plus one “adjust…” value. Setting multiple values in either group — multiple “state…” values, for example — has undefined results. Individual values are separated by a vertical bar (|). For example:</p>
-</blockquote>
-<p>该属性可选的值有两部分，一部分为软键盘的状态控制，控制软键盘是隐藏还是显示，另一部分是Activity窗口的调整，以便腾出空间展示软键盘。        android:windowSoftInputMode的属性设置必须是下面中的一个值，或一个”state”值加一个”adjust”值的组合，各个值之间用 | 分开。</p>
-<blockquote>
-<activity android:windowsoftinputmode="stateVisible|adjustResize" .="">
-</activity></blockquote>
-<p>设置的值为1个或者 一个 state… 加 一个 adjust…</p>
-<blockquote>
-<p>Values set here (other than “stateUnspecified” and “adjustUnspecified”) override values set in the theme.</p>
-</blockquote>
-<p>此处设置的值（“stateUnspecified”和“adjustUnspecified”除外）将覆盖主题中设置的值。<br>PS:这个是很好理解的,  正如在代码中设置会覆盖activity注册声明中的值, activity注册声明中的值也会覆盖主题中设置的值:  代码设置 &gt; 注册声明 &gt;　主题设置</p>
-<p>用来设置窗口软键盘的交互模式，其属性一共有9个取值</p>
-<h2 id="state状态的-6种"><a href="#state状态的-6种" class="headerlink" title="state状态的:6种"></a>state状态的:6种</h2><h4 id="stateUnspecified-－－－－－-SOFT-INPUT-STATE-UNSPECIFIED"><a href="#stateUnspecified-－－－－－-SOFT-INPUT-STATE-UNSPECIFIED" class="headerlink" title="stateUnspecified　－－－－－　SOFT_INPUT_STATE_UNSPECIFIED"></a>stateUnspecified　－－－－－　SOFT_INPUT_STATE_UNSPECIFIED</h4><blockquote>
-<p>no state has been specified    (未指定状态)</p>
-</blockquote>
-<p>默认交互方式，系统会根据界面采取相应的软键盘的显示模式。比如，当界面上只有输入框和按钮的时候，软键盘就不会自动弹出，但是当有获得焦点的输入框的界面有滚动的需求的时候，会自动弹出软键盘，例如外层为ScrollView。阻止键盘弹出的一个解决方案就是，在xml文件中，设置一个非输入框控件获取焦点。</p>
-<h4 id="stateUnchanged-———–-SOFT-INPUT-STATE-UNCHANGED"><a href="#stateUnchanged-———–-SOFT-INPUT-STATE-UNCHANGED" class="headerlink" title="stateUnchanged     ———–  SOFT_INPUT_STATE_UNCHANGED"></a>stateUnchanged     ———–  SOFT_INPUT_STATE_UNCHANGED</h4><blockquote>
-<p>please don’t change the state of the soft input area.(不改变软键盘的状态,当前的键盘是否显隐,取决于上一个界面的软键盘状态,无论是隐藏还是显示)</p>
-</blockquote>
-<p>保持当前软键盘状态不变。举个例子，假如上个界面键盘是隐藏的，那么跳转到该界面之后，软键盘也是隐藏的；如果上个界面是显示的，那么跳转该界面后，软键盘也是显示状态。</p>
-<h4 id="stateHidden-—————-SOFT-INPUT-STATE-HIDDEN"><a href="#stateHidden-—————-SOFT-INPUT-STATE-HIDDEN" class="headerlink" title="stateHidden —————     SOFT_INPUT_STATE_HIDDEN"></a>stateHidden —————     SOFT_INPUT_STATE_HIDDEN</h4><blockquote>
-<p>please hide any soft input area when normally appropriate (when the user is navigating forward to your window).(在普通适当的情况隐藏软键盘,当用户正在该界面操作浏览的时候)</p>
-</blockquote>
-<p>当设置该状态时，软键盘总是被隐藏，不管是否有输入的需求。</p>
-<h4 id="stateAlwaysHidden-———-SOFT-INPUT-STATE-ALWAYS-HIDDEN"><a href="#stateAlwaysHidden-———-SOFT-INPUT-STATE-ALWAYS-HIDDEN" class="headerlink" title="stateAlwaysHidden ———  SOFT_INPUT_STATE_ALWAYS_HIDDEN"></a>stateAlwaysHidden ———  SOFT_INPUT_STATE_ALWAYS_HIDDEN</h4><blockquote>
-<p>please always hide any soft input area when this window receives focus.(当窗口获取到焦点的时候也保持隐藏)</p>
-</blockquote>
-<p>当设置该状态时，软键盘总是被隐藏，和stateHidden不同的是，当我们跳转到下个界面，如果下个页面的软键盘是显示的，而我们再次回来的时候，软键盘就会隐藏起来。</p>
-<h4 id="stateVisible-————–-SOFT-INPUT-STATE-VISIBLE"><a href="#stateVisible-————–-SOFT-INPUT-STATE-VISIBLE" class="headerlink" title="stateVisible ————–  SOFT_INPUT_STATE_VISIBLE"></a>stateVisible ————–  SOFT_INPUT_STATE_VISIBLE</h4><blockquote>
-<p>please show the soft input area when normally appropriate (when the user is navigating forward to your window).(在普通适当的情况展示软键盘,当用户正在该界面操作浏览的时候)</p>
-</blockquote>
-<p>当设置为这个状态时，软键盘总是可见的，即使在界面上没有输入框的情况下也可以强制弹出来出来。。</p>
-<h4 id="stateAlwaysVisible-——–-SOFT-INPUT-STATE-ALWAYS-VISIBLE"><a href="#stateAlwaysVisible-——–-SOFT-INPUT-STATE-ALWAYS-VISIBLE" class="headerlink" title="stateAlwaysVisible ——–  SOFT_INPUT_STATE_ALWAYS_VISIBLE"></a>stateAlwaysVisible ——–  SOFT_INPUT_STATE_ALWAYS_VISIBLE</h4><blockquote>
-<p>please always make the soft input area visible when this window receives input focus.(当这个窗口接收输入焦点保持可见)</p>
-</blockquote>
-<h2 id="adjust状态的-4种"><a href="#adjust状态的-4种" class="headerlink" title="adjust状态的:4种"></a>adjust状态的:4种</h2><h4 id="adjustUnspecified-———-SOFT-INPUT-ADJUST-UNSPECIFIED"><a href="#adjustUnspecified-———-SOFT-INPUT-ADJUST-UNSPECIFIED" class="headerlink" title="adjustUnspecified ———  SOFT_INPUT_ADJUST_UNSPECIFIED"></a>adjustUnspecified ———  SOFT_INPUT_ADJUST_UNSPECIFIED</h4><blockquote>
-<p>nothing specified. The system will try to pick one or the other depending on the contents of the window.(默认,)</p>
-</blockquote>
-<p>设置软键盘与软件的显示内容之间的显示关系，默认的设置模式。在这中情况下，系统会根据界面选择不同的模式。如果界面里面有可以滚动的控件，比如ScrowView，系统会减小可以滚动的界面的大小，从而保证即使软键盘显示出来了，也能够看到所有的内容。如果布局里面没有滚动的控件，那么软键盘可能就会盖住一些内容。没有滚动控件，软键盘下面的布局都被遮挡住，若想修改，只能隐藏软键盘，然后选择。而且，重点注意一下上面的布局，当我们选择的输入框偏下的时候，上面的标题栏和布局被软键盘顶上去了。</p>
-<h4 id="adjustResize-————–-SOFT-INPUT-ADJUST-RESIZE"><a href="#adjustResize-————–-SOFT-INPUT-ADJUST-RESIZE" class="headerlink" title="adjustResize ————–  SOFT_INPUT_ADJUST_RESIZE"></a>adjustResize ————–  SOFT_INPUT_ADJUST_RESIZE</h4><p>这个属性表示Activity的主窗口总是会被调整大小，从而保证软键盘显示空间。</p>
-<p>该模式下窗口总是调整屏幕的大小用以保证软键盘的显示空间；这个选项不能和adjustPan同时使用，如果这两个属性都没有被设置，系统会根据窗口中的布局自动选择其中一个。</p>
-<h4 id="adjustPan-—————–-SOFT-INPUT-ADJUST-PAN"><a href="#adjustPan-—————–-SOFT-INPUT-ADJUST-PAN" class="headerlink" title="adjustPan —————–  SOFT_INPUT_ADJUST_PAN"></a>adjustPan —————–  SOFT_INPUT_ADJUST_PAN</h4><p>如果设置为这个属性，那么Activity的屏幕大小并不会调整来保证软键盘的空间，而是采取了另外一种策略，系统会通过布局的移动，来保证用户要进行输入的输入框肯定在用户的视野范围内，从而让用户可以看到自己输入的内容。对于没有滚动控件的布局来说，这个其实就是默认的设置，如果我们选择的位置偏下，上面的标题栏和部分控件会被顶上去。</p>
-<p>对于没有滚动控件的布局来说，adjustPan就是默认的设置。</p>
-<p>####adjustNothing ————-  SOFT_INPUT_ADJUST_NOTHING ####</p>
-<h4 id="备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。"><a href="#备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。" class="headerlink" title="备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。"></a>备注：如果我们不设置”adjust…”的属性，对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。</h4><h4 id="备注2-对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的"><a href="#备注2-对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的" class="headerlink" title="备注2: 对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的"></a>备注2: 对于没有滚动控件的布局来说，整个布局会往上偏移（包括标题等）以保证输入框的可见。如果有滚动控件，那么就是内容网上偏移，标题不会动，还可以通关滚动来查看被顶上去的内容，而这点是不可滚动的布局所不具备的</h4><h4 id="备注3-根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。"><a href="#备注3-根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。" class="headerlink" title="备注3: 根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。"></a>备注3: 根据这一原理，我们就可以把开发中遇到的软键盘遮挡页面的问题，利用ScrollView当做根布局，让系统采用adjustResize模式，很好地解决这一问题。</h4><h3 id="2-使用方式"><a href="#2-使用方式" class="headerlink" title="2,使用方式"></a>2,使用方式</h3><p>1,代码实现方式：</p>
-<pre><code>//在activity中的setContentView之前写上以下代码
-getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-</code></pre><p>2,xml实现方式</p>
-<pre><code>//在 项目的AndroidManifest.xml文件中界面对应的&lt;activity&gt;里加入
-android:windowSoftInputMode=&quot;adjustPan&quot;
-</code></pre><h2 id="2-手动打开-关闭软键盘"><a href="#2-手动打开-关闭软键盘" class="headerlink" title="2,手动打开,关闭软键盘"></a>2,手动打开,关闭软键盘</h2><p><a href="http://www.jianshu.com/p/50c35e1bf09b" target="_blank" rel="noopener">关于键盘的自动弹出和不自动弹出可以看这里</a></p>
-<p>在开发过程中，难免会遇到想手动打开或者关闭软键盘的情况，这时使用以下代码不失为一种好办法。</p>
-<pre><code>/**
- * 动态显示隐藏软键盘,如果显示则隐藏,如果隐藏则显示
- *
- * @param context context
- */
-public static void toggleSoftInput(Context context) {
-    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-}
-</code></pre><h4 id="打开软键盘"><a href="#打开软键盘" class="headerlink" title="打开软键盘"></a>打开软键盘</h4><pre><code>//这个不一定起作用
-public static void openSoftInput(Context context) {
-    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
-}
-
-或者
-
-InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);    
-
-或者
-
-//使用EditText来弹出软键盘
-InputMethodManager inputManager =(InputMethodManager)etInput.getContext ().getSystemService(Context.INPUT_METHOD_SERVICE);
-inputManager.showSoftInput(etInput, 0);
-</code></pre><h4 id="隐藏软键盘"><a href="#隐藏软键盘" class="headerlink" title="隐藏软键盘"></a>隐藏软键盘</h4><pre><code>InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
-
-或者
-
-int flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM; 
-getWindow().addFlags(flags);
-
-或者
-
-//在onclick事件下.以下方法可行.(如果是EditText失去焦点/得到焦点,没有效果)
-InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE); 
-im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-</code></pre><h4 id="获取输入法打开的状态"><a href="#获取输入法打开的状态" class="headerlink" title="获取输入法打开的状态"></a>获取输入法打开的状态</h4><pre><code>InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-boolean isOpen=imm.isActive();//isOpen若返回true，则表示输入法打开
-</code></pre><p>PS：输入法打开的意思并不是说软键盘弹出，这个两个概念</p>
-<h2 id="3-软键盘的Enter键"><a href="#3-软键盘的Enter键" class="headerlink" title="3,软键盘的Enter键"></a>3,软键盘的Enter键</h2><h3 id="1-使用方式"><a href="#1-使用方式" class="headerlink" title="1,使用方式"></a>1,使用方式</h3><p>1,当layout中有多个EditText，把每个控件的android:singleLine的属性都被设置成true的情况下，软键盘的Enter键上 的文字会变成“Next”，按下后下个EditText会自动获得焦点（实现了“Next”的功能）；当最后一个控件获得焦点的时候，Enter键上的文 字会变成“Done”，按下后软键盘会自动隐藏起来。</p>
-<p>2,把EditText的ImeOptions属性设置成不同的值，Enter键上可以显示不同的文字或图案</p>
-<pre><code>actionNone : 回车键，按下后光标到下一行
-actionGo ： Go，
-actionSearch ： 一个放大镜
-actionSend ： Send
-actionNext ： Next
-actionDone ： Done，隐藏软键盘，即使不是最后一个文本输入框
-
-inputView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null &amp;&amp; event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                     //do something;              
-                    return true;
-                }
-                return false;
-            }
-        });
-</code></pre><h1 id="部分坑"><a href="#部分坑" class="headerlink" title="部分坑"></a>部分坑</h1><h3 id="1-软键盘无法顶起页面"><a href="#1-软键盘无法顶起页面" class="headerlink" title="1,软键盘无法顶起页面"></a>1,软键盘无法顶起页面</h3><p>开发中有个需求是将页面底部的一个按钮顶起，但是开发时发现Android5.0以后的版本设置了adjustResize属性后无法成功顶起。纠结了好久，最后在stackoverflow找到解决方案，那就是在根布局上加上fitsSystemWindow=”true”即可。</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;       android:layout_width=&quot;match_parent&quot; 
-    android:layout_height=&quot;match_parent&quot;     
-    android:fitsSystemWindows=&quot;true&quot;&gt;
-</code></pre><p>这里的fitsSystemWindow具体的作用就是你的contentview是否忽略actionbar,title,屏幕的底部虚拟按键，将整个屏幕当作可用的空间。 </p>
-<p>正常情况，contentview可用的空间是去除了actionbar,title,底部按键的空间后剩余的可用区域；这个属性设置为true,则忽略，false则不忽略</p>
-<h3 id="2-自定义软键盘按钮功能无效"><a href="#2-自定义软键盘按钮功能无效" class="headerlink" title="2,自定义软键盘按钮功能无效"></a>2,自定义软键盘按钮功能无效</h3><p>在edittext上加入Android:imeOptions=”actionSearch”这个属性没响应，最后发现在2.3及以上版本不起作用，解决方案：加上</p>
-<pre><code>android:singleLine=&quot;true&quot;
-</code></pre><p>因为输入法键盘右下角默认的回车键本来就是换行用的，当设置单行后，回车换行就失去作用了，这样就可以设置为搜索、发送、go等等。</p>
-<h1 id="Android键盘控制器InputMethodManager"><a href="#Android键盘控制器InputMethodManager" class="headerlink" title="Android键盘控制器InputMethodManager"></a>Android键盘控制器InputMethodManager</h1><h3 id="获取InputMethodManager对象："><a href="#获取InputMethodManager对象：" class="headerlink" title="获取InputMethodManager对象："></a>获取InputMethodManager对象：</h3><pre><code>InputMethodManager imm = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
-</code></pre><h3 id="切换打开-隐藏状态"><a href="#切换打开-隐藏状态" class="headerlink" title="切换打开/隐藏状态"></a>切换打开/隐藏状态</h3><pre><code>imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-</code></pre><h3 id="打开键盘"><a href="#打开键盘" class="headerlink" title="打开键盘"></a>打开键盘</h3><pre><code>imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
-</code></pre><h3 id="隐藏键盘"><a href="#隐藏键盘" class="headerlink" title="隐藏键盘"></a>隐藏键盘</h3><pre><code>imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-</code></pre><h3 id="获取输入法状态"><a href="#获取输入法状态" class="headerlink" title="获取输入法状态"></a>获取输入法状态</h3><pre><code>boolean isOpen=imm.isActive();
-</code></pre>
-          
+          OKhttp 学习笔记
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/okhttp学习/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -967,16 +670,16 @@ editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/BoradcastReceiver的学习/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/Android软键盘/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -986,7 +689,7 @@ editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/BoradcastReceiver的学习/" itemprop="url">BoradcastReceiver的使用</a></h1>
+                <a class="post-title-link" href="/2018/05/16/Android软键盘/" itemprop="url">Android软键盘</a></h1>
         
 
         <div class="post-meta">
@@ -998,8 +701,8 @@ editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -1008,6 +711,28 @@ editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1037,196 +762,14 @@ editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
       
         
-          
-            <p>BroadcastReceiver翻译为广播接收者，Broadcast是一种广泛运用在应用程序之间的传输信息的机制，简单的可以理解为传统意义上的电台广播，通俗一点，发布失物招领。</p>
-<p>广播机制是一个典型的发布—订阅模式，也就是我们所说的观察者模式。广播最大的特点就是发送方并不关心接收方是否接到数据，也不关心接收方是如何处理数据的，通过这样的形式来达到接、收双方的完全解耦合</p>
-<h2 id="1-普通广播"><a href="#1-普通广播" class="headerlink" title="1,普通广播"></a>1,普通广播</h2><p>普通广播是完全异步的，通过Context的sendBroadcast()方法来发送，消息传递效率比较高，但所有receivers（接收器）的执行顺序不确定。</p>
-<p>缺点是：接收者不能将处理结果传递给下一个接收者，并且无法终止广播Intent的传播，直到没有与之匹配的广播接收器为止。</p>
-<h3 id="自定义广播"><a href="#自定义广播" class="headerlink" title="自定义广播"></a>自定义广播</h3><h4 id="1-创建广播"><a href="#1-创建广播" class="headerlink" title="1,创建广播"></a>1,创建广播</h4><p>继承BroadcastReceiver并实现onReceive()方法</p>
-<pre><code>public class SendMyBroadCast extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-
-    }
-}
-</code></pre><h4 id="2-注册广播"><a href="#2-注册广播" class="headerlink" title="2,注册广播"></a>2,注册广播</h4><p>BroadcastReceiver是四大组件之一，所以必须要注册,其注册方法有两种：</p>
-<p>1,在 androidmanifests 中进行配置</p>
-<pre><code>&lt;receiver android:name=&quot;.broadcast.SendMyBroadCast&quot; &gt;
-     &lt;intent-filter&gt;
-         &lt;action android:name=&quot;con.neishenme.sendmyself&quot; /&gt;
-     &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-
-这里需要加入intent-filter的action中的name属性，表示我们监听的内容。当有广播发送时，需要判断该广播是否和我们监听的内容一致，如果一致则接收.
-</code></pre><p>2,通过代码动态配置</p>
-<pre><code>SendMyBroadCast sendMyBroadCast = new SendMyBroadCast();
-IntentFilter filter = new IntentFilter(&quot;con.neishenme.sendmyself&quot;);
-registerReceiver(sendMyBroadCast, filter);
-</code></pre><h4 id="3-取消广播注册"><a href="#3-取消广播注册" class="headerlink" title="3,取消广播注册"></a>3,取消广播注册</h4><p>BroadcastReceiver必须遵循生到死的周期，如果你是使用动态注册广播的则需要在Activity的onDestroy的时候取消注册; 如果是静态注册(在manifests中注册)则不需要取消注册.</p>
-<pre><code>@Override
-protected void onDestroy() {
-    unregisterReceiver(sendMyBroadCast);
-    super.onDestroy();
-}
-</code></pre><h4 id="4-发送广播"><a href="#4-发送广播" class="headerlink" title="4,发送广播"></a>4,发送广播</h4><pre><code>Intent intent = new Intent(&quot;con.neishenme.sendmyself&quot;);
-sendBroadcast(intent);
-</code></pre><h2 id="2-有序广播"><a href="#2-有序广播" class="headerlink" title="2,有序广播"></a>2,有序广播</h2><p>有序广播通过Context.sendOrderedBroadcast()来发送，所有的广播接收器优先级依次执行，广播接收器的优先级通过receiver的intent-filter中的android:priority属性来设置，数值越大优先级越高。</p>
-<p>当广播接收器接收到广播后，可以使用setResult()函数来结果传给下一个广播接收器接收，然后通过getResult()函数来取得上个广播接收器接收返回的结果。</p>
-<p>当广播接收器接收到广播后，也可以用abortBroadcast()函数来让系统拦截下来该广播，并将该广播丢弃，使该广播不再传送到别的广播接收器接收</p>
-<h3 id="有序广播的过程"><a href="#有序广播的过程" class="headerlink" title="有序广播的过程"></a>有序广播的过程</h3><h4 id="1-创建广播-1"><a href="#1-创建广播-1" class="headerlink" title="1,创建广播"></a>1,创建广播</h4><pre><code>public class SendOrderMyBroadCast {
-    public static class HignPriority extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.i(&quot;hehe&quot;, &quot;高权限获接收到了广播&quot;);
-
-            int resultCode = getResultCode();
-            Log.i(&quot;hehe&quot;, &quot;高权限code为: &quot; + resultCode);
-            String resultData = getResultData();
-            Log.i(&quot;hehe&quot;, &quot;高权限resultData为: &quot; + resultData);
-            Bundle resultExtras = getResultExtras(true);
-            Log.i(&quot;hehe&quot;, &quot;高权限resultExtras为: &quot; + resultExtras);
-
-            int code = 10;
-            String data = &quot;hellohigh&quot;;
-            setResult(code, data, null);
-        }
-    }
-
-    public static class MidPriority extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.i(&quot;hehe&quot;, &quot;中等权限获接收到了广播&quot;);
-
-            int resultCode = getResultCode();
-            Log.i(&quot;hehe&quot;, &quot;中等权限code为: &quot; + resultCode);
-            String resultData = getResultData();
-            Log.i(&quot;hehe&quot;, &quot;中等权限resultData为: &quot; + resultData);
-            Bundle resultExtras = getResultExtras(true);
-            Log.i(&quot;hehe&quot;, &quot;中等权限resultExtras为: &quot; + resultExtras);
-
-            int code = 100;
-            String data = &quot;hellomid&quot;;
-            setResult(code, data, null);
-        }
-    }
-
-    public static class LowPriority extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.i(&quot;hehe&quot;, &quot;低权限获接收到了广播&quot;);
-
-            int resultCode = getResultCode();
-            Log.i(&quot;hehe&quot;, &quot;低权限code为: &quot; + resultCode);
-            String resultData = getResultData();
-            Log.i(&quot;hehe&quot;, &quot;低权限resultData为: &quot; + resultData);
-            Bundle resultExtras = getResultExtras(true);
-            Log.i(&quot;hehe&quot;, &quot;低权限resultExtras为: &quot; + resultExtras);
-        }
-    }
-}
-</code></pre><blockquote>
-<p>要注意的是：内部类的BroadcastReceiver必须由public static修饰，否则会报错</p>
-</blockquote>
-<h4 id="2-注册广播-1"><a href="#2-注册广播-1" class="headerlink" title="2,注册广播"></a>2,注册广播</h4><p>这里的注册方式和普通广播是一样的，这里的区别在于priority属性，确定了他们之间的优先级<br>这里也可以通过代码注册, 但是需要通过设置优先级</p>
-<pre><code>&lt;receiver android:name=&quot;.broadcast.SendOrderMyBroadCast$HignPriority&quot;&gt;
-    &lt;intent-filter android:priority=&quot;1000&quot;&gt;
-        &lt;action android:name=&quot;con.neishenme.sendmyself&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-
-&lt;receiver android:name=&quot;.broadcast.SendOrderMyBroadCast$MidPriority&quot;&gt;
-    &lt;intent-filter android:priority=&quot;500&quot;&gt;
-        &lt;action android:name=&quot;con.neishenme.sendmyself&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-
-&lt;receiver android:name=&quot;.broadcast.SendOrderMyBroadCast$LowPriority&quot;&gt;
-    &lt;intent-filter android:priority=&quot;100&quot;&gt;
-        &lt;action android:name=&quot;con.neishenme.sendmyself&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-</code></pre><h4 id="3-发送广播"><a href="#3-发送广播" class="headerlink" title="3,发送广播"></a>3,发送广播</h4><p>和之前的不一样的地方，这里是使用sendOrderedBroadcast()发送有序广播</p>
-<pre><code>public void send(View view) {
-    Intent intent = new Intent(&quot;con.neishenme.sendmyself&quot;);
-    sendOrderedBroadcast(intent, null);
-}
-</code></pre><p>结果为:</p>
-<pre><code>02-27 14:38:56.103 22772-22772/com.demo.downrefresh I/hehe: 高权限获接收到了广播
-02-27 14:38:56.103 22772-22772/com.demo.downrefresh I/hehe: 高权限code为: -1
-02-27 14:38:56.103 22772-22772/com.demo.downrefresh I/hehe: 高权限resultData为: null
-02-27 14:38:56.108 22772-22772/com.demo.downrefresh I/hehe: 中等权限获接收到了广播
-02-27 14:38:56.108 22772-22772/com.demo.downrefresh I/hehe: 中等权限code为: 10
-02-27 14:38:56.108 22772-22772/com.demo.downrefresh I/hehe: 中等权限resultData为: hellohigh
-02-27 14:38:56.111 22772-22772/com.demo.downrefresh I/hehe: 低权限获接收到了广播
-02-27 14:38:56.111 22772-22772/com.demo.downrefresh I/hehe: 低权限code为: 100
-02-27 14:38:56.111 22772-22772/com.demo.downrefresh I/hehe: 低权限resultData为: hellomid
-</code></pre><p>要注意的是：</p>
-<p>这里需要发送的是有序广播，否则在接收者中通过setResult()和getResult()方法会取不到值，因为只有有序广播才能传递结果</p>
-<h2 id="3-拦截广播"><a href="#3-拦截广播" class="headerlink" title="3,拦截广播"></a>3,拦截广播</h2><p>通过在BroadcastReceiver中，执行abortBroadcast()方法，广播就不会继续往下传递了</p>
-<p>在 onRecive 中调用该方法</p>
-<pre><code>public static class HignPriority extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Log.i(&quot;hehe&quot;, &quot;高权限获接收到了广播&quot;);
-
-        int resultCode = getResultCode();
-        Log.i(&quot;hehe&quot;, &quot;高权限code为: &quot; + resultCode);
-        String resultData = getResultData();
-        Log.i(&quot;hehe&quot;, &quot;高权限resultData为: &quot; + resultData);
-
-        int code = 10;
-        String data = &quot;hellohigh&quot;;
-        setResult(code, data, null);
-
-        //拦截广播
-        abortBroadcast();
-    }
-}
-</code></pre><h3 id="终结广播"><a href="#终结广播" class="headerlink" title="终结广播"></a>终结广播</h3><p>现在有这样的一个应用场景，按照上面的程序走，只能在第一个广播中被拦截住了，后面的广播则不执行。如果这个时候我们需要一个不管有没有被拦截都必须执行的广播，我们称为终结广播，那应该怎么办。</p>
-<p>同样的，发送有序广播也考虑到这一点，通过以下代码来发送广播，并指定我们不管有没有被拦截都必须执行的终结广播</p>
-<pre><code>Intent intent = new Intent(&quot;con.neishenme.sendmyself&quot;);
-//sendOrderedBroadcast(intent, null);
-sendOrderedBroadcast(intent, null, new SendOrderMyBroadCast.LowPriority(), new Handler(), 0, &quot;hehe&quot;, null);
-</code></pre><p>可以发现，之前只是有High的Log信息，因为是被拦截了，而Log信息多了一条Low，说明我们拦截后，还要执行终结广播。</p>
-<h4 id="有两点需要注意"><a href="#有两点需要注意" class="headerlink" title="有两点需要注意"></a>有两点需要注意</h4><h4 id="1-终结广播是肯定能获取到的-但是其获取getResultCode和getResultDate的时候是拦截的时候的值-abortBroadcast-方法不分调用的顺序-在setResult之前和之后调用的情况是一样的-PS-sendOrderedBroadcast有两个重载的方法-第二个方法代表-肯定可以执行到的广播-和-code-data和bundle的初始值-在第一个拦截后其设置的值-即为修改之后的值"><a href="#1-终结广播是肯定能获取到的-但是其获取getResultCode和getResultDate的时候是拦截的时候的值-abortBroadcast-方法不分调用的顺序-在setResult之前和之后调用的情况是一样的-PS-sendOrderedBroadcast有两个重载的方法-第二个方法代表-肯定可以执行到的广播-和-code-data和bundle的初始值-在第一个拦截后其设置的值-即为修改之后的值" class="headerlink" title="1,终结广播是肯定能获取到的,但是其获取getResultCode和getResultDate的时候是拦截的时候的值,abortBroadcast() 方法不分调用的顺序,在setResult之前和之后调用的情况是一样的.  PS: sendOrderedBroadcast有两个重载的方法 , 第二个方法代表  肯定可以执行到的广播 和 code,data和bundle的初始值 , 在第一个拦截后其设置的值 即为修改之后的值"></a>1,终结广播是肯定能获取到的,但是其获取getResultCode和getResultDate的时候是拦截的时候的值,abortBroadcast() 方法不分调用的顺序,在setResult之前和之后调用的情况是一样的.  PS: sendOrderedBroadcast有两个重载的方法 , 第二个方法代表  肯定可以执行到的广播 和 code,data和bundle的初始值 , 在第一个拦截后其设置的值 即为修改之后的值</h4><h4 id="2-在有序广播中-广播接受者必须是一个一个的收到广播的-两个广播的priority值相同-那么接收广播的顺序是按照-在-manifest-声明顺序-或者-代码注册的时候-的注册顺序来决定的-所以两个同样为-500的优先级的先注册的broadcast-可以通过-abortBroadcast-方法来让后注册接收者-获取不到-即比较方法有两种-先是通过-priority-的优先值-其次-priority相同通过注册的先后顺序来-比较"><a href="#2-在有序广播中-广播接受者必须是一个一个的收到广播的-两个广播的priority值相同-那么接收广播的顺序是按照-在-manifest-声明顺序-或者-代码注册的时候-的注册顺序来决定的-所以两个同样为-500的优先级的先注册的broadcast-可以通过-abortBroadcast-方法来让后注册接收者-获取不到-即比较方法有两种-先是通过-priority-的优先值-其次-priority相同通过注册的先后顺序来-比较" class="headerlink" title="2,在有序广播中,广播接受者必须是一个一个的收到广播的, 两个广播的priority值相同,那么接收广播的顺序是按照 在 manifest 声明顺序 或者 代码注册的时候 的注册顺序来决定的, 所以两个同样为 500的优先级的先注册的broadcast 可以通过 abortBroadcast() 方法来让后注册接收者 获取不到,即比较方法有两种, 先是通过 priority 的优先值 ,其次 priority相同通过注册的先后顺序来 比较 ."></a>2,在有序广播中,广播接受者必须是一个一个的收到广播的, 两个广播的priority值相同,那么接收广播的顺序是按照 在 manifest 声明顺序 或者 代码注册的时候 的注册顺序来决定的, 所以两个同样为 500的优先级的先注册的broadcast 可以通过 abortBroadcast() 方法来让后注册接收者 获取不到,即比较方法有两种, 先是通过 priority 的优先值 ,其次 priority相同通过注册的先后顺序来 比较 .</h4><h2 id="4-本地广播"><a href="#4-本地广播" class="headerlink" title="4,本地广播"></a>4,本地广播</h2><p>在API21的Support v4包中新增本地广播，也就是LocalBroadcastManager。</p>
-<p>由于之前的广播都是全局的，所有应用程序都可以接收到，这样就会带来安全隐患，所以我们使用LocalBroadcastManager只发送给自己应用内的信息广播，限制在进程内使用。</p>
-<p>它的用法很简单，只需要把调用context的sendBroadcast、registerReceiver、unregisterReceiver的地方换为LocalBroadcastManager.getInstance(Context context)中对应的函数即可。</p>
-<p>其大致流程是一样的:</p>
-<pre><code>//1,获取本地广播的管理器
-LocalBroadcastManager instance = LocalBroadcastManager.getInstance(this);
-//2,动态注册广播
-instance.registerReceiver(sendMyBroadCast, filter);
-//3,发送广播
-instance.sendBroadcast(intent);
-</code></pre><h4 id="有两点需要注意-1"><a href="#有两点需要注意-1" class="headerlink" title="有两点需要注意"></a>有两点需要注意</h4><h4 id="1-本地广播的方法并不多-主要有-registerReceiver-注册广播-unregisterReceiver-取消注册广播-sendBroadcast-发送异步广播-sendBroadcastSync-发送同步广播-四个方法"><a href="#1-本地广播的方法并不多-主要有-registerReceiver-注册广播-unregisterReceiver-取消注册广播-sendBroadcast-发送异步广播-sendBroadcastSync-发送同步广播-四个方法" class="headerlink" title="1,本地广播的方法并不多, 主要有:  registerReceiver(注册广播) , unregisterReceiver(取消注册广播) , sendBroadcast(发送异步广播) , sendBroadcastSync(发送同步广播)四个方法"></a>1,本地广播的方法并不多, 主要有:  registerReceiver(注册广播) , unregisterReceiver(取消注册广播) , sendBroadcast(发送异步广播) , sendBroadcastSync(发送同步广播)四个方法</h4><h4 id="2-本地广播只支持代码中注册的广播-在manifest中声明的广播是接收不到广播的"><a href="#2-本地广播只支持代码中注册的广播-在manifest中声明的广播是接收不到广播的" class="headerlink" title="2,本地广播只支持代码中注册的广播, 在manifest中声明的广播是接收不到广播的 !"></a>2,本地广播只支持代码中注册的广播, 在manifest中声明的广播是接收不到广播的 !</h4><h2 id="5-Sticky广播-粘性广播-即可以短时间滞留-API-21过时了"><a href="#5-Sticky广播-粘性广播-即可以短时间滞留-API-21过时了" class="headerlink" title="5,Sticky广播 (粘性广播, 即可以短时间滞留)(API 21过时了)"></a>5,Sticky广播 (粘性广播, 即可以短时间滞留)(API 21过时了)</h2><p>sticky广播通过Context.sendStickyBroadcast()函数来发送，用此函数发送的广播会一直滞留，当有匹配此广播的广播接收器被注册后，该广播接收器就会收到此条信息。(已经过时了)</p>
-<p>使用此函数需要发送广播时，需要获得BROADCAST_STICKY权限</p>
-<pre><code>&lt;uses-permission android:name=&quot;android.permission.BROADCAST_STICKY&quot;/&gt;
-</code></pre><p>sendStickyBroadcast只保留最后一条广播，并且一直保留下去，这样即使已经有广播接收器处理了该广播，当再有匹配的广播接收器被注册时，此广播仍会被接收。如果你只想处理一遍该广播，可以通过removeStickyBroadcast()函数来实现。</p>
-<blockquote>
-<p>ps:目前由于一些安全问题，系统已经不建议使用 Sticky broadcasts。</p>
-</blockquote>
-<h2 id="6-系统广播"><a href="#6-系统广播" class="headerlink" title="6,系统广播"></a>6,系统广播</h2><p>系统中也会有很多自带的广播，当符合一定条件时，系统会发送一些定义好的广播，比如：重启、充电、来电电话等等。我们可以通过action属性来监听我们的系统广播</p>
-<p>常用的广播action属性有</p>
-<pre><code>屏幕被关闭之后的广播：Intent.ACTION_SCREEN_OFF(只能通过代码注册)
-屏幕被打开之后的广播：Intent.ACTION_SCREEN_ON(只能通过代码注册)
-充电状态，或者电池的电量发生变化：Intent.ACTION_BATTERY_CHANGED(只能通过代码注册)
-关闭或打开飞行模式时的广播：Intent.ACTION_AIRPLANE_MODE_CHANGED(可静态)
-表示电池电量低：Intent.ACTION_BATTERY_LOW(可以静态注册)
-表示电池电量充足，即电池电量饱满时会发出广播：Intent.ACTION_BATTERY_OKAY(可静态)
-按下照相时的拍照按键(硬件按键)时发出的广播：Intent.ACTION_CAMERA_BUTTON(可静态)
-时间变化的广播: Intent.ACTION_TIME_CHANGED(只能通过代码注册)
-时间变化广播:  ACTION_TIME_CHANGED(时间被设置),ACTION_DATE_CHANGED(日期变化)(这两个可静态)
-            ACTION_TIME_TICK(分钟变化,这个需要通过代码动态注册)
-开机广播: ACTION_BOOT_COMPLETED
-安装app:ACTION_PACKAGE_INSTALL ,安装app完成;ACTION_PACKAGE_ADDED
-位置变化: ACTION_LOCALE_CHANGED
-</code></pre>
-          
+          Android软键盘学习
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/Android软键盘/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1273,16 +816,16 @@ instance.sendBroadcast(intent);
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/RecycleView学习/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/BoradcastReceiver的学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -1292,7 +835,7 @@ instance.sendBroadcast(intent);
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/RecycleView学习/" itemprop="url">RecycleView</a></h1>
+                <a class="post-title-link" href="/2018/05/16/BoradcastReceiver的学习/" itemprop="url">BoradcastReceiver的使用</a></h1>
         
 
         <div class="post-meta">
@@ -1304,8 +847,8 @@ instance.sendBroadcast(intent);
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -1314,6 +857,28 @@ instance.sendBroadcast(intent);
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1343,210 +908,14 @@ instance.sendBroadcast(intent);
 
       
         
-          
-            <p>参考 <a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="noopener">Android RecyclerView 使用完全解析 体验艺术般的控件</a><br>和<br><a href="http://www.jianshu.com/p/804790b4c957" target="_blank" rel="noopener">RecycleView的基本使用</a></p>
-<p>##概述<br>RecycleView 在 support-v7包下</p>
-<p>其作用是用来代替 ListView和GridView</p>
-<p>其优点是:</p>
-<pre><code>提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现令人瞠目的效果。
-</code></pre><p>例如: </p>
-<p>1,你想要控制其显示的方式，请通过布局管理器LayoutManager</p>
-<p>2,你想要控制Item间的间隔（可绘制），请通过ItemDecoration</p>
-<p>3,你想要控制Item增删的动画，请通过ItemAnimator</p>
-<p>缺点是: </p>
-<pre><code>想要实现点击、长按事件，需要自己定义
-</code></pre><p>##基本使用方法</p>
-<pre><code>mRecyclerView = findView(R.id.id_recyclerview);
-//设置布局管理器
-mRecyclerView.setLayoutManager(layout);
-//设置adapter
-mRecyclerView.setAdapter(adapter)
-//设置Item增加、移除动画
-mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//添加分割线
-mRecyclerView.addItemDecoration(new DividerItemDecoration(
-                getActivity(), DividerItemDecoration.HORIZONTAL_LIST));
-</code></pre><p>###Just like ListView(主要流程的代码)</p>
-<p>主界面:</p>
-<pre><code>recyclerView = (RecyclerView) findViewById(gridRv);
-
-initData();
-//设置布局适配器
-recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//设置adapter
-mAdapter = new RecycleViewListAdapter(this, mDatas);
-recyclerView.setAdapter(mAdapter);
-</code></pre><p>adapter:</p>
-<pre><code>public class RecycleViewListAdapter extends RecyclerView.Adapter {
-    private List&lt;String&gt; mDatas;
-    private Context mContext;
-
-    public RecycleViewListAdapter(Context mContext, List&lt;String&gt; mDatas) {
-        this.mContext = mContext;
-        this.mDatas = mDatas;
-    }
-
-    public void setImages(List&lt;String&gt; mDatas) {
-        this.mDatas = mDatas;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_list_recycleview, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
-        return myViewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder myViewHolder = (MyViewHolder) holder;
-        myViewHolder.tv.setText(mDatas.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mDatas.size();
-    }
-
-    class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv;
-        public MyViewHolder(View view) {
-            super(view);
-            tv = (TextView) view.findViewById(R.id.recy_tv);
-        }
-    }
-}
-</code></pre><p>###ItemDecoration(添加分割线)<br>主要方法为:  mRecyclerView.addItemDecoration(ItemDecoration)</p>
-<p>该方法的参数为RecyclerView.ItemDecoration，该类为抽象类,该类的源码为: </p>
-<pre><code>public static abstract class ItemDecoration {
-
-    public void onDraw(Canvas c, RecyclerView parent, State state) {
-                onDraw(c, parent);
-     }
-
-
-    public void onDrawOver(Canvas c, RecyclerView parent, State state) {
-                onDrawOver(c, parent);
-     }
-
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
-                getItemOffsets(outRect, ((LayoutParams) view.getLayoutParams()).getViewLayoutPosition(),
-                        parent);
-    }
-
-    @Deprecated
-    public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent){
-                outRect.set(0, 0, 0, 0);
-    }
-}
-</code></pre><p>当我们调用mRecyclerView.addItemDecoration(ItemDecoration)方法添加decoration的时候，RecyclerView在绘制的时候，去会绘制decorator，即调用该类的onDraw和onDrawOver方法;</p>
-<p>1,onDraw方法先于drawChildren</p>
-<p>2,onDrawOver在drawChildren之后，一般我们选择复写其中一个即可。</p>
-<p>3,getItemOffsets 可以通过outRect.set()为每个Item设置一定的偏移量，主要用于绘制Decorator。</p>
-<p>需要自定义 可以参考: <a href="http://blog.csdn.net/lmj623565791/article/details/38173061" target="_blank" rel="noopener">Android 自定义RecyclerView 实现真正的Gallery效果</a></p>
-<p>###LayoutManager</p>
-<p>RecyclerView.LayoutManager, 这是一个抽象类，系统提供了3个实现类;</p>
-<p>1,LinearLayoutManager 现行管理器，支持横向、纵向。</p>
-<p>2,GridLayoutManager 网格布局管理器</p>
-<p>3,StaggeredGridLayoutManager 瀑布就式布局管理器</p>
-<p>使用GridLayoutManager , 代码为:</p>
-<pre><code>//mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-</code></pre><p>只需要修改LayoutManager即可</p>
-<p>但是改为GridLayoutManager以后，对于分割线，前面的DividerItemDecoration就不适用了，主要是因为它在绘制的时候，比如水平线，针对每个child的取值为:</p>
-<pre><code>final int left = parent.getPaddingLeft();
-final int right = parent.getWidth() - parent.getPaddingRight();
-</code></pre><p>因为每个Item一行，这样是没问题的。而GridLayoutManager时，一行有多个childItem，这样就多次绘制了，并且GridLayoutManager时，Item如果为最后一列（则右边无间隔线）或者为最后一行（底部无分割线）。</p>
-<p>这样的话需要修改gridview中的分割线item</p>
-<p>可以参考: <a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="noopener">文章开头的地址</a></p>
-<p>主要在getItemOffsets方法中，去判断如果是最后一行，则不需要绘制底部；如果是最后一列，则不需要绘制右边，整个判断也考虑到了StaggeredGridLayoutManager的横向和纵向，所以稍稍有些复杂。最重要还是去理解，如何绘制什么的不重要。一般如果仅仅是希望有空隙，还是去设置item的margin方便。</p>
-<p>StaggeredGridLayoutManager可以有三种用法<br>使用, StaggeredGridLayoutManager,代码: StaggeredGridLayoutManager.VERTICAL</p>
-<pre><code>// mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-</code></pre><p>这两种写法显示的效果是一致的，但是注意StaggeredGridLayoutManager构造的第二个参数传一个orientation，如果传入的是StaggeredGridLayoutManager.VERTICAL代表有多少列；那么传入的如果是StaggeredGridLayoutManager.HORIZONTAL就代表有多少行，比如本例如果改为：StaggeredGridLayoutManager.HORIZONTAL</p>
-<pre><code>mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.HORIZONTAL));
-</code></pre><p>固定为4行，变成了左右滑动。有一点需要注意，如果是横向的时候，item的宽度需要注意去设置，毕竟横向的宽度没有约束了，应为控件可以横向滚动了。 </p>
-<p>适用在需要横向滚动的情况下的listview 或者 gridview</p>
-<p>###条目动画 ItemAnimator</p>
-<p>item增加、删除的动画也是可配置的。</p>
-<p>ItemAnimator也是一个抽象类，好在系统为我们提供了一种默认的实现类</p>
-<pre><code>// 设置item动画
-mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-</code></pre><p>PS:这里更新数据集不是用adapter.notifyDataSetChanged()</p>
-<p>而是 notifyItemInserted(position)与notifyItemRemoved(position) </p>
-<p>否则没有动画效果。</p>
-<p>可以为adapter中添加了两个方法：<br>    public void addData(int position) {<br>            mDatas.add(position, “Insert One”);<br>            notifyItemInserted(position);<br>        }</p>
-<pre><code>    public void removeData(int position) {
-        mDatas.remove(position);
-        notifyItemRemoved(position);
-    }
-}
-</code></pre><p>因为只有一种动画, 所以可以去网上搜索一些比较好看的动画效果</p>
-<p><a href="https://github.com/search?l=Java&amp;o=desc&amp;p=1&amp;q=RecyclerView&amp;s=stars&amp;type=Repositories&amp;utf8=✓" target="_blank" rel="noopener">RecyclerView的一些动画效果</a></p>
-<p><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper" target="_blank" rel="noopener">一个比较好的动画的library</a></p>
-<p>###Click and LongClick(点击事件,,,recyclerview没有提供,所以需要自己写)</p>
-<p>实现的方式比较多，你可以通过mRecyclerView.addOnItemTouchListener去监听然后去判断手势，<br>当然你也可以通过adapter中自己去提供回调，这里我们选择后者，前者的方式，大家有兴趣自己去实现。</p>
-<pre><code>class HomeAdapter extends RecyclerView.Adapter&lt;HomeAdapter.MyViewHolder&gt; {
-
-//...
-    public interface OnItemClickLitener {
-        void onItemClick(View view, int position);
-        void onItemLongClick(View view , int position);
-    }
-
-    private OnItemClickLitener mOnItemClickLitener;
-
-    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
-    }
-
-    @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        holder.tv.setText(mDatas.get(position));
-
-        // 如果设置了回调，则设置点击事件
-        if (mOnItemClickLitener != null) {
-            holder.itemView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
-                }
-            });
-
-            holder.itemView.setOnLongClickListener(new OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
-                    return false;
-                }
-            });
-        }
-    }
-//...
-}
-</code></pre><p>adapter中自己定义了个接口，然后在onBindViewHolder中去为holder.itemView去设置相应<br>的监听最后回调我们设置的监听。</p>
-<p>然后在activity中添加监听</p>
-<pre><code>mAdapter.setOnItemClickLitener(new OnItemClickLitener(){
-
-            @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(HomeActivity.this, position + &quot; click&quot;,
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                Toast.makeText(HomeActivity.this, position + &quot; long click&quot;,
-                        Toast.LENGTH_SHORT).show();
-                        mAdapter.removeData(position);
-            }
-        });
-}
-</code></pre>
-          
+          AndroidBoradcastReceiver学习
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/BoradcastReceiver的学习/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1593,16 +962,16 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/SomeUsefulCommands/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/RecycleView学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -1612,7 +981,7 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/SomeUsefulCommands/" itemprop="url">SomeUsefulCommands</a></h1>
+                <a class="post-title-link" href="/2018/05/16/RecycleView学习/" itemprop="url">RecycleView学习</a></h1>
         
 
         <div class="post-meta">
@@ -1624,8 +993,8 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -1634,6 +1003,28 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1663,12 +1054,14 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
       
         
-          
-            <h2 id="hexo-三连"><a href="#hexo-三连" class="headerlink" title="hexo 三连"></a>hexo 三连</h2><p>hexo clean</p>
-<p>hexo g(hexo generation)</p>
-<p>hexo d(hexo deploy)</p>
-
-          
+          RecycleView 学习笔记
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/RecycleView学习/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1715,16 +1108,16 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Glide/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/Markdown-编辑器常用知识/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -1734,7 +1127,7 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/Glide/" itemprop="url">Glide学习</a></h1>
+                <a class="post-title-link" href="/2018/05/16/Markdown-编辑器常用知识/" itemprop="url">Markdown 编辑器常用知识</a></h1>
         
 
         <div class="post-meta">
@@ -1746,8 +1139,8 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -1756,6 +1149,28 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1785,273 +1200,14 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
       
         
-          
-            <p>###第一部分是 glide 的使用以及和 picasso 的对比</p>
-<p>###第二部分是 glide 与 fresco 的对比</p>
-<p>###1,glide库的地址<br><a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">bumptech/glide</a></p>
-<p><a href="http://blog.csdn.net/guolin_blog/article/details/53759439" target="_blank" rel="noopener">Android 图片加载框架最全解析（一），Glide的基本用法</a></p>
-<p>Glide是在Picasso基础上进行了优化改进, 所以这两个是没得挑的..Fresco是fackbook出品的,也很不错,比较</p>
-<p><a href="http://stackoverflow.com/questions/29363321/picasso-v-s-imageloader-v-s-fresco-vs-glide" target="_blank" rel="noopener">网络加载框架那个好?</a><br>里面说是 fresco相比较其他的图片加载框架有以下优势:</p>
-<p>1,理解可能不准确,说是存储位置不在内存中或者内存占用极小,可以极大的减少了outofmemoryerror的风险,同时gc调用次数减少可以提高app性能</p>
-<p>2,图片加载可以表示成进度条, 可以像浏览器那样,体验好</p>
-<p>3,图片可以在周边任意裁剪,而不仅仅是居中显示 ,这个非常好用</p>
-<p>4,图片可以本地调整大小,可以减少下载时候的oom问题</p>
-<p>但是其缺点也有: 库比较大, 上手比较难</p>
-<p>glide的优点是可以加载 gif图</p>
-<p>###2,基础用法:  Glide是 Picasso 的进化版 . 1,内存优化更好 .2,加载速度更快</p>
-<p>Picasso</p>
-<pre><code>Picasso.with(context)
-     .load(&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;)
-     .into(ivImg);
-</code></pre><p>Glide</p>
-<pre><code>Glide.with(context)
-     .load(&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;)
-    .into(ivImg);
-</code></pre><p>Glide更易用，因为Glide的with方法不光接受Context，还接受Activity 和 Fragment，Context会自动的从他们获取。</p>
-<p>将Activity/Fragment作为with()参数的好处是：</p>
-<pre><code>图片加载会和Activity/Fragment的生命周期保持一致，比如 Paused状态在暂停加载，
-在Resumed的时候又自动重新加载。所以我建议传参的时候传递Activity 和 Fragment给Glide，而不是Context。
-</code></pre><p>Glide默认的Bitmap格式是RGB_565,比ARGB_8888格式的内存开销要小一半</p>
-<p>如果你对默认的RGB_565效果还比较满意，可以不做任何事，但是如果你觉得难以接受，可以创建一个新的GlideModule将Bitmap格式转换到ARGB_8888：</p>
-<pre><code>1. public class GlideConfiguration implements GlideModule {
-3.     @Override
-4.     public void applyOptions(Context context, GlideBuilder builder) {
-5.         // Apply options to the builder here.
-6.         builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
-7.     }
-8.  
-9.     @Override
-10.     public void registerComponents(Context context, Glide glide) {
-11.         // register ModelLoaders here.
-12.     }
-13. }
-</code></pre><p>同时在AndroidManifest.xml中将GlideModule定义为meta-data</p>
-<pre><code>&lt;meta-data android:name=&quot;com.inthecheesefactory.lab.glidepicasso.GlideConfiguration&quot;
-    android:value=&quot;GlideModule&quot;/&gt;
-</code></pre><p>原因在于Picasso是加载了全尺寸的图片到内存(这个全尺寸的意思是把原生的图片加载到了内存, 然后根据imageview来进行裁剪)，然后让GPU来实时重绘大小。而Glide加载的大小和ImageView的大小是一致的，因此更小。</p>
-<p>一: 指定加载图片的大小</p>
-<pre><code>Picasso.with(this)
- .load(&quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&quot;)
- .resize(768, 432)
- .into(ivImgPicasso);
-
-但是问题在于你需要主动计算ImageView的大小，或者说你的ImageView大小是具体的值（而不是wrap_content），你也可以这样：
-
-Picasso.with(this)
-    .load(&quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&quot;)
-    .fit()
-    .centerCrop()
-    .into(ivImgPicasso);
-</code></pre><p>总结:Glide可以自动计算出任意情况下的ImageView大小。</p>
-<p>二: 磁盘缓存</p>
-<p>Picasso和Glide在磁盘缓存策略上有很大的不同。Picasso缓存的是全尺寸的，而Glide缓存的是跟ImageView尺寸相同的。</p>
-<p>Picasso只缓存一个全尺寸的<br>Glide则不同，它会为每种大小的ImageView缓存 一次。尽管一张图片已经缓存了一次,但是假如你要在另外一个地方再次以不同尺寸显示，需要重新下载，调整成新尺寸的大小，然后将这个尺寸的也缓存起来</p>
-<p>例如:假如在第一个页面有一个200x200的ImageView，在第二个页面有一个100x100的ImageView，这两个ImageView本来是要显示同一张图片，却需要下载两次。<br>不过，你可以改变这种行为，让Glide既缓存全尺寸又缓存其他尺寸：</p>
-<pre><code>Glide.with(this)
-  .load(&quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&quot;)
-  .diskCacheStrategy(DiskCacheStrategy.ALL)
-  .into(ivImgGlide);
-</code></pre><p>下次在任何ImageView中加载图片的时候，全尺寸的图片将从缓存中取出，重新调整大小，然后缓存。</p>
-<p>Glide的这种方式优点是加载显示非常快。而Picasso的方式则因为需要在显示之前重新调整大小而导致一些延迟，即便你添加了这段代码来让其立即显示</p>
-<pre><code>//Picasso
- .noFade();
-</code></pre><p>总结: Glide远比Picasso快，虽然需要更大的空间来缓存。(需要更大的空间的原因是picasso只缓存一个最大的图,取的时候把这个图剪裁后进行设置,相对来说速度就比较慢了,而 glide 默认是只缓存imageview大小的图片的,但是获取其他大小的图片的时候却需要重新获取了,当然可以设置一个最大的图,所以这个时候已经缓存变大了,并且在加载其他尺寸的图片的时候会将大图剪裁,再把剪裁后的图重新缓存,这样就相当于用了多少不同尺寸的该图就缓存了几次,还多一次大图, 所以缓存会变大但是加载速度很快… 由于picasso至缓存一个所以每次加载都需要剪裁所以速度没有glide快 ,但是现在的手机存储是非常大的,所以 综上所诉 glide更好)</p>
-<p>三: 特性    —  glide 和 Picasso的特性基本一样,但是glide是picasso的升级版</p>
-<p>1,确定剪裁的大小  Image Resizing</p>
-<pre><code>1. // Picasso
-2. .resize(300, 200);
-3.  
-4. // Glide
-5. .override(300, 200);
-</code></pre><p>2,一般情况下剪裁方式    Center Cropping</p>
-<pre><code>1. // Picasso
-2. .centerCrop();
-3.  
-4. // Glide
-5. .centerCrop();
-</code></pre><p>3,自定义显示方式,(例如 设置centercrop或者fitcenter)  Transforming</p>
-<pre><code>1. // Picasso
-2. .transform(new CircleTransform())
-3. .bitmapTransform()  ,transform有两个重载方法, 其中的一个会调用bitmaptransform方法, 效果和直接调用bitmaptransform是一样的, 另一个方法会调用new MultiTransformation&lt;ResourceType&gt;(transformations) 用来创建gif图的显示 , 而bitmaptransform就是显示图片而非gif图片
-3.  
-4. // Glide
-5. .transform(new CircleTransform(context))
-</code></pre><p>4,设置占位图或者加载错误图：</p>
-<pre><code>1. // Picasso
-2. .placeholder(R.drawable.placeholder)
-3. .error(R.drawable.imagenotfound)
-4.  
-5. // Glide
-6. .placeholder(R.drawable.placeholder)
-7. .error(R.drawable.imagenotfound)
-</code></pre><p>5,Glide可以加载gif图, 但是picasso 不行</p>
-<p>同时因为Glide和Activity/Fragment的生命周期是一致的，因此gif的动画也会自动的随着Activity/Fragment的状态暂停、重放。Glide 的缓存在gif这里也是一样，调整大小然后缓存。</p>
-<p>但是Glide 动画会消费太多的内存，因此谨慎使用。</p>
-<p>除了gif动画之外，Glide还可以将任何的本地视频解码成一张静态图片。</p>
-<p>还有一个特性是可以配置图片显示的动画，而Picasso只有一种动画：fading in</p>
-<p>最后一个是可以使用thumbnail()产生一个加载图片的thumbnail。</p>
-<p>其实还有一些特性，不过不是非常重要，比如将图像转换成字节数组等。(这样就可以进行load百分比的显示了)</p>
-<p>##配置</p>
-<p>有许多可以配置的选项，比如大小，缓存的磁盘位置，最大缓存空间，位图格式等等。可以在这个页面查看这些配置Configuration 。</p>
-<p>#总结</p>
-<p>Glide和Picasso都是非常完美的库。Glide加载图像以及磁盘缓存的方式都要优于Picasso，速度更快，并且Glide更有利于减少OutOfMemoryError的发生，GIF动画是Glide的杀手锏。不过Picasso的图片质量更高。<br>你更喜欢哪个呢？<br>虽然我使用了很长时间的Picasso，但是我得承认现在我更喜欢Glide。我的建议是使用Glide，但是将Bitmap格式换成 ARGB_8888、让Glide缓存同时缓存全尺寸和改变尺寸两种。</p>
-<p>#Fresco vs Glide</p>
-<p>地址见: <a href="http://www.jianshu.com/p/6729dc17586b" target="_blank" rel="noopener">网络加载图片对比（Fresco/Glide）</a></p>
-<p>最后面有<a href="http://fresco-cn.org/docs/caching.html" target="_blank" rel="noopener">Fresco中文官网</a></p>
-<p>和<a href="https://futurestud.io/blog/glide-getting-started" target="_blank" rel="noopener">Glide 教程</a></p>
-<h3 id="fresco的功能"><a href="#fresco的功能" class="headerlink" title="fresco的功能"></a>fresco的功能</h3><p><img src="http://upload-images.jianshu.io/upload_images/1802256-8baeb4e124e62d8f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>下面介绍一些项目中经常用到的功能，与glide中的对比</p>
-<h4 id="圆角，-圆形"><a href="#圆角，-圆形" class="headerlink" title="圆角， 圆形"></a>圆角， 圆形</h4><p>fresco实现</p>
-<pre><code>public void setRoundImageSrc(SimpleDraweeView draweeView, String src, float radius){
-    RoundingParams roundingParams = RoundingParams.fromCornersRadius(radius);
-    draweeView.setHierarchy(
-            new GenericDraweeHierarchyBuilder(draweeView.getResources())
-            .setRoundingParams(roundingParams)
-            .build());
-    draweeView.setImageURI(Uri.parse(src));
-｝
-</code></pre><p>glide实现</p>
-<pre><code>需要自己实现圆角，继承自BitmapTransformation操作bitmap对象实现(圆形同理)：
-
-public static class GlideRoundTransform extends BitmapTransformation {
-
-    private static float radius = 0f;
-
-    public GlideRoundTransform(Context context) {
-        this(context, 4);
-    }
-
-    public GlideRoundTransform(Context context, int dp) {
-        super(context);
-        this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
-    }
-
-    @Override 
-    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return roundCrop(pool, toTransform);
-    }
-
-    private static Bitmap roundCrop(BitmapPool pool, Bitmap source) {
-        if (source == null) return null;
-
-        Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
-        if (result == null) {
-            result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(result);
-        Paint paint = new Paint();
-        paint.setShader(new BitmapShader(source, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
-        paint.setAntiAlias(true);
-        RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());
-        canvas.drawRoundRect(rectF, radius, radius, paint);
-        return result;
-    }
-
-    @Override public String getId() {
-        return getClass().getName() + Math.round(radius);
-    }
-}
-
-//使用
-Glide.with(context).load(imageUrl).transform(new GlideRoundTransform(context)).into(imageView)
-//注意：使用了transform以后，就不能使用centercrop，fitcenter等方法
-</code></pre><h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>Fresco缓存也是一大亮点， 三级缓存，分别是 Bitmap缓存，未解码图片缓存， 文件缓存。</p>
-<p>这里提一点Bitmap缓存：在5.0以下系统，Bitmap缓存位于ashmem，这样Bitmap对象的创建和释放将不会引发GC，更少的GC会使你的APP运行得更加流畅。5.0及其以上系统，相比之下，内存管理有了很大改进，所以Bitmap缓存直接位于Java的heap上。</p>
-<p>另外，磁盘缓存还可以通过代码来设置不同手机的缓存容量：</p>
-<pre><code>public void initFresco(Context context, String diskCacheUniqueName){
-    DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(context)
-            .setMaxCacheSize(DISK_CACHE_SIZE_HIGH)
-            .setMaxCacheSizeOnLowDiskSpace(DISK_CACHE_SIZE_LOW)
-            .setMaxCacheSizeOnVeryLowDiskSpace(DISK_CACHE_SIZE_VERY_LOW)
-            .build();
-
-    ImagePipelineConfig config = ImagePipelineConfig.newBuilder(context)
-            .setMainDiskCacheConfig(diskCacheConfig)
-            .build();
-    Fresco.initialize(context, config);
-}
-</code></pre><p>Glide缓存</p>
-<p>Glide虽然只有内存和磁盘缓存，在性能上比不上Fresco；</p>
-<p>但他也有另外的优点， Fresco缓存的时候，只会缓存原始图像，(这点和Picasso 是一样的,实际用的时候由于剪裁方式就没有glide加载速度快了) .</p>
-<p>而Glide则会根据ImageView控件尺寸获得对应的大小的bitmap来展示，从而缓存也可以针对不同的对象：原始图像（source），结果图像(result); 可以通过.diskCacheStrategy()方法设置(这样会增加缓存的空间,但是这个并不重要);</p>
-<pre><code>public enum DiskCacheStrategy {    
-  /** Caches with both {@link #SOURCE} and {@link #RESULT}. */    
-  ALL(true, true),    
-  /** Saves no data to cache. */    
-  NONE(false, false),    
-  /** Saves just the original data to cache. */    
-  SOURCE(true, false),    
-  /** Saves the media item after all transformations to cache. */    
-  RESULT(false, true);
-}
-</code></pre><p>####bitmap操作</p>
-<p>Glide与Picasso类似，通过简单的方法即可获得网络图片的bitmap对象：</p>
-<pre><code>Bitmap myBitmap = Glide.with(applicationContext)  
-    .load(yourUrl)      //地址
-    .asBitmap() //必须,表示作为bitmap来获取
-    .centerCrop()  //加载的方式
-    .into(500, 500)  //加载的大小(结合上面的表示在图的中间截取 500*500的大小)
-    .get()    //通过这个方法来实际获取bitmap对象
-</code></pre><p>相反，Fresco要获取bitmap更加复杂， 而且使用起来也并不是那么顺畅。</p>
-<p>首先，Fresco为了更好地管理bitmap 对象（bitmap对象申请和释放会引起频繁的GC操作，从而引起界面卡顿）， 引入了可关闭的引用（CloseableReference）, 持有者在离开作用域的时候需要关闭该引用，而我们要获取的bitmap 对象就是可关闭的引用。</p>
-<p>也就是说，我们不能像上面Glide那样把bitmap 对象取出来传递给其它地方使用， 只能在Fresco提供的作用域范围内使用，代码如下：</p>
-<pre><code>public void setDataSubscriber(Context context, Uri uri, int width, int height){
-    DataSubscriber dataSubscriber = new BaseDataSubscriber&lt;CloseableReference&lt;CloseableBitmap&gt;&gt;() {
-        @Override
-        public void onNewResultImpl(
-                DataSource&lt;CloseableReference&lt;CloseableBitmap&gt;&gt; dataSource) {
-            if (!dataSource.isFinished()) {
-                return;
-            }
-            CloseableReference&lt;CloseableBitmap&gt; imageReference = dataSource.getResult();
-            if (imageReference != null) {
-                final CloseableReference&lt;CloseableBitmap&gt; closeableReference = imageReference.clone();
-                try {
-                    CloseableBitmap closeableBitmap = closeableReference.get();
-                    Bitmap bitmap  = closeableBitmap.getUnderlyingBitmap();
-                    if(bitmap != null &amp;&amp; !bitmap.isRecycled()) {
-                        //you can use bitmap here
-                    }
-                } finally {
-                    imageReference.close();
-                    closeableReference.close();
-                }
-            }
-        }
-        @Override
-        public void onFailureImpl(DataSource dataSource) {
-            Throwable throwable = dataSource.getFailureCause();
-            // handle failure
-        }
-    };
-    getBitmap(context, uri, width, height, dataSubscriber);
-}
-</code></pre><p>在实际使用过程中， 如果只有在作用域范围操作bitmap，明显不能满足需求。<br>项目中使用的方式是获取缓存的文件对象：</p>
-<pre><code>//同样在DataSubscriber中获取
-FileBinaryResource resource = (FileBinaryResource) Fresco.getImagePipelineFactory().getMainFileCache().getResource(new SimpleCacheKey(url));
-if (resource != null &amp;&amp; resource.getFile() != null) {           
-    setImage(ImageSource.uri(Uri.fromFile(resource.getFile())));
-}
-</code></pre><p>##其他</p>
-<p>除了以上内容，Fresco还具备以下一些常用的，但Glide没有的功能：</p>
-<p>1，SimpleDraweeView控件可以指定图片的宽高比例（app:viewAspectRatio），对于手机适配非常重要;</p>
-<p>2，图片加载进度；</p>
-<p>3，先加载小尺寸图片，再加载大尺寸的（Glide只有占位图）；</p>
-<p>##性能</p>
-<p>除了在功能上对比， 网络图片显示是非常耗性能的， 下面就针对图片质量，内存使用等情况来对比。</p>
-<p>##Glide的使用<br>            Glide<br>                .with(this)<br>                .load(url)<br>                .placeholder(R.drawable.vip_center_item_1)<br>                .diskCacheStrategy(DiskCacheStrategy.ALL)<br>                .bitmapTransform(new GlideRoundTransform(this))<br>                .centerCrop()<br>                .into(result);</p>
-<p>配合 <a href="https://github.com/wasabeef/glide-transformations" target="_blank" rel="noopener">Glide的 图形裁剪库可以完美的设置图片</a></p>
-<pre><code>Glide
-    .with(context)
-    .load(path)
-    .placeholder(R.drawable.vip_center_item_1)
-    .diskCacheStrategy(DiskCacheStrategy.ALL)
-    .bitmapTransform(new RoundedCornersTransformation(context, 5, 1))
-    .centerCrop()
-    .into(imageView);
-</code></pre>
-          
+          Markdown 编辑器常用知识
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/Markdown-编辑器常用知识/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2098,16 +1254,16 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Retrofit学习/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/Glide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -2117,7 +1273,7 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/Retrofit学习/" itemprop="url">Retrofit学习</a></h1>
+                <a class="post-title-link" href="/2018/05/16/Glide/" itemprop="url">Glide学习</a></h1>
         
 
         <div class="post-meta">
@@ -2129,8 +1285,8 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -2139,6 +1295,28 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -2168,339 +1346,14 @@ if (resource != null &amp;&amp; resource.getFile() != null) {
 
       
         
-          
-            <p><a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869</a></p>
-<p>##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)<br>关于配置可以查看<a href="http://chuansong.me/n/365421237869" target="_blank" rel="noopener">Retrofit2 完全解析 探索与okhttp之间的关系</a></p>
-<h4 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1,添加依赖"></a>1,添加依赖</h4><blockquote>
-<p>compile ‘com.squareup.retrofit2:retrofit:2.1.0’</p>
-</blockquote>
-<h4 id="2-定义接口"><a href="#2-定义接口" class="headerlink" title="2,定义接口"></a>2,定义接口</h4><blockquote>
-<pre><code>`public interface GitHubService {  
-   @GET(&quot;users/{user}/repos&quot;)
-   Call&lt;String&gt; listRepos(@Path(&quot;user&quot;) String user);
- }`
-</code></pre><p>path 代表的是路径 {} 里面代表被替换的网址</p>
-</blockquote>
-<h4 id="3-构造Retrofit"><a href="#3-构造Retrofit" class="headerlink" title="3,构造Retrofit"></a>3,构造Retrofit</h4><blockquote>
-<pre><code>Retrofit retrofit = new Retrofit.Builder()
-.baseUrl(&quot;https://api.github.com/&quot;)
-.addConverterFactory(ScalarsConverterFactory.create())    //添加转换器, 这是必须的
-.addCallAdapterFactory(RxJavaCallAdapterFactory.create())    //如果和rxjava配合,需要添加这个转换, 其目的是将 Call&lt;Object&gt; 转换成 Observable&lt;Object&gt;
-.build();
-</code></pre></blockquote>
-<h4 id="4-通过Retrofit的create方法得到所需的对象"><a href="#4-通过Retrofit的create方法得到所需的对象" class="headerlink" title="4,通过Retrofit的create方法得到所需的对象"></a>4,通过Retrofit的create方法得到所需的对象</h4><blockquote>
-<p>   GitHubService service = retrofit.create(GitHubService.class);</p>
-</blockquote>
-<h4 id="5-使用得到的对象调用方法-这里像是标记一下指令"><a href="#5-使用得到的对象调用方法-这里像是标记一下指令" class="headerlink" title="5,使用得到的对象调用方法,这里像是标记一下指令"></a>5,使用得到的对象调用方法,这里像是标记一下指令</h4><blockquote>
-<p>   Call<restaurantresponse> version = service.getVersion();//设置参数</restaurantresponse></p>
-</blockquote>
-<h4 id="6-标记指令完毕后在合适的时候调用来获取数据"><a href="#6-标记指令完毕后在合适的时候调用来获取数据" class="headerlink" title="6,标记指令完毕后在合适的时候调用来获取数据"></a>6,标记指令完毕后在合适的时候调用来获取数据</h4><blockquote>
-<p>同步调用<br>   Response<updateversionresponse> execute = version.execute();</updateversionresponse></p>
-<p>异步调用</p>
-<pre><code>version.enqueue(new Callback&lt;UpdateVersionResponse&gt;() {
-    @Override
-    public void onResponse(Call&lt;UpdateVersionResponse&gt; call, Response&lt;UpdateVersionResponse&gt; response) {
-        Log.i(&quot;hehe&quot;, &quot;成功&quot; + response.toString());
-    }
-</code></pre></blockquote>
-<blockquote>
-</blockquote>
-<pre><code>    @Override
-    public void onFailure(Call&lt;UpdateVersionResponse&gt; call, Throwable t) {
-        Log.i(&quot;hehe&quot;, &quot;访问失败&quot;);
-    }
-});
-</code></pre><p>##2,Url配置</p>
-<p>####Retrofit 支持的协议包括 GET/POST/PUT/DELETE/HEAD/PATCH，当然你也可以直接用 HTTP 来自定义请求。这些协议均以注解的形式进行配置</p>
-<p>###2.1,GET 的用法</p>
-<blockquote>
-<pre><code>@GET(&quot;users/{user}/repos&quot;)
-Call&lt;Object&gt; listRepos(@Path(&quot;user&quot;) String user);
-</code></pre></blockquote>
-<p>  这些注解都有一个参数 value，用来配置其路径,但是不能用于后缀的添加</p>
-<p>path 是相对路径，baseUrl 是目录形式：</p>
-<pre><code>path = &quot;apath&quot;，baseUrl = &quot;http://host:port/a/b/&quot;
-Url = &quot;http://host:port/a/b/apath&quot;
-</code></pre><p>配置共有四种配置方法</p>
-<p>配置的时候采取这种配置方式(baseurl最后以”/“结尾, path中不以”/“开头)</p>
-<p>###2.2,参数类型</p>
-<h4 id="0-Path"><a href="#0-Path" class="headerlink" title="0,Path"></a>0,Path</h4><p>path用于在url中动态配置url</p>
-<h4 id="1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field"><a href="#1-Query-amp-QueryMap-用于GET方法-会将值拼接到url的后面-get方法与field是互斥的-get方法不能添加field" class="headerlink" title="1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)"></a>1,Query &amp; QueryMap(用于GET方法, 会将值拼接到url的后面, get方法与field是互斥的,get方法不能添加field)</h4><pre><code>@GET(&quot;list&quot;)
-Call&lt;要转化成的对象&gt; list(@Query(&quot;page&quot;) int page);
-</code></pre><p>Query 其实就是 Url 中 ‘?’ 后面的 key-value，比如：<a href="http://www.println.net/?cate=android" target="_blank" rel="noopener">http://www.println.net/?cate=android</a></p>
-<p>这里的 cate=android 就是一个 Query，而我们在配置它的时候只需要在接口方法中增加一个参数，即可：</p>
-<pre><code>interface PrintlnServer{    
-   @GET(&quot;&quot;)    
-   Call&lt;Object&gt; cate(@Query(&quot;cate&quot;) String cate);
-}
-</code></pre><p>QueryMap用来表示多个(方法为)</p>
-<p>Query (Call<restaurantresponse> getVersion(@QueryMap HashMap&lt;String, String&gt; params);)</restaurantresponse></p>
-<p>2,Field &amp; FieldMap(用于POST方法提交表单请求体中的键值对, 此时仍然能在连接后面以Query添加参数)</p>
-<h4 id="PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。"><a href="#PS-使用Field的时候是需要-使用-FormUrlEncoded注解的-表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释-Field。" class="headerlink" title="PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。"></a>PS: 使用Field的时候是需要 使用@FormUrlEncoded注解的,表示表示请求正文将使用表单网址编码。字段应该声明为参数并注释@Field。</h4><pre><code>   @FormUrlEncoded
-   @POST(&quot;/&quot;)   
-   Call example(
-       @Field(&quot;name&quot;) String name,
-       @Field(&quot;occupation&quot;) String occupation);
-
-其实也很简单，我们只需要定义上面的接口就可以了，我们用 Field 声明了表单的项，这样提交表单就跟普通的函数调用一样简单直接了
-</code></pre><p>如果表单项不确定个数,可以使用FieldMap</p>
-<p>Call<restaurantresponse> getVersion(@FieldMap HashMap&lt;String, String&gt; params);</restaurantresponse></p>
-<p>3,Part &amp; PartMap(用于POST方法上传文件,get也可以使用该参数上传文件)</p>
-<p>表示请求正文是多部分的。零件应声明为参数并注释@Part。</p>
-<pre><code>public interface FileUploadService {  
-    @Multipart
-    @POST(&quot;upload&quot;)    
-    Call upload(@Part(&quot;description&quot;) RequestBody description,
-                                  @Part MultipartBody.Part file);
-}
-</code></pre><p>如果你需要上传文件，和我们前面的做法类似，定义一个接口方法，需要注意的是，这个方法不再有 @FormUrlEncoded 这个注解，而换成了 @Multipart，后面只需要在参数中增加 Part 就可以了。也许你会问，这里的 Part 和 Field 究竟有什么区别，其实从功能上讲，无非就是客户端向服务端发起请求携带参数的方式不同，并且前者可以携带的参数类型更加丰富，包括数据流。也正是因为这一点，我们可以通过这种方式来上传文件</p>
-<p><img src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png" alt=""></p>
-<h3 id="4-Converter-让入参和返回类型丰富"><a href="#4-Converter-让入参和返回类型丰富" class="headerlink" title="4,Converter 让入参和返回类型丰富"></a>4,Converter 让入参和返回类型丰富</h3><h4 id="4-1-RequestBodyConverter-自定义请求体"><a href="#4-1-RequestBodyConverter-自定义请求体" class="headerlink" title="4.1, RequestBodyConverter(自定义请求体)"></a>4.1, RequestBodyConverter(自定义请求体)</h4><pre><code>Retrofit 上传文件，这个上传的过程其实。。还是有那么点儿不够简练，我们只是要提供一个文件用于上传，可我们前后构造了三个对象：
-    file -- &gt; requestbody -- &gt; multipartbody.part
-</code></pre><p>Retrofit 允许我们自己定义入参和返回的类型，不过，如果这些类型比较特别，我们还需要准备相应的 Converter，也正是因为 Converter 的存在， Retrofit 在入参和返回类型上表现得非常灵活.</p>
-<p>###新的上传文件的接口</p>
-<pre><code>public interface FileUploadService {  
-    @Multipart
-    @POST(&quot;upload&quot;)    
-    Call upload(@Part(&quot;description&quot;) RequestBody description,        
-                //注意这里的参数 &quot;aFile&quot; 之前是在创建 MultipartBody.Part 的时候传入的
-                @Part(&quot;aFile&quot;) File file);
-}
-把入参类型改成了我们熟悉的 File，如果你就这么拿去发请求，服务端收到的结果是一个jsonstring(内部默认的是GsonRequestBodyConverter)
-</code></pre><p>所以就只能自己实现一个 FileRequestBodyConverter</p>
-<pre><code>static class FileRequestBodyConverterFactory extends Converter.Factory {    
-        @Override
-    public Converter requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {      
-       return new FileRequestBodyConverter();
-    }
-  }  
-
- static class FileRequestBodyConverter implements Converter&lt;File, RequestBody&gt; {    
-    @Override
-    public RequestBody convert(File file) throws IOException {      
-      return RequestBody.create(MediaType.parse(&quot;application/otcet-stream&quot;), file);
-    }
-  }
-</code></pre><p>然后在创建 Retrofit 的时候记得配置上它:</p>
-<pre><code>addConverterFactory(new FileRequestBodyConverterFactory())
-</code></pre><p>这样，我们的文件内容就能上传了</p>
-<h4 id="4-2-ResponseBodyConverter-这个一般也用不到"><a href="#4-2-ResponseBodyConverter-这个一般也用不到" class="headerlink" title="4.2 ResponseBodyConverter     //这个一般也用不到"></a>4.2 ResponseBodyConverter     //这个一般也用不到</h4><p>前面我们为大家简单示例了如何自定义 RequestBodyConverter，对应的，Retrofit 也支持自定义 ResponseBodyConverter。</p>
-<p>再来看下我们定义的接口：</p>
-<pre><code>public interface GitHubService {  
-   @GET(&quot;users/{user}/repos&quot;)
-  Call&lt;&gt; listRepos(@Path(&quot;user&quot;) String user);
-}
-</code></pre><p><img src="http://read.html5.qq.com/image?src=forum&amp;q=5&amp;r=0&amp;imgflag=7&amp;imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNonMewRmN43HYdsPbic2fmfKkWcdiazvnRCkDs451PmT7w6SqmkaQcZdA/640?wx_fmt=png" alt=""></p>
-<p>当然，别忘了在构造 Retrofit 的时候添加这个 Converter，这样我们就能够愉快的让接口返回 Result 对象了。</p>
-<blockquote>
-<p>注意！！Retrofit 在选择合适的 Converter 时，主要依赖于需要转换的对象类型，在添加 Converter 时，注意 Converter 支持的类型的包含关系以及其顺序。</p>
-</blockquote>
-<p>###Retrofit 原理分析</p>
-<p>####1,是谁实际上完成了接口请求的处理？</p>
-<h3 id="方法总结"><a href="#方法总结" class="headerlink" title="方法总结"></a>方法总结</h3><h4 id="最基本的配置"><a href="#最基本的配置" class="headerlink" title="最基本的配置"></a>最基本的配置</h4><pre><code>Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(&quot;http://192.168.31.242:8080/springmvc_users/user/&quot;)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build();
-IUserBiz userBiz = retrofit.create(IUserBiz.class);
-Call&lt;List&lt;User&gt;&gt; call = userBiz.getUsers();
-call.enqueue(new Callback&lt;List&lt;User&gt;&gt;()
-        {
-            @Override
-            public void onResponse(Call&lt;List&lt;User&gt;&gt; call, Response&lt;List&lt;User&gt;&gt; response)
-            {
-                Log.e(TAG, &quot;normalGet:&quot; + response.body() + &quot;&quot;);
-            }
-
-            @Override
-            public void onFailure(Call&lt;List&lt;User&gt;&gt; call, Throwable t)
-            {
-
-            }
-        });
-</code></pre><h4 id="1-一般的get请求"><a href="#1-一般的get请求" class="headerlink" title="1,一般的get请求"></a>1,一般的get请求</h4><pre><code>  `public interface IUserBiz {
-    @GET(&quot;users&quot;)
-    Call&lt;List&lt;User&gt;&gt; getUsers();
-}`
-这是最基本的get请求,没有任何参数及其他.
-</code></pre><h4 id="2-动态修改地址的get请求-–-使用-Path-注解"><a href="#2-动态修改地址的get请求-–-使用-Path-注解" class="headerlink" title="2,动态修改地址的get请求 – 使用 Path 注解"></a>2,动态修改地址的get请求 – 使用 Path 注解</h4><pre><code>public interface IUserBiz {
-    @GET(&quot;{username}&quot;)
-    Call&lt;User&gt; getUser(@Path(&quot;username&quot;) String username);
-}
-
-这是 使用 Path注解来动态修改url地址的get请求, 但是这个path只能用于修改url而不能用作修改后面的参数, 相当于url中的占位符.
-</code></pre><h4 id="3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解"><a href="#3-查询参数的设置-–-使用-Query-注解或者-QueryMap-注解" class="headerlink" title="3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解"></a>3,查询参数的设置 – 使用 Query 注解或者 QueryMap 注解</h4><pre><code>public interface IUserBiz {
-    @GET(&quot;users&quot;)
-    Call&lt;List&lt;User&gt;&gt; getUsersBySort(@Query(&quot;sortby&quot;) String sort);
-}
-
-eg: http://baseurl/users?sortby=username
-    http://baseurl/users?sortby=id
-
-这样我们就完成了参数的指定，当然相同的方式也适用于POST，只需要把注解修改为@POST即可。
-不同点在于, 这个 Query 注解代表的是在 url后面添加 参数而不是把参数防盗请求体中进行隐藏请求.
-</code></pre><h4 id="4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解"><a href="#4-POST请求体的方式向服务器传入json字符串-–-使用-Body-注解" class="headerlink" title="4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解"></a>4,POST请求体的方式向服务器传入json字符串 – 使用 Body 注解</h4><pre><code>public interface IUserBiz {
- @POST(&quot;add&quot;)
- Call&lt;List&lt;User&gt;&gt; addUser(@Body User user);
-}
-
-这是通过 Gson 把对象变成Json字符串然后传上去, 不过一般不需要这样,一般都是使用参数传的,所以这种情况的使用情况较少(暂时较少)
-</code></pre><h4 id="5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解"><a href="#5-表单的方式传递键值对-–-使用-FormUrlEncoded-注解进行标识-Form表示表单形式-然后使用-Field-注解或者-FieldMap注解" class="headerlink" title="5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解"></a>5,表单的方式传递键值对 – 使用 FormUrlEncoded 注解进行标识(Form表示表单形式),然后使用 Field 注解或者 FieldMap注解</h4><pre><code>public interface IUserBiz {
-    @POST(&quot;login&quot;)
-    @FormUrlEncoded
-    Call&lt;User&gt; login(@Field(&quot;username&quot;) String username, @Field(&quot;password&quot;) String password);
-}
-
-这是通过 FormUrlEncoded 进行标识后才能使用 field ,这是使用post的时候在请求体中 添加这些键值对(这种最常用) ,FieldMap注解 则是一个map对象, 表示多个field的参数, (一般用 fieldmap进行post请求,因为 一般请求的时候的参数较多,写多个field不合适.)
-</code></pre><h4 id="6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解"><a href="#6-单文件上传-–-使用-Multipart-注解进行标识-然后使用-Part-注解或者-PartMap注解" class="headerlink" title="6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解"></a>6,单文件上传 – 使用 Multipart 注解进行标识,然后使用 Part 注解或者 PartMap注解</h4><p>@part可以当成@field来使用,因为 @part是特殊的@field, @part比 @field多支持了文件的类型</p>
-<pre><code>文件上传应有的形式: 
-    Content-Disposition: form-data; name=&quot;file&quot;；filename=&quot;test.jpg&quot;
-普通使用Part注解添加的file:
-    Content-Disposition: form-data; name=&quot;file&quot;
-
-所以中心思想就是把  file 替换成 file&quot;；filename=&quot;test.jpg 通过拼接字符串的方式保存文件
-
-public interface DemoService {
-    @Multipart()
-    @POST(&quot;api/files&quot;)
-    Call&lt;ResponseInfo&gt; uploadFile(@Part(&quot;file\&quot;;filename=\&quot;test.jpg&quot;) RequestBody photo);
-}
-
-
-
-public interface IUserBiz {
-    @Multipart
-    @POST(&quot;register&quot;)
-    Call&lt;User&gt; registerUser(@Part MultipartBody.Part photo, @Part(&quot;username&quot;) 
-                 RequestBody username, @Part(&quot;password&quot;) RequestBody password);
-}
-
-这里@MultiPart的意思就是允许多个@Part了，我们这里使用了3个@Part.
-第一个我们准备上传个文件，使用了MultipartBody.Part类型，
-其余两个均为简单的键值对(这里的键值对说明也可以使用 string,string  的方式 ,上面的 string,requestbody形式并不是必须的 即可以: 
-    public interface IUserBiz {
-        @Multipart
-        @POST(&quot;register&quot;)
-        Call&lt;User&gt; registerUser(@Part MultipartBody.Part photo, @Part(&quot;username&quot;) 
-                    String username, @Part(&quot;password&quot;) String password);
-    }
-)
-
-使用的代码为:
-
-File file = new File(Environment.getExternalStorageDirectory(), &quot;icon.png&quot;);
-RequestBody photoRequestBody = RequestBody.create(MediaType.parse(&quot;image/png&quot;), file);
-MultipartBody.Part photo = MultipartBody.Part.createFormData(&quot;photos&quot;, &quot;icon.png&quot;, photoRequestBody);
-
-Call&lt;User&gt; call = userBiz.registerUser(photo, RequestBody.create(null, &quot;abc&quot;), RequestBody.create(null, &quot;123&quot;));
-</code></pre><h4 id="7-多文件上传-PartMap-–-使用-PartMap注解"><a href="#7-多文件上传-PartMap-–-使用-PartMap注解" class="headerlink" title="7,多文件上传@PartMap – 使用 PartMap注解"></a>7,多文件上传@PartMap – 使用 PartMap注解</h4><pre><code>public interface IUserBiz {
-     @Multipart
-     @POST(&quot;register&quot;)
-      Call&lt;User&gt; registerUser(
-             @PartMap Map&lt;String, RequestBody&gt; params, 
-            @Part(&quot;password&quot;) RequestBody password);
-}
-
-这里使用了一个新的注解@PartMap，这个注解用于标识一个Map，Map的key为String类型，代表上传的键值对的key(与服务器接受的key对应),value即为RequestBody，有点类似@Part的封装版本。
-</code></pre><p>执行代码:</p>
-<pre><code>File file = new File(Environment.getExternalStorageDirectory(), &quot;messenger_01.png&quot;);
-RequestBody photo = RequestBody.create(MediaType.parse(&quot;image/png&quot;, file);
-Map&lt;String,RequestBody&gt; photos = new HashMap&lt;&gt;();
-photos.put(&quot;photos\&quot;; filename=\&quot;icon.png&quot;, photo);
-             &quot;file\&quot;; filename=\&quot;test.jpg&quot;
-photos.put(&quot;username&quot;,  RequestBody.create(null, &quot;abc&quot;));
-
-Call&lt;User&gt; call = userBiz.registerUser(photos, RequestBody.create(null, &quot;123&quot;));
-
-可以看到，可以在Map中put进一个或多个文件，键值对等，当然你也可以分开，
-单独的键值对也可以使用 @Part，这里又看到设置文件的时候，相对应的key很奇怪，
-例如上例&quot;photos\&quot;; filename=\&quot;icon.png&quot;,前面的photos就是与服务器对应的key，
-后面filename是服务器得到的文件名，ok，参数虽然奇怪，但是也可以动态的设置文件名，不太影响使用
-
-这个的优势是可以动态的修改名字了,(因为 使用Part注解 value是写死的,所以值没法改,但是使用 PartMap注解 value是创建好传进去的,所以这个名字就可以修改了)
-</code></pre><h4 id="8-下载文件"><a href="#8-下载文件" class="headerlink" title="8,下载文件"></a>8,下载文件</h4><pre><code>public interface IUserBiz {
-    @GET(&quot;download&quot;)
-    Call&lt;ResponseBody&gt; downloadTest();
-}
-
-然后调用: 
-
-Call&lt;ResponseBody&gt; call = userBiz.downloadTest();
-call.enqueue(new Callback&lt;ResponseBody&gt;() {
-    @Override
-    public void onResponse(Call&lt;ResponseBody&gt; call, Response&lt;ResponseBody&gt; response)
-    {
-        InputStream is = response.body().byteStream();
-        //save file
-    }
-
-    @Override
-    public void onFailure(Call&lt;ResponseBody&gt; call, Throwable t)
-    {
-
-    }
-});
-</code></pre><h4 id="field-和-part-和-query-的区别"><a href="#field-和-part-和-query-的区别" class="headerlink" title="field 和 part 和 query 的区别:"></a>field 和 part 和 query 的区别:</h4><blockquote>
-<p>field 用于简单键值对的提交, 用在post请求中, 需要进行 @formurlencoude 注解进行标识(get无法使用,这个只能用于post请求体中)</p>
-<p>part 用于post请求中在field的基础上 可以携带文件进行提交(这个只能用于post请求体中)</p>
-<p>query 用于在url后面添加参数, post和get请求均可以使用</p>
-</blockquote>
-<p><a href="https://github.com/square/retrofit/issues/1063" target="_blank" rel="noopener">可以查看 直接使用requestbody的上传文件的解决 retrofit#1063</a></p>
-<p>@Part(“image\”; filename=\”image.jpg\” “) RequestBody image</p>
-<pre><code>public interface ApiInterface {
-    @Multipart
-    @POST (&quot;/api/Accounts/editaccount&quot;)
-    Call&lt;User&gt; editUser (
-         @Header(&quot;Authorization&quot;) String authorization, 
-         @Part(&quot;file\&quot;; filename=\&quot;pp.png&quot;) RequestBody file , 
-        @Part(&quot;FirstName&quot;) RequestBody fname, 
-        @Part(&quot;Id&quot;) RequestBody id);
-}
-</code></pre><h2 id="配置OkHttpClient"><a href="#配置OkHttpClient" class="headerlink" title="配置OkHttpClient"></a>配置OkHttpClient</h2><p>1,</p>
-<pre><code>.callFactory(new okhttp3.Call.Factory() {
-                    @Override
-                    public okhttp3.Call newCall(Request request) {
-                        OkHttpClient okHttpClient = new OkHttpClient();
-                        return okHttpClient.newCall(request);
-                    }
-                })
-
-可以单独写一个OkhttpClient的单例生成类，在这个里面完成你所需的所有的配置，然后将OkhttpClient实例通过方法公布出来，设置给retrofit
-callFactory方法接受一个okhttp3.Call.Factory对象，OkHttpClient即为一个实现类
-</code></pre><p>2,</p>
-<pre><code>.client(okhttpclient)
-
-也可以配置client
-</code></pre><p>//转换器 , 请求原始数据转换成对象(addConverterFactory()),一般将该数据转换成json</p>
-<p>Scalars (primitives, boxed, and String): com.squareup.retrofit2:converter-scalars:2.1.0</p>
-<p>Gson: com.squareup.retrofit2:converter-gson:2.1.0</p>
-<p>Jackson: com.squareup.retrofit2:converter-jackson:{最新版本号}</p>
-<p>Moshi: com.squareup.retrofit2:converter-moshi:{最新版本号}</p>
-<p>Protobuf: com.squareup.retrofit2:converter-protobuf:{最新版本号}</p>
-<p>Wire: com.squareup.retrofit2:converter-wire:{最新版本号}</p>
-<p>Simple XML: com.squareup.retrofit2:converter-simplexml:{最新版本号}</p>
-<p>//转换器 , 将返回的Call对象转换成其他 (addCallAdapterFactory()),一般将该数据转换成rxjava</p>
-<h1 id="注-添加header的方法"><a href="#注-添加header的方法" class="headerlink" title="注: 添加header的方法"></a>注: 添加header的方法</h1><p>该文章见<a href="http://blog.csdn.net/ghost_programmer/article/details/52372065" target="_blank" rel="noopener">retrofit 网络请求库 : http://blog.csdn.net/ghost_programmer/article/details/52372065</a></p>
-<h2 id="headers-和-header"><a href="#headers-和-header" class="headerlink" title="@headers 和 @header"></a>@headers 和 @header</h2><p>headers是在方法上部声明, 不能动态修改, 不可覆盖 , header 是在方法的参数中代表的, 可以动态设置</p>
-<h2 id="OKhttp-配置的时候在所有的request中添加header-Interceptor"><a href="#OKhttp-配置的时候在所有的request中添加header-Interceptor" class="headerlink" title="OKhttp  配置的时候在所有的request中添加header   Interceptor"></a>OKhttp  配置的时候在所有的request中添加header   Interceptor</h2><p>官方demo见 <a href="https://github.com/square/okhttp/wiki/Interceptors" target="_blank" rel="noopener">https://github.com/square/okhttp/wiki/Interceptors</a></p>
-<pre><code>Request request = chain.request();
-
-Response response = chain.proceed(request);
-</code></pre><h4 id="通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。"><a href="#通过chain的request-方法，可以返回Request对象。通过chain的proceed-方法，可以返回此次请求的响应对象。" class="headerlink" title="通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。"></a>通过chain的request()方法，可以返回Request对象。通过chain的proceed()方法，可以返回此次请求的响应对象。</h4><h4 id="对所有的请求都添加请求头"><a href="#对所有的请求都添加请求头" class="headerlink" title="对所有的请求都添加请求头"></a>对所有的请求都添加请求头</h4><pre><code>public okhttp3.Response intercept(Chain chain) throws IOException {
-    Request request = chain.request();
-    // 重写request
-    Request requestOverwrite = request.newBuilder().header(&quot;User-Agent&quot;,&quot;Android&quot;).build();
-
-    return chain.proceed(requestOverwrite);
-}
-</code></pre><h4 id="同理-要对所有的请求相应-response-添加header的话"><a href="#同理-要对所有的请求相应-response-添加header的话" class="headerlink" title="同理, 要对所有的请求相应 response 添加header的话"></a>同理, 要对所有的请求相应 response 添加header的话</h4><pre><code>@Override
-public okhttp3.Response intercept(Chain chain) throws IOException {
-    Request request = chain.request();
-    okhttp3.Response originalResponse = chain.proceed(request);
-
-    return originalResponse.newBuilder().header(&quot;Cache-Control&quot;,&quot;max-age=100&quot;).build();
-}
-</code></pre>
-          
+          Glide学习
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/Glide/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2547,16 +1400,16 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/rxjava学习/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/Retrofit学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -2566,7 +1419,7 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/rxjava学习/" itemprop="url">Rxjava</a></h1>
+                <a class="post-title-link" href="/2018/05/16/Retrofit学习/" itemprop="url">Retrofit学习</a></h1>
         
 
         <div class="post-meta">
@@ -2578,8 +1431,8 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -2588,6 +1441,28 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -2617,562 +1492,14 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
 
       
         
-          
-            <p>1,创建观察者:  observer  subscriber</p>
-<pre><code>Observer 即观察者，它决定事件触发的时候将有怎样的行为。 RxJava 中的 Observer 接口的实现方式：
-
-Observer&lt;String&gt; observer = new Observer&lt;String&gt;() {
-    @Override
-    public void onNext(String s) {
-        Log.d(tag, &quot;Item: &quot; + s);
-    }
-
-    @Override
-    public void onCompleted() {
-        Log.d(tag, &quot;Completed!&quot;);
-    }
-
-    @Override
-    public void onError(Throwable e) {
-        Log.d(tag, &quot;Error!&quot;);
-    }
-};
-</code></pre><p>2,创建被观察者: observable</p>
-<pre><code>Observable observable = Observable.create(new Observable.OnSubscribe&lt;String&gt;() {
-    @Override
-    public void call(Subscriber&lt;? super String&gt; subscriber) {
-        subscriber.onNext(&quot;Hello&quot;);
-        subscriber.onNext(&quot;Hi&quot;);
-        subscriber.onNext(&quot;Aloha&quot;);
-        subscriber.onCompleted();
-    }
-});
-
-可以看到，这里传入了一个 OnSubscribe 对象作为参数。
-OnSubscribe 会被存储在返回的 Observable 对象中，它的作用相当于一个计划表，
-当 Observable 被订阅的时候，OnSubscribe 的 call() 方法会自动被调用.
-事件序列就会依照设定依次触发（对于上面的代码，就是观察者Subscriber 将会被调用三次 onNext() 和一次 onCompleted()）。
-这样，由被观察者调用了观察者的回调方法，就实现了由被观察者向观察者的事件传递，即观察者模式。
-</code></pre><p>创建方式:</p>
-<p>1.observable.create(Onsubscriber)</p>
-<blockquote>
-<p>create() 方法是 RxJava 最基本的创造事件序列的方法。 见上边的代码  使用 create创建的 observable</p>
-</blockquote>
-<p>2.observable.just(T …)</p>
-<blockquote>
-<p>基于create()方法， RxJava 还提供了一些方法用来快捷创建事件队列</p>
-</blockquote>
-<p>例如:</p>
-<pre><code>Observable observable = Observable.just(&quot;Hello&quot;, &quot;Hi&quot;, &quot;Aloha&quot;);
-// 将会依次调用：
-// onNext(&quot;Hello&quot;);
-// onNext(&quot;Hi&quot;);
-// onNext(&quot;Aloha&quot;);
-// onCompleted();
-</code></pre><p>3.obserbable.from(arraylist&lt;&gt;)</p>
-<blockquote>
-<p>from(T[]) / from(Iterable&lt;? extends T&gt;) : 将传入的数组或 Iterable 拆分成具体对象后，依次发送出来。</p>
-</blockquote>
-<pre><code>String[] words = {&quot;Hello&quot;, &quot;Hi&quot;, &quot;Aloha&quot;};
-Observable observable = Observable.from(words);
-// 将会依次调用：
-// onNext(&quot;Hello&quot;);
-// onNext(&quot;Hi&quot;);
-// onNext(&quot;Aloha&quot;);
-// onCompleted();
-</code></pre><p>上述三个方法本质上是一样的:最终都会运行到:</p>
-<pre><code>public final static &lt;T&gt; Observable&lt;T&gt; create(OnSubscribe&lt;T&gt; f) {
-    return new Observable&lt;T&gt;(hook.onCreate(f));
-}
-这个create方法最终执行来创建这个observable;
-</code></pre><p>3,进行订阅</p>
-<pre><code>创建了 Observable 和 Observer 之后，再用 subscribe() 方法将它们联结起来，整条链子就可以工作了。代码形式很简单：
-
-订阅方式:(订阅方法中共有5类参数)
-
-observable.subscribe(observer)
-//or(或者)
-observable.subscribe(subscriber)
-//or(或者)
-observable.subscribe(action1)
-observable.subscribe(action1,action1)
-observable.subscribe(action1,action1,action0)
-
-他们的本质是一样的 ,subscriber :
-public final Subscription subscribe(Subscriber&lt;? super T&gt; subscriber) {
-    return Observable.subscribe(subscriber, this);
-}
-
-oberver
-public final Subscription subscribe(final Observer&lt;? super T&gt; observer) {
-    if (observer instanceof Subscriber) {
-        return subscribe((Subscriber&lt;? super T&gt;)observer);
-    }
-    return subscribe(new Subscriber&lt;T&gt;() {
-
-        @Override
-        public void onCompleted() {
-            observer.onCompleted();
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            observer.onError(e);
-        }
-
-        @Override
-        public void onNext(T t) {
-            observer.onNext(t);
-        }
-
-    });
-}
-
-也就是说这两个方法本质上都是执行 Observable.subscribe(subscriber, this);的代码的
-
-PS: public abstract class Subscriber&lt;T&gt; implements Observer&lt;T&gt;, Subscription
-Subscriber 实现了 observer接口 也就是他们其实都是 subseriber;
-</code></pre><p>使用action:</p>
-<ol>
-<li>observable.subscribe(action1)</li>
-<li>observable.subscribe(action1,action1)</li>
-<li>observable.subscribe(action1,action1,action0)</li>
-<li>还有action3,action4等等.(没有这个,,,,暂时没有, 因为action1代表了next方法和error方法, action0代表了onComplete方法)</li>
-</ol>
-<p>至于Action的参数具体为:</p>
-<pre><code>Action1&lt;String&gt; onNextAction = new Action1&lt;String&gt;() {
-    // onNext()
-    @Override
-    public void call(String s) {
-        Log.d(tag, s);
-    }
-};
-Action1&lt;Throwable&gt; onErrorAction = new Action1&lt;Throwable&gt;() {
-    // onError()
-    @Override
-    public void call(Throwable throwable) {
-        // Error handling
-    }
-};
-Action0 onCompletedAction = new Action0() {
-    // onCompleted()
-    @Override
-    public void call() {
-        Log.d(tag, &quot;completed&quot;);
-    }
-};
-
-// 自动创建 Subscriber ，并使用 onNextAction 来定义 onNext()
-observable.subscribe(onNextAction);
-// 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来定义 onNext() 和 onError()
-observable.subscribe(onNextAction, onErrorAction);
-// 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()
-observable.subscribe(onNextAction, onErrorAction, onCompletedAction);
-</code></pre><p>例子:<br>A:打印字符串数组</p>
-<pre><code>String[] names = ...;
-Observable.from(names)
-    .subscribe(new Action1&lt;String&gt;() {
-        @Override
-        public void call(String name) {
-            Log.d(tag, name);
-        }
-    });
-</code></pre><p>B:由 id 取得图片并显示</p>
-<pre><code>由指定的一个 drawable 文件 id drawableRes 取得图片，并显示在 ImageView 中，并在出现异常的时候打印 Toast 报错：
-
-int drawableRes = ...;
-ImageView imageView = ...;
-Observable.create(new OnSubscribe&lt;Drawable&gt;() {
-    @Override
-    public void call(Subscriber&lt;? super Drawable&gt; subscriber) {
-        Drawable drawable = getTheme().getDrawable(drawableRes));
-        subscriber.onNext(drawable);
-        subscriber.onCompleted();
-    }
-}).subscribe(new Observer&lt;Drawable&gt;() {
-    @Override
-    public void onNext(Drawable drawable) {
-        imageView.setImageDrawable(drawable);
-    }
-
-    @Override
-    public void onCompleted() {
-    }
-
-    @Override
-    public void onError(Throwable e) {
-        Toast.makeText(activity, &quot;Error!&quot;, Toast.LENGTH_SHORT).show();
-    }
-});
-
-正如上面两个例子这样，创建出 Observable 和 Subscriber ，再用 subscribe() 将它们串起来，一次 RxJava 的基本使用就完成了。非常简单。
-
-在 RxJava 的默认规则中，事件的发出和消费都是在同一个线程的。也就是说，如果只用上面的方法，
-实现出来的只是一个同步的观察者模式。观察者模式本身的目的就是『后台处理，前台回调』的异步机制，因此异步对于 RxJava 是至关重要的。
-而要实现异步，则需要用到 RxJava 的另一个概念： Scheduler 。
-</code></pre><p>4,线程控制:</p>
-<ol>
-<li>Schedulers.immediate(): 直接在当前线程运行，相当于不指定线程。这是默认的 Scheduler。</li>
-<li>Schedulers.newThread(): 总是启用新线程，并在新线程执行操作。</li>
-<li>Schedulers.io(): I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。</li>
-<li>Schedulers.computation(): 计算所使用的 Scheduler。</li>
-<li>AndroidSchedulers.mainThread()，它指定的操作将在 Android 主线程运行。</li>
-</ol>
-<blockquote>
-<p>使用方法:使用 subscribeOn() 和 observeOn() 两个方法来对线程进行控制。</p>
-</blockquote>
-<ol>
-<li>subscribeOn(): 指定 subscribe() 所发生的线程，即 Observable.OnSubscribe 被激活时所处的线程。或者叫做事件产生的线程。</li>
-<li><p>observeOn(): 指定 Subscriber 所运行在的线程。或者叫做事件消费的线程。</p>
-<p> `int drawableRes = …;<br> ImageView imageView = …;<br> Observable.create(new OnSubscribe<drawable>() {</drawable></p>
-<pre><code>@Override
-public void call(Subscriber&lt;? super Drawable&gt; subscriber) {
-
-    Drawable drawable = getTheme().getDrawable(drawableRes));
-    subscriber.onNext(drawable);
-    subscriber.onCompleted();
-    }
-})
-
-.subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
-
-.observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
-
-.subscribe(new Observer&lt;Drawable&gt;() {
-    @Override
-    public void onNext(Drawable drawable) {
-        imageView.setImageDrawable(drawable);
-    }
-
-    @Override
-    public void onCompleted() {
-    }
-
-    @Override
-    public void onError(Throwable e) {
-        Toast.makeText(activity, &quot;Error!&quot;, Toast.LENGTH_SHORT).show();
-    }
-    });`
-</code></pre></li>
-</ol>
-<p>5,线程变换 :所谓变换，就是将事件序列中的对象或整个序列进行加工处理，转换成不同的事件或事件序列。 </p>
-<ol>
-<li>API : 其本质就是想要把已经获取到的东西进行转换从而变成另一个东西.</li>
-</ol>
-<pre><code>1. map() (一转一);flatMap()(一转到另一个observable);
-
-    `
-
-        Observable.just(&quot;images/logo.png&quot;) // 输入类型 String
-
-        .map(new Func1&lt;String, Bitmap&gt;() {
-
-        @Override
-        public Bitmap call(String filePath) { // 参数类型 String
-            return getBitmapFromPath(filePath); // 返回类型 Bitmap
-            }
-        })
-
-        .subscribe(new Action1&lt;Bitmap&gt;() {
-
-            @Override
-            public void call(Bitmap bitmap) { // 参数类型 Bitmap
-                showBitmap(bitmap);
-            }
-        });`
-    区别:
-    &gt; flatMap() 和 map() 有一个相同点：它也是把传入的参数转化之后返回另一个对象。但需要注意，和 map()不同的是， flatMap() 中返回的是个 Observable 对象，并且这个 Observable 对象并不是被直接发送到了 Subscriber 的回调方法中。 flatMap() 的原理是这样的：1. 使用传入的事件对象创建一个 Observable 对象；2. 并不发送这个 Observable, 而是将它激活，于是它开始发送事件；3. 每一个创建出来的 Observable 发送的事件，都被汇入同一个 Observable ，而这个 Observable 负责将这些事件统一交给 Subscriber 的回调方法。这三个步骤，把事件拆成了两级，通过一组新创建的 Observable 将初始的对象『铺平』之后通过统一路径分发了下去。而这个『铺平』就是 flatMap() 所谓的 flat。
-
-
-2. throttleFirst(): 在每次事件触发后的一定时间间隔内丢弃新的事件.
-
-    常用作去抖动过滤，例如按钮的点击监听器
-
-        RxView.clickEvents(button) // RxBinding 代码，后面的文章有解释
-
-            .throttleFirst(500, TimeUnit.MILLISECONDS) // 设置防抖间隔为 500ms
-
-            .subscribe(subscriber);
-
-        妈妈再也不怕我的用户手抖点开两个重复的界面啦。
-</code></pre><ol start="2">
-<li><p>变换的原理：lift()</p>
-<p> 当含有 lift() 时： </p>
-<p> 1.lift() 创建了一个 Observable 后，加上之前的原始 Observable，已经有两个 Observable 了；</p>
-<p> 2.而同样地，新 Observable 里的新 OnSubscribe 加上之前的原始 Observable 中的原始 OnSubscribe，也就有了两个OnSubscribe；<br> 3.当用户调用经过 lift() 后的 Observable 的 subscribe() 的时候，使用的是 lift() 所返回的新的 Observable ，于是它所触发的 onSubscribe.call(subscriber)，也是用的新 Observable 中的新 OnSubscribe，即在 lift() 中生成的那个 OnSubscribe； </p>
-<p> 4.而这个新 OnSubscribe 的 call() 方法中的 onSubscribe ，就是指的原始 Observable 中的原始 OnSubscribe ，在这个 call()方法里，新 OnSubscribe 利用 operator.call(subscriber) 生成了一个新的 Subscriber（Operator 就是在这里，通过自己的call() 方法将新 Subscriber 和原始 Subscriber 进行关联，并插入自己的『变换』代码以实现变换），然后利用这个新Subscriber 向原始 Observable 进行订阅。 </p>
-<p> 这样就实现了 lift() 过程，有点像一种代理机制，通过事件拦截和处理实现事件序列的变换。</p>
-<p> eg:  Integer 对象转换成 String</p>
-<pre><code>`
-observable.lift(new Observable.Operator&lt;String, Integer&gt;() {
-@Override
-public Subscriber&lt;? super Integer&gt; call(final Subscriber&lt;? super String&gt; subscriber) {
-        // 将事件序列中的 Integer 对象转换为 String 对象
-        return new Subscriber&lt;Integer&gt;() {
-            @Override
-            public void onNext(Integer integer) {
-                subscriber.onNext(&quot;&quot; + integer);
-            }
-
-            @Override
-            public void onCompleted() {
-                subscriber.onCompleted();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                subscriber.onError(e);
-            }
-        };
-    }
-});
-</code></pre><p> 讲述 lift() 的原理只是为了更好地了解 RxJava ，从而可以更好地使用它。<br> 然而不管是否理解了 lift() 的原理，RxJava 都不建议开发者自定义 Operator 来直接使用 lift()，而是建议尽量使用已有的 lift() 包装方法（如 map() flatMap() 等）进行组合来实现需求，<br> 因为直接使用 lift() 非常容易发生一些难以发现的错误。</p>
-<pre><code>`
-</code></pre></li>
-<li><p>compose: 对 Observable 整体的变换:除了 lift() 之外， Observable 还有一个变换方法叫做 compose(Transformer).</p>
-<p> 它和 lift() 的区别在于:</p>
-<pre><code>lift() 是针对事件项和事件序列的，
-
-而 compose() 是针对 Observable 自身进行变换。
-
-假设在程序中有多个 Observable ，并且他们都需要应用一组相同的 lift() 变换。
-</code></pre></li>
-</ol>
-<p>6.线程控制：Scheduler (二)</p>
-<ol>
-<li><p>Scheduler 的 API (二)</p>
-<p>subscribeOn() 控制事件产生的线程 …     一般为背景线程</p>
-<p>observeOn() 控制事件发生的线程 …. 一般在主线程</p>
-<p>如果需要多切换几次线程,使用observeOn()方法,,,,通过 observeOn() 的多次调用，可以程序实现线程的多次切换。</p>
-<p>不同于 observeOn() ， subscribeOn() 的位置放在哪里都可以，因为它是只能调用一次,即只能确定事件产生的线程,所以对位置没有要求.</p>
-<pre><code>Observable.just(1, 2, 3, 4) // IO 线程，由 subscribeOn() 指定
-    .subscribeOn(Schedulers.io())
-    .observeOn(Schedulers.newThread())
-    .map(mapOperator) // 新线程，由 observeOn() 指定
-    .observeOn(Schedulers.io())
-    .map(mapOperator2) // IO 线程，由 observeOn() 指定
-    .observeOn(AndroidSchedulers.mainThread) 
-    .subscribe(subscriber);  // Android 主线程，由 observeOn() 指定
-
-通过 observeOn() 的多次调用，程序实现了线程的多次切换。
-
-不过，不同于 observeOn() ， subscribeOn() 的位置放在哪里都可以，但它是只能调用一次的。
-</code></pre></li>
-<li><p>Scheduler 的原理（二）</p>
-<p>subscribeOn() 和 observeOn() 的内部实现，也是用的 lift()。</p>
-<p>subscribeOn() , 唯一,,最先的线程控制所有线程,,后面的线程在通知过程中就会被最先的subscribeOn()方法截断,,,所以只会是最先的subscribeOn()方法起作用,后面的对整个流程并没有任何影响</p>
-<p>当使用了多个 subscribeOn() 的时候，只有第一个 subscribeOn() 起作用。</p>
-</li>
-<li><p>doOnSubscribe()  :虽然超过一个的 subscribeOn() 对事件处理的流程没有影响，但在流程之前却是可以利用的。</p>
-<p>Subscriber 的 onStart() 可以用作流程开始前的初始化。然而 onStart() 由于在subscribe() 发生时就被调用了，因此不能指定线程，而是只能执行在 subscribe() 被调用时的线程。这就导致如果 onStart() 中含有对线程有要求的代码（例如在界面上显示一个 ProgressBar，这必须在主线程执行），将会有线程非法的风险，因为有时你无法预测subscribe() 将会在什么线程执行。</p>
-<p>而与 Subscriber.onStart() 相对应的，有一个方法 Observable.doOnSubscribe() 。它和 Subscriber.onStart() 同样是在subscribe() 调用后而且在事件发送前执行，但区别在于它可以指定线程。默认情况下， doOnSubscribe() 执行在 subscribe() 发生的线程；而如果在 doOnSubscribe() 之后有 subscribeOn() 的话，它将执行在离它最近的 subscribeOn() 所指定的线程。</p>
-<p>示例代码：</p>
-</li>
-</ol>
-<pre><code>`
-
-    Observable.create(onSubscribe)
-        .subscribeOn(Schedulers.io())
-        .doOnSubscribe(new Action0() {
-            @Override
-            public void call() {
-                progressBar.setVisibility(View.VISIBLE); // 需要在主线程执行
-            }
-        })
-        .subscribeOn(AndroidSchedulers.mainThread()) // 指定主线程
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(subscriber);
-
-`
-
-如上，在 doOnSubscribe()的后面跟一个 subscribeOn() ，就能指定准备工作的线程了。
-</code></pre><p>7.RxJava 的适用场景和使用方式</p>
-<p>###与 Retrofit 的结合</p>
-<pre><code>@GET(&quot;/user&quot;)
-public void getUser(@Query(&quot;userId&quot;) String userId, Callback&lt;User&gt; callback);
-
-PS: retrifit中 baseurl后面跟  /user : 这里不推荐这样写 ,最好的写法应该是 @GET(&quot;user&quot;),这样简单易用不易出问题
-
-这是接口中的方法,用来回去用户信息的, get请求, query参数代表了要 请求最终为: /user?userId=23  这种形式
-</code></pre><p>在程序的构建过程中， Retrofit 会把自动把方法实现并生成代码，然后开发者就可以利用下面的方法来获取特定用户并处理响应：</p>
-<pre><code>getUser(userId, new Callback&lt;User&gt;() {
-    @Override
-    public void success(User user) {
-        userView.setUser(user);
-    }
-
-    @Override
-    public void failure(RetrofitError error) {
-        // Error handling
-        ...
-    }
-};    
-</code></pre><blockquote>
-<p>注 : 这应该是 retrofit 1.x的了, retrofit2 的版本直接会返回call而不能用void方法</p>
-</blockquote>
-<p>而使用 RxJava 形式的 API，定义同样的请求是这样的：</p>
-<pre><code>@GET(&quot;/user&quot;)
-public Observable&lt;User&gt; getUser(@Query(&quot;userId&quot;) String userId);
-</code></pre><blockquote>
-<p>这个时候已经获取到 Observable对象了 ,即已经获取到 被观察者了 ,可以进行subscribe进行订阅了</p>
-</blockquote>
-<pre><code>getUser(userId)
-.observeOn(AndroidSchedulers.mainThread())
-.subscribe(new Observer&lt;User&gt;() {
-    @Override
-    public void onNext(User user) {
-        userView.setUser(user);
-    }
-
-    @Override
-    public void onCompleted() {
-    }
-
-    @Override
-    public void onError(Throwable error) {
-        // Error handling
-        ...
-    }
-});
-</code></pre><p>当 RxJava 形式的时候，Retrofit 把请求封装进 Observable ，在请求结束后调用 onNext() 或在请求失败后调用 onError()。</p>
-<pre><code>你的程序取到的 User 并不应该直接显示，而是需要先与数据库中的数据进行比对和修正后再显示。使用 Callback 方式大概可以这么写
-getUser(userId, new Callback&lt;User&gt;() {
-    @Override
-    public void success(User user) {
-        processUser(user); // 尝试修正 User 数据
-        userView.setUser(user);
-    }
-
-    @Override
-    public void failure(RetrofitError error) {
-        // Error handling
-        ...
-    }
-};
-</code></pre><blockquote>
-<p>这是callback的方式, 并不方便因为这样做会影响性能。数据库的操作很重，一次读写操作花费 10~20ms 是很常见的，这样的耗时很容易造成界面的卡顿。所以通常情况下，如果可以的话一定要避免在主线程中处理数据库。所以为了提升性能，这段代码可以优化一下：</p>
-</blockquote>
-<pre><code>getUser(userId, new Callback&lt;User&gt;() {
-    @Override
-    public void success(User user) {
-        new Thread() {
-            @Override
-            public void run() {
-                processUser(user); // 尝试修正 User 数据
-                runOnUiThread(new Runnable() { // 切回 UI 线程
-                    @Override
-                    public void run() {
-                        userView.setUser(user);
-                    }
-                });
-            }).start();
-    }
-
-    @Override
-    public void failure(RetrofitError error) {
-        // Error handling
-        ...
-    }
-};
-</code></pre><blockquote>
-<p>性能问题解决，但……这代码实在是太乱了，迷之缩进啊！杂乱的代码往往不仅仅是美观问题，因为代码越乱往往就越难读懂，而如果项目中充斥着杂乱的代码，无疑会降低代码的可读性，造成团队开发效率的降低和出错率的升高。</p>
-</blockquote>
-<p>如果用 RxJava 的形式，就好办多了。 RxJava 形式的代码是这样的：</p>
-<pre><code>getUser(userId)
-    .doOnNext(new Action1&lt;User&gt;() {
-        @Override
-        public void call(User user) {
-            processUser(user);
-        })
-    .observeOn(AndroidSchedulers.mainThread())
-    .subscribe(new Observer&lt;User&gt;() {
-        @Override
-        public void onNext(User user) {
-            userView.setUser(user);
-        }
-
-        @Override
-        public void onCompleted() {
-        }
-
-        @Override
-        public void onError(Throwable error) {
-            // Error handling
-            ...
-        }
-    });
-
-后台代码和前台代码全都写在一条链中，明显清晰了很多。
-</code></pre><p>####例子2</p>
-<p>假设 /user 接口并不能直接访问，而需要填入一个在线获取的 token ，代码应该怎么写？</p>
-<p> Callback 方式，可以使用嵌套的 Callback：</p>
-<pre><code>@GET(&quot;/token&quot;)
-public void getToken(Callback&lt;String&gt; callback);
-
-@GET(&quot;/user&quot;)
-public void getUser(@Query(&quot;token&quot;) String token, @Query(&quot;userId&quot;) String userId, Callback&lt;User&gt; callback);
-
-getToken(new Callback&lt;String&gt;() {
-    @Override
-    public void success(String token) {
-        getUser(token, userId, new Callback&lt;User&gt;() {
-            @Override
-            public void success(User user) {
-                userView.setUser(user);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                // Error handling
-                ...
-            }
-        };
-    }
-
-    @Override
-    public void failure(RetrofitError error) {
-        // Error handling
-        ...
-    }
-});
-
-倒是没有什么性能问题，可是迷之缩进毁一生，你懂我也懂，做过大项目的人应该更懂。
-</code></pre><p>而使用 RxJava 的话，代码是这样的：</p>
-<pre><code>@GET(&quot;/token&quot;)
-public Observable&lt;String&gt; getToken();
-
-@GET(&quot;/user&quot;)
-public Observable&lt;User&gt; getUser(@Query(&quot;token&quot;) String token, @Query(&quot;userId&quot;) String userId);
-
-...
-
-getToken()
-    .flatMap(new Func1&lt;String, Observable&lt;User&gt;&gt;() {
-        @Override
-        public Observable&lt;User&gt; onNext(String token) {
-            return getUser(token, userId);
-        })
-    .observeOn(AndroidSchedulers.mainThread())
-    .subscribe(new Observer&lt;User&gt;() {
-        @Override
-        public void onNext(User user) {
-            userView.setUser(user);
-        }
-
-        @Override
-        public void onCompleted() {
-        }
-
-        @Override
-        public void onError(Throwable error) {
-            // Error handling
-            ...
-        }
-    });
-
-用一个 flatMap() 就搞定了逻辑，依然是一条链
-</code></pre>
-          
+          Retrofit学习笔记
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/16/Retrofit学习/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -3219,16 +1546,16 @@ getToken()
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/okhttp学习/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/15/rxjava学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -3238,7 +1565,7 @@ getToken()
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/15/okhttp学习/" itemprop="url">OKhttp学习</a></h1>
+                <a class="post-title-link" href="/2018/05/15/rxjava学习/" itemprop="url">Rxjava学习</a></h1>
         
 
         <div class="post-meta">
@@ -3260,6 +1587,28 @@ getToken()
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -3289,551 +1638,14 @@ getToken()
 
       
         
-          
-            <p>1,http请求和响应步骤(7步)</p>
-<pre><code>1,经过三次握手简历tcp连接,在HTTP工作开始之前, Web浏览器首先要通过网络与Web服务器建立连接, 
-    该连接是通过TCP来完成的, 该协议与IP协议共同构建Internet, 即著名的TCP/IP协议族
-
-2,web浏览器向web服务器发送请求命令 (请求方法,请求协议版本)
-    例如: GET/sample/hello.jsp HTTP/1.1
-
-3,web浏览器发送请求头信息 
-    浏览器发送其请求命令之后, 还要以头信息的形式向Web服务器发送一些别的信息, 
-    这些信息用来描述浏览器自己. 之后浏览器发送了一空白行来通知服务器, 
-    表示它已经结束了该头信息的发送. 若是post请求, 还会在发送完请求头信息之后发送请求体
-
-4,Web服务器应答(对应于请求命令, 这是给予应答)
-    客户机向服务器发出请求后, 服务器会向客户机回送应答. 例如: HTTP/1.1 200 OK
-    应答的第一部分是协议的版本号和应答状态码
-
-5, Web服务器发送应答头信息(对应于 浏览器发送请求头信息, 这是应答头信息)
-    正如客户端会随同请求发送关于自身的信息一样,服务器也会随同应答向用户发送关于它自己的数据及被请求的文档. 最后以一个空白行来表示头信息发送到此结束
-
-6,Web服务器向浏览器发送数据
-    Web服务器向浏览器发送头信息后, 它就以Content-Type应答头信息所描述的格式发送用户所请求的实际数据
-
-7,Web服务器关闭TCP连接
-    一般情况下, 一旦Web服务器向浏览器发送了请求数据, 它就要关闭TCP连接. 
-    如果浏览器或者服务器在其头信息加入了这行代码 : Connection:keep-alive;
-    TCP连接在发送后将仍然保持打开状态. 于是, 浏览器可以继续通过相同的连接发送请求. 保持连接节省了为每个请求建立新连接所需的时间, 还节约了网络带宽.
-</code></pre><p>2,历史上Http请求库优缺点 : HttpURLConnection,HttpClient</p>
-<p>3,OkHttp类与http请求响应的映射(okhttp的实现步骤, 3步)</p>
-<pre><code>1,创建okclient(这个是需要一个全局的配置)
-OkHttpClient client = new OkHttpClient.Builder()
-            .readTimeout(5, TimeUnit.SECONDS)
-            .build();
-
-2,创建请求对象
-OkHttp请求 Request request = new Request.Builder().url(&quot;https://github.com/&quot;).build();
-
-3,执行请求(同步)
-OkHttp响应 Response response = client.newCall(request).execute();
-        client.newCall(request).enqueue(new Callback() {}); (异步)
-</code></pre><p>4,HTTP GET</p>
-<pre><code>1,同步GET
-    `OkHttpClient client = new OkHttpClient();
-    Request request = new Request.Builder().url(&quot;http://publicobject.com/helloworld.txt&quot;).build();    //创建请求
-
-    Response response = client.newCall(request).execute();    //执行请求
-
-    if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
-
-    Headers responseHeaders = response.headers();
-    for (int i = 0; i &lt; responseHeaders.size(); i++) {
-      System.out.println(responseHeaders.name(i) + &quot;: &quot; + responseHeaders.value(i));
-    }        //获取结果
-
-    `
-
-OkHttpClient实现了Call.Factory接口, 是Call的工厂类, Call负责发送执行请求和读取响应.
-
-Request代表Http请求, 通过Request.Builder辅助类来构建.
-
-client.newCall(request)通过传入一个http request, 返回一个Call调用. 然后执行execute()方法, 同步获得
-
-Response代表Http请求的响应. response.body()是ResponseBody类, 代表响应体, 
-    可以通过responseBody.string()获得字符串的表达形式, 或responseBody.bytes()获得字节数组的表达形式, 
-    这两种形式都会把文档加入到内存. 也可以通过responseBody.charStream()和responseBody.byteStream()返回流来处理
-
-2,异步GET
-
-    `OkHttpClient client = new OkHttpClient();
-    Request request = new Request.Builder().url(&quot;http://publicobject.comhelloworld.txt&quot;).build();    //创建请求
-
-    client.newCall(request).enqueue(new Callback() {    //异步请求
-      @Override public void onFailure(Request request, Throwable throwable) {
-        throwable.printStackTrace();    //获得结果
-      }
-
-      @Override public void onResponse(Response response) throws IOException {
-        if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);    //获得结果
-
-        Headers responseHeaders = response.headers();
-        for (int i = 0; i &lt; responseHeaders.size(); i++) {
-          System.out.println(responseHeaders.name(i) + &quot;: &quot; + responseHeaders.value(i));
-        }
-
-        System.out.println(response.body().string());
-      }
-    });
-
-onResponse和onFailure这两个方法都是在工作线程中执行的。
-</code></pre><p>5,HTTP POST(该post是在 request请求创建的时候调用post(RequestBody)方法来实现的,该方法通过接收一个requestbody来实现,其他地方(创建client和执行excute等是不受影响的))</p>
-<p><strong>在 ohhttp 的post使用中，常用的有以下一些方式： 包括（1，提交String字符串–不常用）（2，提交一个数据流–不常用）（3，提交一个文件：可以使图片或者文档–偶尔用）（4，提交form标签表单–这个是最常用的，一般或者是get请求或者是post请求都是使用form表单的形式）（5，提交文件和表单的集合–这种比较常用，如修改头像的时候不仅仅是需要一个图片文件，而是需要图片的同时还需要有一个form表单的参数，例如需要对图片作一些说明等）</strong></p>
-<p>json ：application/json</p>
-<p>xml：application/xml</p>
-<p>png：image/png</p>
-<p>jpg： image/jpeg</p>
-<p>gif：image/gif</p>
-<p>md : text/x-markdown</p>
-<p>###1,Post方式提交String</p>
-<pre><code>public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse(&quot;text/x-markdown; charset=utf-8&quot;);        //确定上传的类型
-
-OkHttpClient client = new OkHttpClient();    //创建一个连接
-
-String postBody = &quot;&quot;
-    + &quot;Releases\n&quot;
-    + &quot;--------\n&quot;
-    + &quot;\n&quot;
-    + &quot; * _1.0_ May 6, 2013\n&quot;
-    + &quot; * _1.1_ June 15, 2013\n&quot;
-    + &quot; * _1.2_ August 11, 2013\n&quot;;        //post必须有请求体
-
-Request request = new Request.Builder()
-    .url(&quot;https://api.github.com/markdown/raw&quot;)
-    .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
-    .build();        //创建post请求
-
-Response response = client.newCall(request).execute();    //执行post请求
-if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
-
-System.out.println(response.body().string());    //如果成功的话请求结果
-`
-
-Request.Builder的post方法接收一个RequestBody对象。
-
-RequestBody就是请求体，一般可通过调用该类的5个重载的static的create()方法得到RequestBody对象。
-create()方法第一个参数都是MediaType类型
-create()方法的第二个参数可以是String、File、byte[]或okio.ByteString
-oktttp中create()方法共有5个重载方法，共有三种类型 分别是  File ， ByteString ， Byte[]
-
-还可以调用RequestBody的writeTo()方法向其写入数据，writeTo()方法一般在用POST发送Stream流的时候使用。
-
-&gt;注意: 请求体会放置在内存中，所以应该避免用该API发送超过1M的数据。
-
-2,Post方式提交流
-
-`
-public static final MediaType MEDIA_TYPE_MARKDOWN
-  = MediaType.parse(&quot;text/x-markdown; charset=utf-8&quot;);        //确定上传的类型
-
-OkHttpClient client = new OkHttpClient();    //创建一个总开关
-
-RequestBody requestBody = new RequestBody() {
-  @Override public MediaType contentType() {
-    return MEDIA_TYPE_MARKDOWN;
-  }
-
-  @Override public void writeTo(BufferedSink sink) throws IOException {
-    sink.writeUtf8(&quot;Numbers\n&quot;);
-    sink.writeUtf8(&quot;-------\n&quot;);
-    for (int i = 2; i &lt;= 997; i++) {
-      sink.writeUtf8(String.format(&quot; * %s = %s\n&quot;, i, factor(i)));
-    }
-  }
-
-  private String factor(int n) {
-    for (int i = 2; i &lt; n; i++) {
-      int x = n / i;
-      if (x * i == n) return factor(x) + &quot; × &quot; + i;
-    }
-    return Integer.toString(n);
-  }
-};
-
-
-Request request = new Request.Builder()
-    .url(&quot;https://api.github.com/markdown/raw&quot;)
-    .post(requestBody)
-    .build();        //创建post请求
-
-Response response = client.newCall(request).execute();    //执行post请求
-if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
-
-System.out.println(response.body().string());    //如果成功的话请求结果
-`
-
-以流的方式POST提交请求体. 请求体的内容由流写入产生.
-也可以使用BufferedSink.outputStream()来获取. OkHttp的底层对流和字节的操作都是基于Okio库
-`
-
-3,Post方式提交文件.
-
-`public static final MediaType MEDIA_TYPE_MARKDOWN        //设置MediaType
-  = MediaType.parse(&quot;text/x-markdown; charset=utf-8&quot;);
-
-private final OkHttpClient client = new OkHttpClient();    //创建连接
-
-public void run() throws Exception {
-    File file = new File(&quot;README.md&quot;);            //找到文件
-
-    Request request = new Request.Builder()        //创建请求并配置
-        .url(&quot;https://api.github.com/markdown/raw&quot;)
-        .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
-        .build();
-
-    Response response = client.newCall(request).execute();        //执行
-    if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
-
-    System.out.println(response.body().string());
-}
-`
-
-4,Post方式提交表单
-
-使用FormEncodingBuilder来构建和HTML&lt;form&gt;标签相同效果的请求体. 键值对将使用一种HTML兼容形式的URL编码来进行编码.
-
-private final OkHttpClient client = new OkHttpClient();
-
-  public void run() throws Exception {
-    RequestBody formBody = new FormBody.Builder()
-        .add(&quot;search&quot;, &quot;Jurassic Park&quot;)
-        .build();
-    Request request = new Request.Builder()
-        .url(&quot;https://en.wikipedia.org/w/index.php&quot;)
-        .post(formBody)
-        .build();
-
-    Response response = client.newCall(request).execute();
-    if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
-
-    System.out.println(response.body().string());
-  }
-
-5,Post方式提交分块请求
-
-MultipartBody.Builder可以构建复杂的请求体, 与HTML文件上传形式兼容. 多块请求体中每块请求都是一个请求体, 可以定义自己的请求头. 
-这些请求头可以用来描述这块请求, 例如它的Content-Disposition. 如果Content-Length和Content-Type可用的话, 他们会被自动添加到请求头中.
-</code></pre><p>   <a href="http://www.jianshu.com/p/ca8a982a116b" target="_blank" rel="noopener">方法是这个地址</a>        //这种基本用不到</p>
-<pre><code>我们可以通过Web前端的Form表单上传一个或多个文件，Okhttp也提供了对应的功能，如果我们想同时发送多个Form表单形式的文件，
-就可以使用在post()方法中传入MultipartBody对象。MultipartBody继承自RequestBody，也表示请求体。
-只不过MultipartBody的内部是由多个part组成的，每个part就单独包含了一个RequestBody请求体，
-所以可以把MultipartBody看成是一个RequestBody的数组，而且可以分别给每个RequestBody单独设置请求头。
-
-&gt; 注意: 这里一般用在上传文件的同时添加参数的时候
-
-private static final String IMGUR_CLIENT_ID = &quot;...&quot;;
-  private static final MediaType MEDIA_TYPE_PNG = MediaType.parse(&quot;image/png&quot;);
-
-  private final OkHttpClient client = new OkHttpClient();
-
-  public void run() throws Exception {
-    // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
-    RequestBody requestBody = new MultipartBody.Builder()
-        .setType(MultipartBody.FORM)
-        .addFormDataPart(&quot;title&quot;, &quot;Square Logo&quot;)
-        .addFormDataPart(&quot;image&quot;, &quot;logo-square.png&quot;,
-            RequestBody.create(MEDIA_TYPE_PNG, new File(&quot;website/static/logo-square.png&quot;)))
-        .build();
-
-    Request request = new Request.Builder()
-        .header(&quot;Authorization&quot;, &quot;Client-ID &quot; + IMGUR_CLIENT_ID)
-        .url(&quot;https://api.imgur.com/3/image&quot;)
-        .post(requestBody)
-        .build();
-
-    Response response = client.newCall(request).execute();
-    if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
-
-    System.out.println(response.body().string());
-  }
-</code></pre><p>6,其他用法<br>   <a href="http://www.jianshu.com/p/2fa728c8b366" target="_blank" rel="noopener">关于相应头的解释见:http://www.jianshu.com/p/2fa728c8b366</a></p>
-<pre><code>1,提取响应头
-
-OkHttp的api
-当写请求头的时候, 使用header(name, value)可以设置唯一的name、value. 如果已经有值, 旧的将被移除, 然后添加新的. 
-使用addHeader(name, value)可以添加多值（添加, 不移除已有的）.
-
-当读取响应头时, 使用header(name)返回最后出现的name、value. 通常情况这也是唯一的name、value. 如果没有值, 那么header(name)将返回null. 
-如果想读取字段对应的所有值, 使用headers(name)会返回一个list.
-
-`private final OkHttpClient client = new OkHttpClient();
-
-    public void run() throws Exception {
-        Request request = new Request.Builder()
-            .url(&quot;https://api.github.com/repos/square/okhttp/issues&quot;)
-            .header(&quot;User-Agent&quot;, &quot;OkHttp Headers.java&quot;)
-            .addHeader(&quot;Accept&quot;, &quot;application/json; q=0.5&quot;)
-            .addHeader(&quot;Accept&quot;, &quot;application/vnd.github.v3+json&quot;)
-            .build();
-
-        Response response = client.newCall(request).execute();
-        if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
-
-        System.out.println(&quot;Server: &quot; + response.header(&quot;Server&quot;));
-        System.out.println(&quot;Date: &quot; + response.header(&quot;Date&quot;));
-        System.out.println(&quot;Vary: &quot; + response.headers(&quot;Vary&quot;));
-    }`
-
-2,使用Gson来解析JSON响应
-
-  private final OkHttpClient client = new OkHttpClient();
-  private final Gson gson = new Gson();
-
-  public void run() throws Exception {
-    Request request = new Request.Builder()
-        .url(&quot;https://api.github.com/gists/c2a7c39532239ff261be&quot;)
-        .build();
-    Response response = client.newCall(request).execute();
-    if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
-
-    Gist gist = gson.fromJson(response.body().charStream(), Gist.class);
-    for (Map.Entry&lt;String, GistFile&gt; entry : gist.files.entrySet()) {
-      System.out.println(entry.getKey());
-      System.out.println(entry.getValue().content);
-    }
-  }
-
-  static class Gist {
-    Map&lt;String, GistFile&gt; files;
-  }
-
-  static class GistFile {
-    String content;
-  }
-
-3,响应缓存
-
-为了缓存响应, 你需要一个你可以读写的缓存目录, 和缓存大小的限制. 这个缓存目录应该是私有的, 不信任的程序应不能读取缓存内容.
-
-一个缓存目录同时拥有多个缓存访问是错误的. 大多数程序只需要调用一次new OkHttp(), 在第一次调用时配置好缓存, 然后其他地方只需要调用这个实例就可以了. 
-否则两个缓存示例互相干扰, 破坏响应缓存, 而且有可能会导致程序崩溃.
-
-响应缓存使用HTTP头作为配置. 你可以在请求头中添加Cache-Control: max-stale=3600 , 
-OkHttp缓存会支持. 你的服务通过响应头确定响应缓存多长时间, 例如使用Cache-Control: max-age=9600.
-
-    private final OkHttpClient client;
-
-    public CacheResponse(File cacheDirectory) throws Exception {
-        int cacheSize = 10 * 1024 * 1024; // 10 MiB
-        Cache cache = new Cache(cacheDirectory, cacheSize);
-
-        client = new OkHttpClient();
-        client.setCache(cache);
-    }
-
-    public void run() throws Exception {
-        Request request = new Request.Builder()
-            .url(&quot;http://publicobject.com/helloworld.txt&quot;)
-            .build();
-
-        Response response1 = client.newCall(request).execute();
-        if (!response1.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response1);
-
-        String response1Body = response1.body().string();
-        System.out.println(&quot;Response 1 response:          &quot; + response1);
-        System.out.println(&quot;Response 1 cache response:    &quot; + response1.cacheResponse());
-        System.out.println(&quot;Response 1 network response:  &quot; + response1.networkResponse());
-
-        Response response2 = client.newCall(request).execute();
-        if (!response2.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response2);
-
-        String response2Body = response2.body().string();
-        System.out.println(&quot;Response 2 response:          &quot; + response2);
-        System.out.println(&quot;Response 2 cache response:    &quot; + response2.cacheResponse());
-        System.out.println(&quot;Response 2 network response:  &quot; + response2.networkResponse());
-
-        System.out.println(&quot;Response 2 equals Response 1? &quot; + response1Body.equals(response2Body));
-    }
-
-上面代码，我们对于同一个URL，我们先后发送了两个HTTP请求。
-第一次请求完成后，Okhttp将请求到的结果写入到了缓存目录中，进行了缓存。
-response1.networkResponse()返回了实际的数据，response1.cacheResponse()返回了null，这说明第一次HTTP请求的得到的响应是通过发送实际的网络请求，而不是来自于缓存。
-然后对同一个URL进行了第二次HTTP请求，response2.networkResponse()返回了null，response2.cacheResponse()返回了缓存数据.
-这说明第二次HTTP请求得到的响应来自于缓存，而不是网络请求。
-
-如果需要阻止response使用缓存, 使用CacheControl.FORCE_NETWORK. 如果需要阻止response使用网络, 使用CacheControl.FORCE_CACHE.
-
-如果想让某次请求禁用缓存，可以调用 request.cacheControl(CacheControl.FORCE_NETWORK)方法
-
-如果想强制某次请求使用缓存的结果，可以调用request.cacheControl(CacheControl.FORCE_CACHE)
-
-警告: 如果你使用FORCE_CACHE, 但是response要求使用网络, OkHttp将会返回一个504 Unsatisfiable Request响应
-
-    1,例如: 
-
-        有些时候, 比如用户刚刚点击刷新按钮, 这时必须跳过缓存, 直接从服务器抓取数据. 为了强制全面刷新, 我们需要添加no-cache指令:
-        connection.addRequestProperty(&quot;Cache-Control&quot;, &quot;no-cache&quot;);
-        这样就可以强制每次请求直接发送给源服务器, 而不经过本地缓存版本的校验, 常用于需要确认认证的应用和严格要求使用最新数据的应用.
-
-    2,
-        有时你会想立即显示资源. 这样即使在后台正下载着最新资源, 你的客户端仍然可以先显示原有资源, 毕竟有个东西显示比没有东西显示要好.
-        如果需要限制让请求优先使用本地缓存资源, 需要增加only-if-cached指令:
-
-        try {
-             connection.addRequestProperty(&quot;Cache-Control&quot;, &quot;only-if-cached&quot;);
-             InputStream cached = connection.getInputStream();
-             // the resource was cached! show it
-          catch (FileNotFoundException e) {
-             // the resource was not cached
-         }
-        }
-
-4,取消一个Call
-
-使用Call.cancel()可以立即停止掉一个正在执行的call. 
-如果一个线程正在写请求或者读响应, 将会引发IOException. 
-当call没有必要的时候, 使用这个api可以节约网络资源.
-例如当用户离开一个应用时, 不管同步还是异步的call都可以取消
-
-可以通过tags来同时取消多个请求. 
-当构建请求时, 使用RequestBuilder.tag(tag)来分配一个标签, 之后就可以用OkHttpClient.cancel(tag)来取消所有带有这个tag的call.
-
-      private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-
-      private final OkHttpClient client = new OkHttpClient();
-
-      public void run() throws Exception {
-        Request request = new Request.Builder()
-            .url(&quot;http://httpbin.org/delay/2&quot;) // This URL is served with a 2 second delay.
-            .build();
-
-        final long startNanos = System.nanoTime();
-        final Call call = client.newCall(request);
-
-        // Schedule a job to cancel the call in 1 second.
-        executor.schedule(new Runnable() {
-          @Override public void run() {
-            System.out.printf(&quot;%.2f Canceling call.%n&quot;, (System.nanoTime() - startNanos) / 1e9f);
-            call.cancel();
-            System.out.printf(&quot;%.2f Canceled call.%n&quot;, (System.nanoTime() - startNanos) / 1e9f);
-          }
-        }, 1, TimeUnit.SECONDS);
-
-        try {
-          System.out.printf(&quot;%.2f Executing call.%n&quot;, (System.nanoTime() - startNanos) / 1e9f);
-          Response response = call.execute();
-          System.out.printf(&quot;%.2f Call was expected to fail, but completed: %s%n&quot;,
-              (System.nanoTime() - startNanos) / 1e9f, response);
-        } catch (IOException e) {
-          System.out.printf(&quot;%.2f Call failed as expected: %s%n&quot;,
-              (System.nanoTime() - startNanos) / 1e9f, e);
-        }
-      }
-
-上述请求，服务器端会有两秒的延时，在客户端发出请求1秒之后，请求还未完成，这时候通过cancel方法中止了Call，请求中断，并触发IOException异常。
-
-5,超时
-
-没有响应时使用超时结束call. 没有响应的原因可能是客户点链接问题、服务器可用性问题或者这之间的其他东西. OkHttp支持连接超时, 读取超时和写入超时.
-
- `private final OkHttpClient client;
-
-  public ConfigureTimeouts() throws Exception {
-    client = new OkHttpClient.Builder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .writeTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .build();
-  }
-
-  public void run() throws Exception {
-    Request request = new Request.Builder()
-        .url(&quot;http://httpbin.org/delay/2&quot;) // This URL is served with a 2 second delay.
-        .build();
-
-    Response response = client.newCall(request).execute();
-    System.out.println(&quot;Response completed: &quot; + response);
-  }`
-
-6,每个call的配置
-
-使用OkHttpClient, 所有的HTTP Client配置包括代理设置、超时设置、缓存设置. 当你需要为单个call改变配置的时候, 调用OkHttpClient.newBuilder(). 
-这个api将会返回一个builder, 这个builder和原始的client共享相同的连接池, 分发器和配置.
-下面的例子中，我们让一个请求是500ms的超时、另一个是3000ms的超时。
-
-    ` private final OkHttpClient client = new OkHttpClient();
-
-      public void run() throws Exception {
-        Request request = new Request.Builder()
-            .url(&quot;http://httpbin.org/delay/1&quot;) // This URL is served with a 1 second delay.
-            .build();
-
-        try {
-          // Copy to customize OkHttp for this request.
-          OkHttpClient copy = client.newBuilder()
-              .readTimeout(500, TimeUnit.MILLISECONDS)
-              .build();
-
-          Response response = copy.newCall(request).execute();
-          System.out.println(&quot;Response 1 succeeded: &quot; + response);
-        } catch (IOException e) {
-          System.out.println(&quot;Response 1 failed: &quot; + e);
-        }
-
-        try {
-          // Copy to customize OkHttp for this request.
-          OkHttpClient copy = client.newBuilder()
-              .readTimeout(3000, TimeUnit.MILLISECONDS)
-              .build();
-
-          Response response = copy.newCall(request).execute();
-          System.out.println(&quot;Response 2 succeeded: &quot; + response);
-        } catch (IOException e) {
-          System.out.println(&quot;Response 2 failed: &quot; + e);
-        }
-      }`
-
-7,处理验证
-
-    1,
-</code></pre><p><a href="http://www.jianshu.com/p/ca8a982a116b" target="_blank" rel="noopener">查看连接 – OkHttp使用完全教程</a></p>
-<pre><code>2,OkHttp认证
-</code></pre><p><a href="http://www.jianshu.com/p/2fa728c8b366" target="_blank" rel="noopener">查看连接 – Android 网络(三) HttpURLConnection OkHttp</a></p>
-<pre><code>8,ResponseBody详细说明:
-
-通过Response的body()方法可以得到响应体ResponseBody，响应体必须最终要被关闭，否则会导致资源泄露、App运行变慢甚至崩溃。
-
-ResponseBody和Response都实现了Closeable和AutoCloseable接口，它们都有close()方法，
-Response的close()方法内部直接调用了ResponseBody的close()方法，无论是同步调用execute()还是异步回调onResponse()，
-最终都需要关闭响应体，可以通过如下方法关闭响应体：
-
-Response.close()
-Response.body().close()
-Response.body().source().close()
-Response.body().charStream().close()
-Response.body().byteString().close()
-Response.body().bytes()
-Response.body().string()
-
-对于同步调用:  
-
- Call call = client.newCall(request);
- try (Response response = call.execute()) {
-   ... // Use the response.
- }
-
-也可以在异步回调方法onResponse()中，执行类似的try代码块，
-try()代码块括号中的ResponseBody也实现了Closeable和AutoCloseable接口，
-这样编译器也会在隐式的finally代码块中自动关闭响应体，代码如下所示
-
-   Call call = client.newCall(request);
-   call.enqueue(new Callback() {
-     public void onResponse(Call call, Response response) throws IOException {
-       try (ResponseBody responseBody = response.body()) {
-         ... // Use the response.
-       }
-     }
-
-     public void onFailure(Call call, IOException e) {
-       ... // Handle the failure.
-     }
-   });
-
-响应体中的数据有可能很大，应该只读取一次响应体的数据。
-调用ResponseBody的bytes()或string()方法会将整个响应体数据写入到内存中，可以通过source()、byteStream()或charStream()进行流式处理。
-</code></pre>
-          
+          Rxjava学习笔记
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/15/rxjava学习/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -3906,8 +1718,8 @@ try()代码块括号中的ResponseBody也实现了Closeable和AutoCloseable接�
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -3917,14 +1729,32 @@ try()代码块括号中的ResponseBody也实现了Closeable和AutoCloseable接�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
@@ -3962,7 +1792,7 @@ try()代码块括号中的ResponseBody也实现了Closeable和AutoCloseable接�
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
 
   
 </div>

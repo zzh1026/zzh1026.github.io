@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Retrofit," />
 
 
 
@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 ##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrofit2:retrofit">
+<meta name="description" content="Retrofit学习笔记">
+<meta name="keywords" content="Retrofit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit学习">
-<meta property="og:url" content="http://yoursite.com/2018/05/15/Retrofit学习/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 ##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrofit2:retrofit">
+<meta property="og:url" content="http://zhaozehui.cn/2018/05/16/Retrofit学习/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="Retrofit学习笔记">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png">
 <meta property="og:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNonMewRmN43HYdsPbic2fmfKkWcdiazvnRCkDs451PmT7w6SqmkaQcZdA/640?wx_fmt=png">
-<meta property="og:updated_time" content="2018-05-15T11:47:01.518Z">
+<meta property="og:updated_time" content="2018-05-16T06:19:38.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit学习">
-<meta name="twitter:description" content="查看连接 – 深入浅出 Retrofit http://chuansong.me/n/365421237869 ##1,Hello Retrofit    (这里是需要配置两个东西 : 1,baseurl;2,Converter)关于配置可以查看Retrofit2 完全解析 探索与okhttp之间的关系 1,添加依赖 compile ‘com.squareup.retrofit2:retrofit">
+<meta name="twitter:description" content="Retrofit学习笔记">
 <meta name="twitter:image" content="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn/mmbiz/tnZGrhTk4ddUIqM8VG30mQk1zeiag5gwNOaicj1WZxODJmbeOTZx8RqwatnOzDEX8zRbVPkXYqesZtak7ia0S4GRw/640?wx_fmt=png">
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/15/Retrofit学习/"/>
+  <link rel="canonical" href="http://zhaozehui.cn/2018/05/16/Retrofit学习/"/>
 
 
 
 
 
-  <title>Retrofit学习 | Hexo</title>
+  <title>Retrofit学习 | zzh1026it</title>
   
 
 
@@ -158,12 +159,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">zzh1026it</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">每天都是新的开始</p>
       
   </div>
 
@@ -235,16 +236,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/Retrofit学习/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/Retrofit学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -264,8 +265,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -275,6 +276,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -287,6 +310,10 @@
 
           
 
+          
+              <div class="post-description">
+                  Retrofit学习笔记
+              </div>
           
 
         </div>
@@ -647,6 +674,12 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Retrofit/" rel="tag"># Retrofit</a>
+          
+        </div>
+      
 
       
       
@@ -656,8 +689,8 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/rxjava学习/" rel="next" title="Rxjava">
-                <i class="fa fa-chevron-left"></i> Rxjava
+              <a href="/2018/05/15/rxjava学习/" rel="next" title="Rxjava学习">
+                <i class="fa fa-chevron-left"></i> Rxjava学习
               </a>
             
           </div>
@@ -666,7 +699,7 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/15/Glide/" rel="prev" title="Glide学习">
+              <a href="/2018/05/16/Glide/" rel="prev" title="Glide学习">
                 Glide学习 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -734,8 +767,8 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -745,14 +778,32 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
@@ -806,7 +857,7 @@ public okhttp3.Response intercept(Chain chain) throws IOException {
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
 
   
 </div>

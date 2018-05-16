@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android,Boradcast,Receiver," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="BroadcastReceiver翻译为广播接收者，Broadcast是一种广泛运用在应用程序之间的传输信息的机制，简单的可以理解为传统意义上的电台广播，通俗一点，发布失物招领。 广播机制是一个典型的发布—订阅模式，也就是我们所说的观察者模式。广播最大的特点就是发送方并不关心接收方是否接到数据，也不关心接收方是如何处理数据的，通过这样的形式来达到接、收双方的完全解耦合 1,普通广播普通广播是完全异">
+<meta name="description" content="AndroidBoradcastReceiver学习">
+<meta name="keywords" content="Android,Boradcast,Receiver">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BoradcastReceiver的使用">
-<meta property="og:url" content="http://yoursite.com/2018/05/15/BoradcastReceiver的学习/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="BroadcastReceiver翻译为广播接收者，Broadcast是一种广泛运用在应用程序之间的传输信息的机制，简单的可以理解为传统意义上的电台广播，通俗一点，发布失物招领。 广播机制是一个典型的发布—订阅模式，也就是我们所说的观察者模式。广播最大的特点就是发送方并不关心接收方是否接到数据，也不关心接收方是如何处理数据的，通过这样的形式来达到接、收双方的完全解耦合 1,普通广播普通广播是完全异">
+<meta property="og:url" content="http://zhaozehui.cn/2018/05/16/BoradcastReceiver的学习/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="AndroidBoradcastReceiver学习">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-15T11:38:21.552Z">
+<meta property="og:updated_time" content="2018-05-16T06:16:23.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BoradcastReceiver的使用">
-<meta name="twitter:description" content="BroadcastReceiver翻译为广播接收者，Broadcast是一种广泛运用在应用程序之间的传输信息的机制，简单的可以理解为传统意义上的电台广播，通俗一点，发布失物招领。 广播机制是一个典型的发布—订阅模式，也就是我们所说的观察者模式。广播最大的特点就是发送方并不关心接收方是否接到数据，也不关心接收方是如何处理数据的，通过这样的形式来达到接、收双方的完全解耦合 1,普通广播普通广播是完全异">
+<meta name="twitter:description" content="AndroidBoradcastReceiver学习">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/15/BoradcastReceiver的学习/"/>
+  <link rel="canonical" href="http://zhaozehui.cn/2018/05/16/BoradcastReceiver的学习/"/>
 
 
 
 
 
-  <title>BoradcastReceiver的使用 | Hexo</title>
+  <title>BoradcastReceiver的使用 | zzh1026it</title>
   
 
 
@@ -155,12 +156,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">zzh1026it</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">每天都是新的开始</p>
       
   </div>
 
@@ -232,16 +233,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/BoradcastReceiver的学习/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/BoradcastReceiver的学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -261,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -272,6 +273,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -284,6 +307,10 @@
 
           
 
+          
+              <div class="post-description">
+                  AndroidBoradcastReceiver学习
+              </div>
           
 
         </div>
@@ -501,6 +528,12 @@ instance.sendBroadcast(intent);
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Android-Boradcast-Receiver/" rel="tag"># Android,Boradcast,Receiver</a>
+          
+        </div>
+      
 
       
       
@@ -510,8 +543,8 @@ instance.sendBroadcast(intent);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/RecycleView学习/" rel="next" title="RecycleView">
-                <i class="fa fa-chevron-left"></i> RecycleView
+              <a href="/2018/05/16/RecycleView学习/" rel="next" title="RecycleView学习">
+                <i class="fa fa-chevron-left"></i> RecycleView学习
               </a>
             
           </div>
@@ -520,7 +553,7 @@ instance.sendBroadcast(intent);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/15/Android软键盘/" rel="prev" title="Android软键盘">
+              <a href="/2018/05/16/Android软键盘/" rel="prev" title="Android软键盘">
                 Android软键盘 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -588,8 +621,8 @@ instance.sendBroadcast(intent);
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -599,14 +632,32 @@ instance.sendBroadcast(intent);
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
@@ -660,7 +711,7 @@ instance.sendBroadcast(intent);
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
 
   
 </div>

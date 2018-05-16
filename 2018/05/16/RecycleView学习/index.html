@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="RecycleView," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="参考 Android RecyclerView 使用完全解析 体验艺术般的控件和RecycleView的基本使用 ##概述RecycleView 在 support-v7包下 其作用是用来代替 ListView和GridView 其优点是: 提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现">
+<meta name="description" content="RecycleView 学习笔记">
+<meta name="keywords" content="RecycleView">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RecycleView">
-<meta property="og:url" content="http://yoursite.com/2018/05/15/RecycleView学习/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="参考 Android RecyclerView 使用完全解析 体验艺术般的控件和RecycleView的基本使用 ##概述RecycleView 在 support-v7包下 其作用是用来代替 ListView和GridView 其优点是: 提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现">
+<meta property="og:title" content="RecycleView学习">
+<meta property="og:url" content="http://zhaozehui.cn/2018/05/16/RecycleView学习/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="RecycleView 学习笔记">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-15T11:47:21.893Z">
+<meta property="og:updated_time" content="2018-05-16T06:19:04.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RecycleView">
-<meta name="twitter:description" content="参考 Android RecyclerView 使用完全解析 体验艺术般的控件和RecycleView的基本使用 ##概述RecycleView 在 support-v7包下 其作用是用来代替 ListView和GridView 其优点是: 提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现">
+<meta name="twitter:title" content="RecycleView学习">
+<meta name="twitter:description" content="RecycleView 学习笔记">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/15/RecycleView学习/"/>
+  <link rel="canonical" href="http://zhaozehui.cn/2018/05/16/RecycleView学习/"/>
 
 
 
 
 
-  <title>RecycleView | Hexo</title>
+  <title>RecycleView学习 | zzh1026it</title>
   
 
 
@@ -155,12 +156,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">zzh1026it</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">每天都是新的开始</p>
       
   </div>
 
@@ -232,16 +233,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/RecycleView学习/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/16/RecycleView学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -249,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">RecycleView</h1>
+          <h1 class="post-title" itemprop="name headline">RecycleView学习</h1>
         
 
         <div class="post-meta">
@@ -261,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T19:36:35+08:00">
-                2018-05-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T13:54:08+08:00">
+                2018-05-16
               </time>
             
 
@@ -272,6 +273,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -284,6 +307,10 @@
 
           
 
+          
+              <div class="post-description">
+                  RecycleView 学习笔记
+              </div>
           
 
         </div>
@@ -515,6 +542,12 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/RecycleView/" rel="tag"># RecycleView</a>
+          
+        </div>
+      
 
       
       
@@ -524,8 +557,8 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/SomeUsefulCommands/" rel="next" title="SomeUsefulCommands">
-                <i class="fa fa-chevron-left"></i> SomeUsefulCommands
+              <a href="/2018/05/16/Markdown-编辑器常用知识/" rel="next" title="Markdown 编辑器常用知识">
+                <i class="fa fa-chevron-left"></i> Markdown 编辑器常用知识
               </a>
             
           </div>
@@ -534,7 +567,7 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/15/BoradcastReceiver的学习/" rel="prev" title="BoradcastReceiver的使用">
+              <a href="/2018/05/16/BoradcastReceiver的学习/" rel="prev" title="BoradcastReceiver的使用">
                 BoradcastReceiver的使用 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -593,8 +626,8 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -604,14 +637,32 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
@@ -649,7 +700,7 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
 
   
 </div>

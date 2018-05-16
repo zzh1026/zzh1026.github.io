@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="commands," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="hexo 三连hexo clean hexo g(hexo generation) hexo d(hexo deploy)">
+<meta name="description" content="一些有用的 关于hexo的命令">
+<meta name="keywords" content="commands">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SomeUsefulCommands">
-<meta property="og:url" content="http://yoursite.com/2018/05/15/SomeUsefulCommands/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="hexo 三连hexo clean hexo g(hexo generation) hexo d(hexo deploy)">
+<meta property="og:title" content="Some Useful Commands">
+<meta property="og:url" content="http://zhaozehui.cn/2018/05/15/SomeUsefulCommands/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="一些有用的 关于hexo的命令">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-15T11:40:04.693Z">
+<meta property="og:updated_time" content="2018-05-16T06:20:53.112Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SomeUsefulCommands">
-<meta name="twitter:description" content="hexo 三连hexo clean hexo g(hexo generation) hexo d(hexo deploy)">
+<meta name="twitter:title" content="Some Useful Commands">
+<meta name="twitter:description" content="一些有用的 关于hexo的命令">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/15/SomeUsefulCommands/"/>
+  <link rel="canonical" href="http://zhaozehui.cn/2018/05/15/SomeUsefulCommands/"/>
 
 
 
 
 
-  <title>SomeUsefulCommands | Hexo</title>
+  <title>Some Useful Commands | zzh1026it</title>
   
 
 
@@ -155,12 +156,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">zzh1026it</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">每天都是新的开始</p>
       
   </div>
 
@@ -232,16 +233,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/SomeUsefulCommands/">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/15/SomeUsefulCommands/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="zzh">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zzh1026it">
     </span>
 
     
@@ -249,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SomeUsefulCommands</h1>
+          <h1 class="post-title" itemprop="name headline">Some Useful Commands</h1>
         
 
         <div class="post-meta">
@@ -272,6 +273,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习知识/" itemprop="url" rel="index">
+                    <span itemprop="name">学习知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -284,6 +307,10 @@
 
           
 
+          
+              <div class="post-description">
+                  一些有用的 关于hexo的命令
+              </div>
           
 
         </div>
@@ -299,10 +326,17 @@
       
 
       
-        <h2 id="hexo-三连"><a href="#hexo-三连" class="headerlink" title="hexo 三连"></a>hexo 三连</h2><p>hexo clean</p>
-<p>hexo g(hexo generation)</p>
-<p>hexo d(hexo deploy)</p>
-
+        <p>##init</p>
+<p>####hexo init [folder]</p>
+<p>新建一个网站。如果没有设置 folder ，Hexo 默认在目前的文件夹建立网站。</p>
+<p>##new</p>
+<h4 id="hexo-new-layout"><a href="#hexo-new-layout" class="headerlink" title="hexo new [layout] "></a>hexo new [layout] <title></title></h4><p>新建一篇文章。如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。</p>
+<h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><h4 id="hexo-server"><a href="#hexo-server" class="headerlink" title="hexo server"></a>hexo server</h4><p>启动服务器。默认情况下，访问网址为： <a href="http://localhost:4000/。" target="_blank" rel="noopener">http://localhost:4000/。</a></p>
+<h2 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h2><h4 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a>hexo clean</h4><p>清除缓存文件 (db.json) 和已生成的静态文件 (public)。</p>
+<h2 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h2><h4 id="hexo-generate-hexo-g"><a href="#hexo-generate-hexo-g" class="headerlink" title="hexo generate(hexo g)"></a>hexo generate(hexo g)</h4><p>生成静态文件。</p>
+<h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><h4 id="hexo-deploy-hexo-d"><a href="#hexo-deploy-hexo-d" class="headerlink" title="hexo deploy(hexo d)"></a>hexo deploy(hexo d)</h4><p>部署网站。</p>
+<p>hexo clean  (清理)</p>
+<h3 id="一般的在上传代码的时候需要三部-先clean-在generate-最后deploy部署上去"><a href="#一般的在上传代码的时候需要三部-先clean-在generate-最后deploy部署上去" class="headerlink" title="一般的在上传代码的时候需要三部 , 先clean, 在generate ,最后deploy部署上去"></a>一般的在上传代码的时候需要三部 , 先clean, 在generate ,最后deploy部署上去</h3><h3 id="本地调试一般使用-server-启动服务器来进行调试"><a href="#本地调试一般使用-server-启动服务器来进行调试" class="headerlink" title="本地调试一般使用 server 启动服务器来进行调试"></a>本地调试一般使用 server 启动服务器来进行调试</h3>
       
     </div>
     
@@ -317,6 +351,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/commands/" rel="tag"># commands</a>
+          
+        </div>
+      
 
       
       
@@ -326,8 +366,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/Glide/" rel="next" title="Glide学习">
-                <i class="fa fa-chevron-left"></i> Glide学习
+              <a href="/2018/05/15/部分笔记/" rel="next" title="部分笔记">
+                <i class="fa fa-chevron-left"></i> 部分笔记
               </a>
             
           </div>
@@ -336,8 +376,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/15/RecycleView学习/" rel="prev" title="RecycleView">
-                RecycleView <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/15/rxjava学习/" rel="prev" title="Rxjava学习">
+                Rxjava学习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -404,8 +444,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -415,14 +455,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
@@ -452,7 +510,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-三连"><span class="nav-number">1.</span> <span class="nav-text">hexo 三连</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo-new-layout"><span class="nav-number">1.</span> <span class="nav-text">hexo new [layout] </span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#server"><span class="nav-number"></span> <span class="nav-text">server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo-server"><span class="nav-number">1.</span> <span class="nav-text">hexo server</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clean"><span class="nav-number"></span> <span class="nav-text">clean</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo-clean"><span class="nav-number">1.</span> <span class="nav-text">hexo clean</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generate"><span class="nav-number"></span> <span class="nav-text">generate</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo-generate-hexo-g"><span class="nav-number">1.</span> <span class="nav-text">hexo generate(hexo g)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deploy"><span class="nav-number"></span> <span class="nav-text">deploy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo-deploy-hexo-d"><span class="nav-number">1.</span> <span class="nav-text">hexo deploy(hexo d)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般的在上传代码的时候需要三部-先clean-在generate-最后deploy部署上去"><span class="nav-number"></span> <span class="nav-text">一般的在上传代码的时候需要三部 , 先clean, 在generate ,最后deploy部署上去</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地调试一般使用-server-启动服务器来进行调试"><span class="nav-number"></span> <span class="nav-text">本地调试一般使用 server 启动服务器来进行调试</span></a></div>
             
 
           </div>
@@ -476,7 +534,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
 
   
 </div>
