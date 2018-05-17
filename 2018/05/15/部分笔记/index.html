@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="zzh1026it">
 <meta property="og:description" content="包含了   圆角截取 Android的权限结构 关于Fragment的小坑 弹出dialog的时候弹出软键盘 CardView使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-16T11:00:03.462Z">
+<meta property="og:updated_time" content="2018-05-17T09:21:55.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="部分笔记">
 <meta name="twitter:description" content="包含了   圆角截取 Android的权限结构 关于Fragment的小坑 弹出dialog的时候弹出软键盘 CardView使用">
@@ -371,9 +371,7 @@
 <li>CardView使用</li>
 </ul>
 <a id="more"></a>
-<p>####图片上面两个是圆角,下面不是圆角</p>
-<p>#1,使用自定义Imageview ,在onDraw里面实现</p>
-<pre><code>    public class RoundImageView extends ImageView {
+<h1 id="1-使用自定义Imageview-在onDraw里面实现"><a href="#1-使用自定义Imageview-在onDraw里面实现" class="headerlink" title="1,使用自定义Imageview ,在onDraw里面实现"></a>1,使用自定义Imageview ,在onDraw里面实现</h1><h3 id="图片自定义圆角-核心是使用clipPath-来进行处理"><a href="#图片自定义圆角-核心是使用clipPath-来进行处理" class="headerlink" title="图片自定义圆角 - 核心是使用clipPath 来进行处理"></a>图片自定义圆角 - 核心是使用clipPath 来进行处理</h3><pre><code>    public class RoundImageView extends ImageView {
         private float mRoundRadius;    //圆角大小
         private int mRoundShowType;     //展示圆角的方式
         private Path clipPath;
@@ -427,9 +425,8 @@
             super.onDraw(canvas);
         }
     }
-同理,可以实现左边右边上面下面四种建材,缺点是只能两两实现圆角剪裁而不能自定义某一个角
-</code></pre><p>关于Cavans的方法:</p>
-<pre><code>Canvas():创建一个空的画布，可以使用setBitmap()方法来设置绘制的具体画布；
+同理,可以实现左边右边上面下面四种剪裁,缺点是只能两两实现圆角剪裁而不能自定义某一个角
+</code></pre><h2 id="关于Cavans的方法"><a href="#关于Cavans的方法" class="headerlink" title="关于Cavans的方法:"></a>关于Cavans的方法:</h2><pre><code>Canvas():创建一个空的画布，可以使用setBitmap()方法来设置绘制的具体画布；
 
 Canvas(Bitmap bitmap):以bitmap对象创建一个画布，则将内容都绘制在bitmap上，bitmap不得为null;
 
@@ -465,31 +462,29 @@ right
           矩形右下角X坐标值
 bottom
           矩形右下角Y坐标值
-</code></pre><p>#2,关于Android的权限结构: 危险权限(即需要不断申请的权限)</p>
-<p>权限组位于 #Manifest#permission_group 中</p>
-<h4 id="1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><a href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”" class="headerlink" title="1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”"></a>1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</h4><p>读取日历 READ_CALENDAR “android.permission.READ_CALENDAR”</p>
+</code></pre><h1 id="2-关于Android的权限结构-危险权限-即需要申请的权限"><a href="#2-关于Android的权限结构-危险权限-即需要申请的权限" class="headerlink" title="2,关于Android的权限结构: 危险权限(即需要申请的权限)"></a>2,关于Android的权限结构: 危险权限(即需要申请的权限)</h1><p>权限组位于 #Manifest#permission_group 中</p>
+<h3 id="1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><a href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”" class="headerlink" title="1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”"></a>1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</h3><p>读取日历 READ_CALENDAR “android.permission.READ_CALENDAR”</p>
 <p>编辑日历(比如添加行程等) WRITE_CALENDAR “android.permission.WRITE_CALENDAR”</p>
-<h4 id="2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><a href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”" class="headerlink" title="2,摄像机组:     CAMERA “android.permission-group.CAMERA”"></a>2,摄像机组:     CAMERA “android.permission-group.CAMERA”</h4><p>打开摄像机 CAMERA “android.permission.CAMERA”</p>
-<h4 id="3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><a href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”" class="headerlink" title="3,联系人组:    CONTACTS “android.permission-group.CONTACTS”"></a>3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</h4><p>读取联系人 READ_CONTACTS “android.permission.READ_CONTACTS”</p>
+<h3 id="2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><a href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”" class="headerlink" title="2,摄像机组:     CAMERA “android.permission-group.CAMERA”"></a>2,摄像机组:     CAMERA “android.permission-group.CAMERA”</h3><p>打开摄像机 CAMERA “android.permission.CAMERA”</p>
+<h3 id="3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><a href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”" class="headerlink" title="3,联系人组:    CONTACTS “android.permission-group.CONTACTS”"></a>3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</h3><p>读取联系人 READ_CONTACTS “android.permission.READ_CONTACTS”</p>
 <p>修改联系人(增加删除联系人)    WRITE_CONTACTS “android.permission.WRITE_CONTACTS”</p>
-<h4 id="4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><a href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”" class="headerlink" title="4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”"></a>4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</h4><p>打开麦克风    RECORD_AUDIO “android.permission.RECORD_AUDIO”</p>
-<h4 id="5-手机使用组-PHONE-“android-permission-group-PHONE”"><a href="#5-手机使用组-PHONE-“android-permission-group-PHONE”" class="headerlink" title="5,手机使用组: PHONE “android.permission-group.PHONE”"></a>5,手机使用组: PHONE “android.permission-group.PHONE”</h4><p>读取手机状态 READ_PHONE_STATE “android.permission.READ_PHONE_STATE”</p>
+<h3 id="4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><a href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”" class="headerlink" title="4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”"></a>4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</h3><p>打开麦克风    RECORD_AUDIO “android.permission.RECORD_AUDIO”</p>
+<h3 id="5-手机使用组-PHONE-“android-permission-group-PHONE”"><a href="#5-手机使用组-PHONE-“android-permission-group-PHONE”" class="headerlink" title="5,手机使用组: PHONE “android.permission-group.PHONE”"></a>5,手机使用组: PHONE “android.permission-group.PHONE”</h3><p>读取手机状态 READ_PHONE_STATE “android.permission.READ_PHONE_STATE”</p>
 <p>拨打电话(直接自动拨打,不是跳转到拨打电话界面,任何跳转都不需要权限,如跳转到打电话界面和发送短信界面) CALL_PHONE “android.permission.CALL_PHONE”</p>
 <p>读取通话记录 READ_CALL_LOG “android.permission.READ_CALL_LOG”</p>
 <p>修改通话记录(添加和删除通话记录,如黑名单中挂断电话后还把该通话记录删除) WRITE_CALL_LOG “android.permission.WRITE_CALL_LOG”</p>
-<h4 id="6-传感器组-SENSORS-“android-permission-group-SENSORS”"><a href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”" class="headerlink" title="6,传感器组: SENSORS “android.permission-group.SENSORS”"></a>6,传感器组: SENSORS “android.permission-group.SENSORS”</h4><p>使用身体传感器(其他传感器没题) BODY_SENSORS “android.permission.BODY_SENSORS”</p>
-<h4 id="7-短信组-SMS-“android-permission-group-SMS”"><a href="#7-短信组-SMS-“android-permission-group-SMS”" class="headerlink" title="7,短信组: SMS “android.permission-group.SMS”"></a>7,短信组: SMS “android.permission-group.SMS”</h4><p>发送短信(直接发送短信) SEND_SMS “android.permission.SEND_SMS”</p>
+<h3 id="6-传感器组-SENSORS-“android-permission-group-SENSORS”"><a href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”" class="headerlink" title="6,传感器组: SENSORS “android.permission-group.SENSORS”"></a>6,传感器组: SENSORS “android.permission-group.SENSORS”</h3><p>使用身体传感器(其他传感器没题) BODY_SENSORS “android.permission.BODY_SENSORS”</p>
+<h3 id="7-短信组-SMS-“android-permission-group-SMS”"><a href="#7-短信组-SMS-“android-permission-group-SMS”" class="headerlink" title="7,短信组: SMS “android.permission-group.SMS”"></a>7,短信组: SMS “android.permission-group.SMS”</h3><p>发送短信(直接发送短信) SEND_SMS “android.permission.SEND_SMS”</p>
 <p>接收短信 RECEIVE_SMS “android.permission.RECEIVE_SMS”</p>
 <p>读取短信 READ_SMS “android.permission.READ_SMS”</p>
 <p>彩信相关 RECEIVE_MMS “android.permission.RECEIVE_MMS”</p>
-<h4 id="8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><a href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”" class="headerlink" title="8,sd卡组:  STORAGE “android.permission-group.STORAGE”"></a>8,sd卡组:  STORAGE “android.permission-group.STORAGE”</h4><p>读取sd卡数据 READ_EXTERNAL_STORAGE “android.permission.READ_EXTERNAL_STORAGE”</p>
+<h3 id="8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><a href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”" class="headerlink" title="8,sd卡组:  STORAGE “android.permission-group.STORAGE”"></a>8,sd卡组:  STORAGE “android.permission-group.STORAGE”</h3><p>读取sd卡数据 READ_EXTERNAL_STORAGE “android.permission.READ_EXTERNAL_STORAGE”</p>
 <p>向sd卡写数据 WRITE_EXTERNAL_STORAGE “android.permission.WRITE_EXTERNAL_STORAGE”</p>
-<h4 id="9-位置组-LOCATION-“android-permission-group-LOCATION”"><a href="#9-位置组-LOCATION-“android-permission-group-LOCATION”" class="headerlink" title="9,位置组:    LOCATION “android.permission-group.LOCATION”"></a>9,位置组:    LOCATION “android.permission-group.LOCATION”</h4><p>获取精确位置 ACCESS_FINE_LOCATION “android.permission.ACCESS_FINE_LOCATION”</p>
+<h3 id="9-位置组-LOCATION-“android-permission-group-LOCATION”"><a href="#9-位置组-LOCATION-“android-permission-group-LOCATION”" class="headerlink" title="9,位置组:    LOCATION “android.permission-group.LOCATION”"></a>9,位置组:    LOCATION “android.permission-group.LOCATION”</h3><p>获取精确位置 ACCESS_FINE_LOCATION “android.permission.ACCESS_FINE_LOCATION”</p>
 <p>获取大致位置 ACCESS_COARSE_LOCATION “android.permission.ACCESS_COARSE_LOCATION”</p>
-<p>#3,关于Fragment的小坑(不能叫坑,只是我自己的问题,记录下来是为了让自己以后不犯错)</p>
-<pre><code>一般在newInstence中的 fragment是 static的, 所以在合适的时机必须调用 fragment=null ,来销毁该fragment, 否则下次调用的时候该fragment会使用,但是该fragment的各种状态却还在没有重置
-</code></pre><p>#4,弹出dialog的时候弹出软键盘</p>
-<p>背景: 项目中任何界面都是 默认不弹出软键盘的,所以 在baseactivity中有 开启新界面的配置了不弹出软键盘(在onCreate()之前调用:)</p>
+<h1 id="3-关于Fragment的小坑-不能叫坑-只是我自己的问题-记录下来是为了让自己以后不犯错"><a href="#3-关于Fragment的小坑-不能叫坑-只是我自己的问题-记录下来是为了让自己以后不犯错" class="headerlink" title="3,关于Fragment的小坑(不能叫坑,只是我自己的问题,记录下来是为了让自己以后不犯错)"></a>3,关于Fragment的小坑(不能叫坑,只是我自己的问题,记录下来是为了让自己以后不犯错)</h1><pre><code>一般在newInstance中的 fragment是 static的, 所以在合适的时机必须调用 fragment=null ,来销毁该fragment, 否则下次调用的时候该fragment会使用,但是该fragment的各种状态却还在没有重置
+或者 newInstance 中的 Fragment 不要使用 static
+</code></pre><h1 id="4-弹出dialog的时候弹出软键盘"><a href="#4-弹出dialog的时候弹出软键盘" class="headerlink" title="4,弹出dialog的时候弹出软键盘"></a>4,弹出dialog的时候弹出软键盘</h1><p>背景: 项目中任何界面都是 默认不弹出软键盘的,所以 在baseactivity中有 开启新界面的配置了不弹出软键盘(在onCreate()之前调用:)</p>
 <pre><code>//有EditView的界面，默认不弹窗软键盘
 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 </code></pre><p>但是在支付界面是需要输入支付密码的, 这个密码用的是dialog, 需求需要在这个dialog弹出的时候自动弹出软键盘,所以这个时候是需要对软键盘进行处理的,具体处理方法如下:</p>
@@ -634,8 +629,8 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/SomeUsefulCommands/" rel="next" title="Some Useful Commands">
-                <i class="fa fa-chevron-left"></i> Some Useful Commands
+              <a href="/2018/05/15/rxjava学习/" rel="next" title="Rxjava学习">
+                <i class="fa fa-chevron-left"></i> Rxjava学习
               </a>
             
           </div>
@@ -644,8 +639,8 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/15/rxjava学习/" rel="prev" title="Rxjava学习">
-                Rxjava学习 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/16/Kotlin笔记/" rel="prev" title="kotlin笔记">
+                kotlin笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -727,7 +722,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -738,7 +733,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -749,7 +744,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -798,7 +793,7 @@ contentPaddingBottom:设置CardView边界跟内部的下间距
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><span class="nav-number">1.</span> <span class="nav-text">1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><span class="nav-number">2.</span> <span class="nav-text">2,摄像机组:     CAMERA “android.permission-group.CAMERA”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><span class="nav-number">3.</span> <span class="nav-text">3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><span class="nav-number">4.</span> <span class="nav-text">4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-手机使用组-PHONE-“android-permission-group-PHONE”"><span class="nav-number">5.</span> <span class="nav-text">5,手机使用组: PHONE “android.permission-group.PHONE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”"><span class="nav-number">6.</span> <span class="nav-text">6,传感器组: SENSORS “android.permission-group.SENSORS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-短信组-SMS-“android-permission-group-SMS”"><span class="nav-number">7.</span> <span class="nav-text">7,短信组: SMS “android.permission-group.SMS”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><span class="nav-number">8.</span> <span class="nav-text">8,sd卡组:  STORAGE “android.permission-group.STORAGE”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-位置组-LOCATION-“android-permission-group-LOCATION”"><span class="nav-number">9.</span> <span class="nav-text">9,位置组:    LOCATION “android.permission-group.LOCATION”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number"></span> <span class="nav-text">PS:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口"><span class="nav-number">1.</span> <span class="nav-text">1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样"><span class="nav-number">2.</span> <span class="nav-text">2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-CardView使用"><span class="nav-number"></span> <span class="nav-text">5, CardView使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本使用"><span class="nav-number"></span> <span class="nav-text">1,基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-拓展属性介绍"><span class="nav-number"></span> <span class="nav-text">2,拓展属性介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-一些问题和一些实现"><span class="nav-number"></span> <span class="nav-text">3,一些问题和一些实现</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-使用自定义Imageview-在onDraw里面实现"><span class="nav-number">1.</span> <span class="nav-text">1,使用自定义Imageview ,在onDraw里面实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图片自定义圆角-核心是使用clipPath-来进行处理"><span class="nav-number">1.0.1.</span> <span class="nav-text">图片自定义圆角 - 核心是使用clipPath 来进行处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Cavans的方法"><span class="nav-number">1.1.</span> <span class="nav-text">关于Cavans的方法:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-关于Android的权限结构-危险权限-即需要申请的权限"><span class="nav-number">2.</span> <span class="nav-text">2,关于Android的权限结构: 危险权限(即需要申请的权限)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-日历权限组-CALENDAR-“android-permission-group-CALENDAR”"><span class="nav-number">2.0.1.</span> <span class="nav-text">1,日历权限组:       CALENDAR  “android.permission-group.CALENDAR”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-摄像机组-CAMERA-“android-permission-group-CAMERA”"><span class="nav-number">2.0.2.</span> <span class="nav-text">2,摄像机组:     CAMERA “android.permission-group.CAMERA”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-联系人组-CONTACTS-“android-permission-group-CONTACTS”"><span class="nav-number">2.0.3.</span> <span class="nav-text">3,联系人组:    CONTACTS “android.permission-group.CONTACTS”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-麦克风组-MICROPHONE-“android-permission-group-MICROPHONE”"><span class="nav-number">2.0.4.</span> <span class="nav-text">4,麦克风组:    MICROPHONE “android.permission-group.MICROPHONE”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-手机使用组-PHONE-“android-permission-group-PHONE”"><span class="nav-number">2.0.5.</span> <span class="nav-text">5,手机使用组: PHONE “android.permission-group.PHONE”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-传感器组-SENSORS-“android-permission-group-SENSORS”"><span class="nav-number">2.0.6.</span> <span class="nav-text">6,传感器组: SENSORS “android.permission-group.SENSORS”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-短信组-SMS-“android-permission-group-SMS”"><span class="nav-number">2.0.7.</span> <span class="nav-text">7,短信组: SMS “android.permission-group.SMS”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-sd卡组-STORAGE-“android-permission-group-STORAGE”"><span class="nav-number">2.0.8.</span> <span class="nav-text">8,sd卡组:  STORAGE “android.permission-group.STORAGE”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-位置组-LOCATION-“android-permission-group-LOCATION”"><span class="nav-number">2.0.9.</span> <span class="nav-text">9,位置组:    LOCATION “android.permission-group.LOCATION”</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-关于Fragment的小坑-不能叫坑-只是我自己的问题-记录下来是为了让自己以后不犯错"><span class="nav-number">3.</span> <span class="nav-text">3,关于Fragment的小坑(不能叫坑,只是我自己的问题,记录下来是为了让自己以后不犯错)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-弹出dialog的时候弹出软键盘"><span class="nav-number">4.</span> <span class="nav-text">4,弹出dialog的时候弹出软键盘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number">4.0.1.</span> <span class="nav-text">PS:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-activity的getWindow-是获取该activity依赖的窗口-如果当前activity不可见-则值为null-在当前activity调用该方法得到的Window为当前的窗口"><span class="nav-number">4.0.1.1.</span> <span class="nav-text">1, activity的getWindow 是获取该activity依赖的窗口, 如果当前activity不可见,则值为null,在当前activity调用该方法得到的Window为当前的窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-dialog的getWindow-也是获取该dialog创建时所new-出来的phonewindow窗口-如果当前activity不可见-则值为null-所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样…-不一样"><span class="nav-number">4.0.1.2.</span> <span class="nav-text">2, dialog的getWindow 也是获取该dialog创建时所new 出来的phonewindow窗口, 如果当前activity不可见,则值为null,所以dialog调用该方法和activity中调用该方法得到的window是不一样的…不一样….不一样</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-CardView使用"><span class="nav-number">5.</span> <span class="nav-text">5, CardView使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本使用"><span class="nav-number">5.1.</span> <span class="nav-text">1,基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-拓展属性介绍"><span class="nav-number">5.2.</span> <span class="nav-text">2,拓展属性介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-一些问题和一些实现"><span class="nav-number">5.3.</span> <span class="nav-text">3,一些问题和一些实现</span></a></li></ol></li></ol></div>
             
 
           </div>
