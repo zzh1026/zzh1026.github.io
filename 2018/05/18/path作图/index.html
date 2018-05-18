@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pathData,vector,VectorDrawable," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介Android Support Library 23.2 出来以后，在Android 5.0(API级别21)以前的系统中，也可以定义矢量drawables，即VectorDrawable。它可以在不失清晰度的情况下进行缩放。你仅仅需要需要一个矢量图片的资源文件，而不再需要为每个屏幕密度设置一个资源文件，在一定程度上可以减小项目的体积。 vector 标签下的最主要就是 pathData，其实">
+<meta name="keywords" content="pathData,vector,VectorDrawable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="path作图">
+<meta property="og:url" content="http://zhaozehui.cn/2018/05/18/path作图/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="简介Android Support Library 23.2 出来以后，在Android 5.0(API级别21)以前的系统中，也可以定义矢量drawables，即VectorDrawable。它可以在不失清晰度的情况下进行缩放。你仅仅需要需要一个矢量图片的资源文件，而不再需要为每个屏幕密度设置一个资源文件，在一定程度上可以减小项目的体积。 vector 标签下的最主要就是 pathData，其实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-725be47c52e14e61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://zhaozehui.cn/images/blogiamges/image_5.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-043c1978d8aca0ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-c3e722abe817f717.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-8f6c17cfffecb5f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-ce86320fe7a69d1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-ed77fd5ec8b949c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-c79b5e4bf39363c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-67b35c33f0aeda7f.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-b2c1fcf005c6463d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-6b58a1da6d923644?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-5871e206b7b0338d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-bdcb5a670356000a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-5002566d79577e1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1175492-c8286ca7cfdc543c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-05-18T08:21:23.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="path作图">
+<meta name="twitter:description" content="简介Android Support Library 23.2 出来以后，在Android 5.0(API级别21)以前的系统中，也可以定义矢量drawables，即VectorDrawable。它可以在不失清晰度的情况下进行缩放。你仅仅需要需要一个矢量图片的资源文件，而不再需要为每个屏幕密度设置一个资源文件，在一定程度上可以减小项目的体积。 vector 标签下的最主要就是 pathData，其实">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1175492-725be47c52e14e61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhaozehui.cn/2018/05/18/path作图/"/>
+
+
+
+
+
+  <title>path作图 | zzh1026it</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e1d3207f597e5755f17072f0711098cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zzh1026it</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天都是新的开始</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/05/18/path作图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zzh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headers.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zzh1026it">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">path作图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-18T13:41:37+08:00">
+                2018-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-View/" itemprop="url" rel="index">
+                    <span itemprop="name">Android View</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Android Support Library 23.2 出来以后，在Android 5.0(API级别21)以前的系统中，也可以定义矢量drawables，即VectorDrawable。它可以在不失清晰度的情况下进行缩放。你仅仅需要需要一个矢量图片的资源文件，而不再需要为每个屏幕密度设置一个资源文件，在一定程度上可以减小项目的体积。</p>
+<p>vector 标签下的最主要就是 pathData，其实pathData跟Android中 Path api对路径的定义规则是差不多的，当你掌握了 pathData 的语法，同时有一颗不轻易放弃的心，就可以通过一些简洁的指令完成几乎所有的图案。</p>
+<a id="more"></a>
+<p>本文参考了: <a href="https://blog.csdn.net/scott2017/article/details/51770620" target="_blank" rel="noopener">Android vector 标签 pathData 详解</a> </p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://upload-images.jianshu.io/upload_images/1175492-725be47c52e14e61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="击掌" title="give me five.png"></p>
+<pre><code>&lt;!--上面的手掌对应的代码实现--&gt;
+&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+        android:width=&quot;24dp&quot;
+        android:height=&quot;24dp&quot;
+        android:viewportWidth=&quot;24&quot;
+        android:viewportHeight=&quot;24&quot;&gt;
+    &lt;path
+        android:fillColor=&quot;#000000&quot;
+        android:pathData=&quot;
+            M22,23 q0,4 -4,4 h-7 q-2,0 -3,-1 T1,16 q-0.6,-0.8 0,-2 t5,3
+            q1,1 2,0 T8,4 q0,-1 0.9,-1.1 t1.1,1 1.5,9 q0.25,0.5 0.5,0.5
+            t0.5,-0.5 0,-11 q0.2,-1 1.1,-1.1 t1.1,1.1 1,11 q0.25,0.5 0.5,0.5
+            t0.5,-0.5 0.5,-9 q0.2,-1 1,-1 t1,1 0.5,9 q0.25,0.5 0.5,0.5
+            t0.5,-0.5 1.2,-6.5 q0.3,-1 1,-1 t0.8,1 -0.8,6 T22,23&quot;/&gt;
+&lt;/vector&gt;
+</code></pre><p>代码中引用方式</p>
+<p><img src="http://zhaozehui.cn/images/blogiamges/image_5.png" alt=""></p>
+<h2 id="基本的语法"><a href="#基本的语法" class="headerlink" title="基本的语法"></a>基本的语法</h2><pre><code>M：move to 移动绘制点，作用相当于把画笔落在哪一点。
+L：line to 直线，就是一条直线，注意，只是直线，直线是没有宽度的，所以你什么也看不到。
+Z：close 闭合，嗯，就是把图封闭起来。
+C：cubic bezier 三次贝塞尔曲线
+Q：quatratic bezier 二次贝塞尔曲线
+A：ellipse 圆弧
+
+m：move to 移动绘制点，作用相当于在当前基础上把画笔落在哪一点。
+l：line to 直线，在当前基础上的一条直线，注意，只是直线，直线是没有宽度的，所以你什么也看不到。
+c：cubic bezier 在当前基础上的三次贝塞尔曲线
+q：quatratic bezier 在当前基础上的二次贝塞尔曲线
+a：ellipse 在当前基础上的圆弧
+</code></pre><blockquote>
+<p>有大小之分, 大写表示绝对值,小写表示相对值<br>每个命令都有大小写形式，大写代表后面的参数是绝对坐标，小写表示相对坐标，相对于上一个点的位置。参数之间用空格或逗号隔开。</p>
+</blockquote>
+<h2 id="命令解释："><a href="#命令解释：" class="headerlink" title="命令解释："></a>命令解释：</h2><ul>
+<li>M (x y) 把画笔移动到x,y，要准备在这个地方画图了。</li>
+<li>L (x y) 直线连到x,y，还有简化命令H(x) 水平连接、V(y)垂直连接。</li>
+<li>Z，没有参数，连接起点和终点</li>
+<li>C(x1 y1 x2 y2 x y)，控制点（x1,y1）（ x2,y2），终点x,y 。    (三阶贝塞尔曲线)<ul>
+<li>C x1,y1 x2,y2 x,y ( c dx1,dy1 dx2,dy2 dx,dy)</li>
+<li>S x1,y1 x,y ( s dx1,dy1 dx, dy)</li>
+<li>S指令跟T指令类似。S指令相对于C指令少了一个控制点，这个控制点就是上一次最后一个控制点相对上次的终点的中心对称点。</li>
+</ul>
+</li>
+<li>Q(x1 y1 x y)，控制点（x1,y1），终点x,y (二阶贝塞尔曲线)<ul>
+<li>Q x1,y1 x,y ( q dx1,dy1 dx,dy)</li>
+<li>T x,y ( t dx, dy)</li>
+<li>T指令是在你画完一条贝塞尔曲线后，只需用T指令指定终点，就能画出一条平滑的贝塞尔曲线。控制点被默认为上一次的控制点关于上次终点的中心对称点。比如上次的控制点P1是(6,6)，终点P2是(8,10)， 那么使用T指令后默认控制点P1`为(10,14)。</li>
+</ul>
+</li>
+<li>A (rx,ry x-axis-rotation large-arc-flag sweepflag x,y )<ul>
+<li>android:pathData=” M50,50 a10,10 1 1 0 1,0”</li>
+<li>rx ry 椭圆半径</li>
+<li>x-axis-rotation x轴旋转角度</li>
+<li>large-arc-flag 为0时表示取小弧度，1时取大弧度（舍取的时候，是要长的还是短的）</li>
+<li>sweep-flag 0取逆时针方向，1取顺时针方向 </li>
+<li>x,y (dx,dy) 终点的位置(这个位置 是和 位置相关的, 要根据使用的是 A 还是 a 来确定)</li>
+</ul>
+</li>
+</ul>
+<h2 id="命令详细规则"><a href="#命令详细规则" class="headerlink" title="命令详细规则"></a>命令详细规则</h2><p>pathData 的指令基本都是由字母跟若干数字组成，数字之间可以用空格或者逗号隔开 (其实逗号会被忽略掉，加上逗号只是一些习惯的问题)。一般来说指令字母分为大小写两种,大写的字母是基于原点的坐标系(偏移量)，即绝对位置；小写字母是基于当前点坐标系(偏移量)，即相对位置。</p>
+<p>基于 Android屏幕, 取向右向下为正, 向左向上为负.</p>
+<h4 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h4><ul>
+<li>M x,y (m dx, dy) 移动虚拟画笔到对应的点，但是并不绘制。一开始的时候默认是在(0,0)。</li>
+</ul>
+<h4 id="直线"><a href="#直线" class="headerlink" title="直线"></a>直线</h4><ul>
+<li>L x,y (l dx, dy) 从当前点划一条直线到对应的点。</li>
+<li>H x (h dx) 从当前点绘制水平线，相当于l x,0</li>
+<li><p>V y (v dy) 从当前点绘制垂直线，相当于l 0,y</p>
+<pre><code>&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+      android:width=&quot;24dp&quot;
+      android:height=&quot;24dp&quot;
+      android:viewportWidth=&quot;24&quot;
+      android:viewportHeight=&quot;24&quot;&gt;
+
+      &lt;path
+          android:fillColor=&quot;#0000&quot;
+          android:strokeColor=&quot;#000&quot;
+          android:strokeWidth=&quot;0.2&quot;
+          android:pathData=&quot; M10,10 L10,15 L15,15 L10,10&quot;/&gt;
+&lt;/vector&gt;
+</code></pre></li>
+</ul>
+<blockquote class="blockquote-center"><p><img src="http://upload-images.jianshu.io/upload_images/1175492-043c1978d8aca0ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""> </p>
+</blockquote>
+<p>将上述代码 android:pathData=” M10,10 L10,15 L15,15 L10,10” 替换成以下代码效果相同</p>
+<pre><code>android:pathData=&quot;M10,10 l 0,5 l 5,0 l-5,-5&quot;  
+android:pathData=&quot;M10,10 V 15 H 15 L10,10&quot;  
+android:pathData=&quot;M10,10 v 5 h 5 l-5,-5&quot;
+</code></pre><h4 id="闭合"><a href="#闭合" class="headerlink" title="闭合"></a>闭合</h4><ul>
+<li>Z(或z) 从结束点绘制一条直线到开始点，闭合路径</li>
+</ul>
+<p>上面的图形型也可以由以下代码绘制</p>
+<pre><code>android:pathData=&quot;M10,10 v 5 h 5 z&quot;
+</code></pre><h4 id="弧线"><a href="#弧线" class="headerlink" title="弧线"></a>弧线</h4><ul>
+<li>A rx,ry x-axis-rotation large-arc-flag,sweepflag x,y</li>
+<li><p>a rx,ry x-axis-rotation large-arc-flag,sweepflag dx,dy</p>
+<pre><code>rx ry 椭圆半径
+x-axis-rotation x轴旋转角度
+large-arc-flag 为0时表示取小弧度，1时取大弧度（要长的还是短的）
+sweep-flag 0取逆时针方向，1取顺时针方向
+x,y (dx,dy) 终点的位置
+</code></pre></li>
+</ul>
+<p>这个弧线的指令比起直线就相对复杂得多了，7个参数容易搞混了。来看个例子</p>
+<pre><code>android:pathData=&quot;M8,10 a4,6 0 1,1 6 6&quot;
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/1175492-c3e722abe817f717.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>红色(8,10) 是起点， X轴旋转的角度为0，取大弧，顺时针，蓝色(14,16) 是终点。</p>
+<ul>
+<li>只将x-axis-rotation 改为30跟-30分别对应下面左边跟右边的效果，可见正数是按顺时针旋转负数按逆时针旋转。</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-8f6c17cfffecb5f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>x-axis-rotation为30（左）、-30（右）</p>
+<ul>
+<li>只将large-arc-flag 改为 0 android:pathData=”M8,10 a4,6 0 0,1 6 6” 对应下图效果</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-ce86320fe7a69d1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>large-arc-flag为 0</p>
+<ul>
+<li>只将sweep-flag改为 0 android:pathData=”M8,10 a4,6 0 1,0 6 6” 对应下图效果</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-ed77fd5ec8b949c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>sweep-flag为0</p>
+<p>网上看到一张图，基本总结了弧线</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-c79b5e4bf39363c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="二阶贝塞尔曲线"><a href="#二阶贝塞尔曲线" class="headerlink" title="二阶贝塞尔曲线"></a>二阶贝塞尔曲线</h4><ul>
+<li>Q x1,y1 x,y ( q dx1,dy1 dx,dy)</li>
+<li>T x,y ( t dx, dy)</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-67b35c33f0aeda7f.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<p>对于Q指令来说(x1,y1)就是P1这个控制点，(x,y)就是终点P2。P0当然就是执行指令前最后的位置。这里有一点需要说明的， q dx1,dy1 dx,dy 这个指令，两个控制点都是相对P0点的。</p>
+<p>而T指令是在你画完一条贝塞尔曲线后，只需用T指令指定终点，就能画出一条平滑的贝塞尔曲线。控制点被默认为上一次的控制点关于上次终点的中心对称点。比如上次的控制点P1是(6,6)，终点P2是(8,10)， 那么使用T指令后默认控制点P1`为(10,14)。</p>
+<p>举个例子：</p>
+<pre><code>android:pathData=&quot;M4,10 Q6,6 8,10 Q10,14 12,10&quot;  
+android:pathData=&quot;M4,10 Q6,6 8,10 T12,10&quot; 
+android:pathData=&quot;M4,10 q2,-4 4,0 q2,4 4,0&quot;  
+android:pathData=&quot;M4,10  q2,-4 4,0 t4,0&quot;
+</code></pre><p>这四个对应的都是下面的曲线</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-b2c1fcf005c6463d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="三阶贝塞尔曲线"><a href="#三阶贝塞尔曲线" class="headerlink" title="三阶贝塞尔曲线"></a>三阶贝塞尔曲线</h4><ul>
+<li>C x1,y1 x2,y2 x,y ( c dx1,dy1 dx2,dy2 dx,dy)</li>
+<li>S x1,y1 x,y ( s dx1,dy1 dx, dy)</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-6b58a1da6d923644?imageMogr2/auto-orient/strip" alt=""></p>
+<p>跟二阶类似，但是三阶有两个控制点，分别是P1(x1,y1)，P2(x2,y2)还有终点P3(x,y)。类似的， c dx1,dy1 dx2,dy2 dx,dy 所有的点都是相对于P0，即上一次的终点。</p>
+<p>S指令跟T指令类似。S指令相对于C指令少了一个控制点，这个控制点就是上一次最后一个控制点相对上次的终点的中心对称点。还是同样举个例子：</p>
+<pre><code>android:pathData=&quot;M4,10 C6,6 8,14 10,10 C12,6 14,14 16,10&quot;
+android:pathData=&quot;M4,10 C6,6 8,14 10,10 S14,14 16,10&quot;
+android:pathData=&quot;M4,10 c2,-4 4,4 6,0 c2,-4 4,4 6,0&quot;
+android:pathData=&quot;M4,10 c2,-4 4,4 6,0 s4,4 6,0&quot;
+</code></pre><p>以上四个均会出现下图的效果</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-5871e206b7b0338d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>终于把所有的指令搞清楚啦，那么接下来就来画一个比较简单的图案吧</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-bdcb5a670356000a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>首先分析一下这个图的构成。它是一个圆角正方形同时里面有一个镂空的心型。先来看看正方形</p>
+<pre><code>&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:width=&quot;24dp&quot;
+    android:height=&quot;24dp&quot;
+    android:viewportHeight=&quot;40.0&quot;
+    android:viewportWidth=&quot;40.0&quot;&gt;
+
+    &lt;!-- 将 vector的范围标识出来, 没有其他作用,可以删掉 --&gt;
+    &lt;path
+        android:pathData=&quot;M0,0 v40 h40 v-40 z&quot;
+        android:strokeColor=&quot;#fff&quot;
+        android:strokeWidth=&quot;0.2&quot;&gt;&lt;/path&gt;
+
+    &lt;path
+        android:fillColor=&quot;#f24e4e&quot;
+        android:pathData=&quot;M8,4
+            h24 q4,0 4,4 v24 q0,4 -4,4
+            h-24 q-4,0 -4,-4 v-24 q0,-4 4,-4&quot; /&gt;
+&lt;/vector&gt;
+</code></pre><p>上面viewportWidth为40，则把这张图分成40个单位。</p>
+<p>在pathData中，首先移动到A(8,4)，然后水平移动了24个单位到B(32,4)。接着就是一条二阶贝塞尔曲线，起点是B，控制点是C(36,4)，终点是D(36,8)。然后再画一条垂直线到(36,32)…下面的操作都是差不多，就不多说的。这里注意一点，画这个正方形是从A-B-C-D，也就是顺时针的方向，这点对接下来画心型很重要。</p>
+<p>画完了圆角正方形，接下来就要画一个镂空的心型。有同学说再加上一个path标签，设置不同颜色就可以。这方法乍一看挺不错，但是他实现的并不是镂空的效果，而是叠加的效果。镂空的话中间的心型是透明的，但是叠加就没办法让中间的心呈透明。</p>
+<p>那怎么实现镂空的效果呢？其实关键就是前面说的方向。前面的正方形是顺时针的方向，如果我们在pathData 后面加上另一逆时针方向的路径，就会出现取反的效果，比如</p>
+<pre><code>&lt;path
+    android:fillColor=&quot;#f24e4e&quot;
+    android:pathData=&quot;M8,4
+        h24 q4,0 4,4 v24 q0,4 -4,4
+        h-24 q-4,0 -4,-4 v-24 q0,-4 4,-4
+        M2,20 h20 v-10 z&quot;/&gt;
+</code></pre><p>在刚才的基础上加上M2,20 h20 v-10 z ，这是一个逆时针方向的三角形，会变成下面这样</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-5002566d79577e1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>也就是说，我们只需要画一个逆时针方向的心型，就会出现上面的那个效果。先看看代码</p>
+<pre><code>&lt;path
+    android:fillColor=&quot;#f24e4e&quot;
+    android:pathData=&quot;M8,4
+        h24 q4,0 4,4 v24 q0,4 -4,4
+        h-24 q-4,0 -4,-4 v-24 q0,-4 4,-4
+        M20,15
+        a5,6 -15 0 0 -9,2
+        c0,5 4,6 9,12
+        c5,-6 9,-7 9,-12
+        a5,6 15 0 0 -9 -2&quot;/&gt;
+</code></pre><p>这个是在正方形的基础上加上</p>
+<pre><code>M20,15
+a5,6 -15 0 0 -9,2
+c0,5 4,6 9,12
+c5,-6 9,-7 9,-12
+a5,6 15 0 0 -9 -2
+</code></pre><p>我们看看如果pathData 单独设为上述路径会是什么样的</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1175492-c8286ca7cfdc543c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>果然很漂亮。首先它从白色的点 (20,15)开始，向逆时针方向，也就是右边画了一段圆弧到蓝色的点(11,17)，圆弧所在的椭圆逆时针转15°，取短弧，逆时针。然后再画一条三阶贝塞尔曲线，控制点分别是黄点(11,22)，黑点(15,23)，终点是绿色的点(20, 29)。这样子就完成了心型的一半了。另一半跟这边的完全对称，也就不细说了。</p>
+<p>完整代码</p>
+<pre><code>&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+        android:width=&quot;24dp&quot;
+        android:height=&quot;24dp&quot;
+        android:viewportWidth=&quot;40&quot;
+        android:viewportHeight=&quot;40&quot;&gt;
+
+        &lt;path
+            android:fillColor=&quot;#f24e4e&quot;
+            android:pathData=&quot;M8,4
+            h24 q4,0 4,4 v24 q0,4 -4,4
+            h-24 q-4,0 -4,-4 v-24 q0,-4 4,-4
+            M20,15
+            a5,6 -15 0 0 -9,2
+            c0,5 4,6 9,12
+            c5,-6 9,-7 9,-12
+            a5,6 15 0 0 -9 -2&quot;/&gt;
+&lt;/vector&gt;
+</code></pre><h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><ul>
+<li>Bitmap的绘制效率并不一定会比Vector高，它们有一定的平衡点，当Vector比较简单时，其效率是一定比Bitmap高的，所以，为了保证Vector的高效率，Vector需要更加简单，PathData更加标准、精简，当Vector图像变得非常复杂时，就需要使用Bitmap来代替了</li>
+<li>Vector适用于ICON、Button、ImageView的图标等小的ICON，或者是需要的动画效果，由于Bitmap在GPU中有缓存功能，而Vector并没有，所以Vector图像不能做频繁的重绘</li>
+<li>Vector图像过于复杂时，不仅仅要注意绘制效率，初始化效率也是需要考虑的重要因素</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pathData-vector-VectorDrawable/" rel="tag"># pathData,vector,VectorDrawable</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/18/ConstraintLayout-布局属性详解/" rel="next" title="ConstraintLayout 布局属性详解">
+                <i class="fa fa-chevron-left"></i> ConstraintLayout 布局属性详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headers.png"
+                alt="zzh" />
+            
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zzh1026" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/zzh1026it" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本的语法"><span class="nav-number">3.</span> <span class="nav-text">基本的语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令解释："><span class="nav-number">4.</span> <span class="nav-text">命令解释：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令详细规则"><span class="nav-number">5.</span> <span class="nav-text">命令详细规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#移动"><span class="nav-number">5.0.1.</span> <span class="nav-text">移动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#直线"><span class="nav-number">5.0.2.</span> <span class="nav-text">直线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭合"><span class="nav-number">5.0.3.</span> <span class="nav-text">闭合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#弧线"><span class="nav-number">5.0.4.</span> <span class="nav-text">弧线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二阶贝塞尔曲线"><span class="nav-number">5.0.5.</span> <span class="nav-text">二阶贝塞尔曲线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三阶贝塞尔曲线"><span class="nav-number">5.0.6.</span> <span class="nav-text">三阶贝塞尔曲线</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践"><span class="nav-number">6.</span> <span class="nav-text">实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">7.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
