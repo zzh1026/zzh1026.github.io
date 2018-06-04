@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android适配," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介Android的屏幕适配文章已经是铺天盖地了，我之前也推荐过一种使用pt方式的适配 一种粗暴快速的Android全屏幕适配方案，这种方法我推荐的原因是：  使用pt作为单位，这个单位一般不常用，而且有收口。  但是这种方式也有很大的弊端">
+<meta name="keywords" content="Android适配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一种非浸入Android-dp适配”">
+<meta property="og:url" content="http://zhaozehui.cn/2018/06/04/一种非浸入Android-dp适配”/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="简介Android的屏幕适配文章已经是铺天盖地了，我之前也推荐过一种使用pt方式的适配 一种粗暴快速的Android全屏幕适配方案，这种方法我推荐的原因是：  使用pt作为单位，这个单位一般不常用，而且有收口。  但是这种方式也有很大的弊端">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4776932-7d2d0ef473ae2060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4776932-21527132218fca79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5382223-4f42a5637f53f582.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/259">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5382223-c59b8353245a0ebd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/207">
+<meta property="og:image" content="http://zhaozehui.cn/images/blogiamges/image_15.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5382223-89529b5f508ae64a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5382223-021e947fcff9a39b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/408">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5382223-4653a6677ba1c3b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/465">
+<meta property="og:image" content="http://zhaozehui.cn/images/blogiamges/image_14.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5382223-abd43dec273ae097.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/472">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5382223-7afd8a8a1ae35287.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5382223-afb77e1f091db0bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:updated_time" content="2018-06-04T11:49:13.210Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一种非浸入Android-dp适配”">
+<meta name="twitter:description" content="简介Android的屏幕适配文章已经是铺天盖地了，我之前也推荐过一种使用pt方式的适配 一种粗暴快速的Android全屏幕适配方案，这种方法我推荐的原因是：  使用pt作为单位，这个单位一般不常用，而且有收口。  但是这种方式也有很大的弊端">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4776932-7d2d0ef473ae2060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhaozehui.cn/2018/06/04/一种非浸入Android-dp适配”/"/>
+
+
+
+
+
+  <title>一种非浸入Android-dp适配” | zzh1026it</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e1d3207f597e5755f17072f0711098cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zzh1026it</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天都是新的开始</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/06/04/一种非浸入Android-dp适配”/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zzh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headers.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zzh1026it">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一种非浸入Android-dp适配”</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-04T16:47:22+08:00">
+                2018-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android适配/" itemprop="url" rel="index">
+                    <span itemprop="name">Android适配</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Android的屏幕适配文章已经是铺天盖地了，我之前也推荐过一种使用pt方式的适配 <a href="https://zhaozehui.cn/2018/05/17/%E4%B8%80%E7%A7%8D%E7%B2%97%E6%9A%B4%E5%BF%AB%E9%80%9F%E7%9A%84Android%E5%85%A8%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88/" title="一种粗暴快速的Android全屏幕适配方案">一种粗暴快速的Android全屏幕适配方案</a>，这种方法我推荐的原因是：</p>
+<ul>
+<li>使用pt作为单位，这个单位一般不常用，而且有收口。</li>
+</ul>
+<p>但是这种方式也有很大的弊端</p>
+<a id="more"></a>
+<ul>
+<li><p>Application的onCreate中需要引用</p>
+<pre><code>//设计图标注的宽度
+int designWidth = 750;
+new RudenessScreenHelper(this, designWidth).activate();
+</code></pre></li>
+</ul>
+<p>当然还有其他的一些比如首次进入界面可能没有进行适配的问题，所以一直没敢用在项目中</p>
+<p>而且现在网上基本都是使用px适配，即每种屏幕分辨率的设备需要定义一套dimens.xml文件。但是有些手机又虚拟按键，明确下面两个概念比较重要。</p>
+<ul>
+<li>这是 状态栏：</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/4776932-7d2d0ef473ae2060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="状态栏图片" title="状态栏图片"></p>
+<ul>
+<li>这是导航栏：</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/4776932-21527132218fca79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="导航栏图片" title="导航栏图片"></p>
+<p>在px适配的时候，其适配文件适配的是包含导航栏的高度的屏幕高，但是这个导航栏并非所有手机都有，所以就会出现一种情况，那就是当使用px来严格适配了一张充满整个屏幕的ui时候，那么因为导航栏的存在会使得实际屏幕的可用情况出现改变，这也是代码中获取屏幕宽高中的可用宽高和真实宽高可能不一致的原因。而且px适配的时候弊端也非常大：</p>
+<ul>
+<li>每种屏幕分辨率都需要一套 dimens.xml文件来适配 ，apk包会变得很大，因为Android屏幕碎片化太严重使用，可以说这种方式有点不现实。</li>
+<li>由于导航栏的问题，使得px适配可能出现适配错误的情况</li>
+</ul>
+<p>后来出现的 <a href="https://github.com/hongyangAndroid/AndroidAutoLayout" target="_blank" rel="noopener">AndroidAutoLayout</a> 使用了动态计算屏幕的方式来进行适配，但是</p>
+<ul>
+<li>需要在AndroidManifest中注明你的设计稿的尺寸，</li>
+<li>让Activity继承自AutoLayoutActivity或者使用AutoLinearLayout等布局</li>
+<li>已经不再维护</li>
+</ul>
+<p>这样的代价有点大，首先 标明尺寸 意味着这样的库一旦使用起来，依赖会非常严重，其次使用自动化的布局导致扩展比较难。</p>
+<p><strong>归根结底，在使用上述的方式进行适配，pt的方式有侵入性，AutoLayout方式严重侵入性，侵入性意味着我一旦使用这个库后期修改非常困难，因为实际开发中，可能ui设计师离职换了一个新的设计给了一套新的ui图，虽然可能性比较小但是这种侵入性很难让人接受。px的使用dimens文件方式侵入性小，但是一个是包变的太大，另一个是px使用起来比较麻烦</strong></p>
+<p><strong>我需要一种侵入性很小，或者没有侵入性，同时不会对包有太大影响甚至没有影响，同时还得真的实现适配的结果。这样方便我以后修改或者扩展。</strong></p>
+<h1 id="推荐的一些文档"><a href="#推荐的一些文档" class="headerlink" title="推荐的一些文档"></a>推荐的一些文档</h1><p>在适配方面，有一些文章可以更加清晰更加明确的说明适配的重要性，比如:</p>
+<p><a href="https://link.jianshu.com/?t=https%3A%2F%2Fblog.csdn.net%2Fzhaokaiqiang1992%2Farticle%2Fdetails%2F45419023" target="_blank" rel="noopener">Android屏幕适配全攻略(最权威的官方适配指导)</a></p>
+<h2 id="从上述的文章中，摘抄出一些个人感觉比较重要的结论："><a href="#从上述的文章中，摘抄出一些个人感觉比较重要的结论：" class="headerlink" title="从上述的文章中，摘抄出一些个人感觉比较重要的结论："></a>从上述的文章中，摘抄出一些个人感觉比较重要的结论：</h2><ul>
+<li>对于具有相同像素密度的设备来说，像素越高，尺寸就越大（这个点很重要，也很好理解）</li>
+</ul>
+<h2 id="一些比较重要的概念和理解"><a href="#一些比较重要的概念和理解" class="headerlink" title="一些比较重要的概念和理解"></a>一些比较重要的概念和理解</h2><h3 id="屏幕尺寸（长度单位）"><a href="#屏幕尺寸（长度单位）" class="headerlink" title="屏幕尺寸（长度单位）"></a>屏幕尺寸（长度单位）</h3><p>屏幕尺寸指屏幕的对角线的长度，单位是英寸，1英寸=2.54厘米</p>
+<p>比如常见的屏幕尺寸有2.4、2.8、3.5、3.7、4.2、5.0、5.5、6.0等</p>
+<p>因此也可以说一款手机宽多少寸，高多少寸，当一个手机只说屏幕是多少寸的时候，就是说手机屏幕的对角线长度</p>
+<h3 id="屏幕分辨率"><a href="#屏幕分辨率" class="headerlink" title="屏幕分辨率"></a>屏幕分辨率</h3><p>屏幕分辨率是指在横纵向上的像素点数，单位是px，1px=1个像素点。一般以纵向像素 <em> 横向像素，如1960</em>1080。</p>
+<h3 id="屏幕像素密度"><a href="#屏幕像素密度" class="headerlink" title="屏幕像素密度"></a>屏幕像素密度</h3><p>屏幕像素密度是指每英寸上的像素点数，单位是dpi，即“dot per inch”的缩写。屏幕像素密度与屏幕尺寸和屏幕分辨率有关，在单一变化条件下，屏幕尺寸越小、分辨率越高，像素密度越大，反之越小。</p>
+<p>dpi代表的是每英寸上的像素点，代码中获取这个值得方式为：</p>
+<pre><code>//获取手机的dpi值
+DisplayMetrics displayMetrics = new DisplayMetrics();
+getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+float densityDpi = displayMetrics.densityDpi;
+</code></pre><h3 id="dp、dip、dpi、sp、px"><a href="#dp、dip、dpi、sp、px" class="headerlink" title="dp、dip、dpi、sp、px"></a>dp、dip、dpi、sp、px</h3><p>px我们应该是比较熟悉的，前面的分辨率就是用的像素为单位，大多数情况下，比如UI设计、Android原生API都会以px作为统一的计量单位，像是获取屏幕宽高等。</p>
+<p>dip和dp是一个意思，都是Density Independent Pixels的缩写，即密度无关像素，上面我们说过，dpi是屏幕像素密度，假如一英寸里面有160个像素，这个屏幕的像素密度就是160dpi，那么在这种情况下，dp和px如何换算呢？在Android中，规定以160dpi为基准，1dip=1px，如果密度是320dpi，则1dip=2px，以此类推。</p>
+<p>而sp，即scale-independent pixels，与dp类似，但是可以根据文字大小首选项进行放缩，是设置字体大小的御用单位。</p>
+<blockquote>
+<p>dip这个值： 在 160dpi中的 1dip = 1px ，这个是标准，是指定的标准，而非使用某种方式计算出来的标准，所以在这个标准的前提下就有如下公式： </p>
+</blockquote>
+<pre><code>1dp = 1dip = (任意一个手机的 densityDpi 即 dpi)/160 (px) = density
+</code></pre><p>Android中获取该值的方式为：</p>
+<pre><code>//获取手机的 1 dp的像素值
+float density = displayMetrics.density;
+
+即 1dp = 1dip = density px
+</code></pre><p>所以： 一款手机的宽有多少dp可以用如下公式来计算</p>
+<pre><code>//dp宽度为 手机屏幕宽/每个dp的px值
+float v = displayMetrics.widthPixels / density（density = （dpi/160））;
+</code></pre><p>反过来说， 手机的宽度为：</p>
+<pre><code>//手机的宽度 = 手机宽的dp值 * （手机像素密度 / 160的规定比例）
+float width = dp * (dpi/160)；
+
+手机的 dpi 就现在来说绝大多数 从xhdpi（240dpi）到xxxhdpi（640dpi）不等 ，即比例在 1.5 到 4不等
+手机的宽度来说绝大多数从 720px 到 1440px 不等，实际上，绝大多数的手机宽的dp值大致在 300dp 到 500dp这个区间内，这样的话其实就将适配的区间减小了。
+</code></pre><h3 id="mdpi、hdpi、xdpi、xxdpi"><a href="#mdpi、hdpi、xdpi、xxdpi" class="headerlink" title="mdpi、hdpi、xdpi、xxdpi"></a>mdpi、hdpi、xdpi、xxdpi</h3><p>名称|    像素密度范围<br>mdpi|    120dpi~160dpi<br>hdpi|    160dpi~240dpi<br>xhdpi|    240dpi~320dpi<br>xxhdpi|    320dpi~480dpi<br>xxxhdpi|    480dpi~640dpi</p>
+<h1 id="px与dp适配的原理"><a href="#px与dp适配的原理" class="headerlink" title="px与dp适配的原理"></a>px与dp适配的原理</h1><h2 id="px适配原理"><a href="#px适配原理" class="headerlink" title="px适配原理"></a>px适配原理</h2><p>根据设备屏幕的分辨率各自写一套dimens.xml文件，然后根据一个基准分辨率（例如720x1080），将宽度分成720份，取值为1px——720px，将高度分成1080份，取值为1px——1080px。生成各自dimens.xml文件对应的值。</p>
+<h2 id="dp适配原理："><a href="#dp适配原理：" class="headerlink" title="dp适配原理："></a>dp适配原理：</h2><p>dp适配原理与px适配一样，区别就在于px适配是根据屏幕分辨率，即拿px值等比例缩放，而dp适配是拿dp值来等比缩放而已。</p>
+<ul>
+<li><p>既然原理都一样，都需要多套dimens.xml文件，为什么说dp适配就比px适配好呢？<br>因为px适配是根据屏幕分辨率的，Android设备分辨率一大堆，而且还要考虑虚拟键盘。而dp适配无论手机屏幕的像素多少，密度比值多少，80%的手机的最小宽度dp值(widthPixels / density)都为360dp，这样就大大减少了dimens.xml文件。</p>
+</li>
+<li><p>px适配会根据设备的分辨率去找对应的dimens.xml文件（如下图，运行在分辨率为1920x1080的手机上，系统会自动找到对应的values-1920x1080文件），那dp适配呢？</p>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/5382223-4f42a5637f53f582.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/259" alt="" title="使用px适配"></p>
+<p>dp适配也是一样的，只不过dp适配是根据“最小宽度（Smallest-width）限定符”来找的，即如果当前设备最小宽度（以 dp 为单位）为400dp，那么系统会自动找到对应的values-sw400dp文件夹下的dimens.xml文件，如图</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5382223-c59b8353245a0ebd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/207" alt="" title="使用dp适配"></p>
+<h1 id="关于最小宽度的资源限定符的说明"><a href="#关于最小宽度的资源限定符的说明" class="headerlink" title="关于最小宽度的资源限定符的说明"></a>关于最小宽度的资源限定符的说明</h1><p>可以查看 <a href="https://blog.csdn.net/shishuinianshang/article/details/76154913" target="_blank" rel="noopener">Android 适配时资源限定符的说明</a></p>
+<blockquote>
+<p>在屏幕 尺寸相差不大的情况下，dp可以使不同分辨率的设备上展示效果相似。但是在屏幕尺寸相差比较大的情况下，dp就失去了这种效果。所以需要以下的限定符来约束，采用多套布局，数值等方式来适配。</p>
+</blockquote>
+<p>android3.2之后引入的，目前推荐使用的适配方式</p>
+<p><img src="http://zhaozehui.cn/images/blogiamges/image_15.png" alt="" title="最小宽度限定符的使用方式"></p>
+<p>强调一点： </p>
+<p>设备宽度的dp计算方法：</p>
+<p><strong>dp = 屏幕像素宽度/(屏幕像素密度/160)   160是基准屏幕像素密度    这个用来计算以上的sw后面的数值</strong></p>
+<p>通用公式：</p>
+<p>dp = px/(dpi/160)</p>
+<p>px = dp*(dpi/160)</p>
+<h1 id="适配姿势"><a href="#适配姿势" class="headerlink" title="适配姿势"></a>适配姿势</h1><p>使用Android Studio的插件：<a href="https://blog.csdn.net/fesdgasdgasdg" target="_blank" rel="noopener">android阿杜</a>的<a href="https://github.com/mengzhinan/ScreenMatch" target="_blank" rel="noopener">https://github.com/mengzhinan/ScreenMatch</a>来生成这些文件</p>
+<h2 id="工具使用步骤："><a href="#工具使用步骤：" class="headerlink" title="工具使用步骤："></a>工具使用步骤：</h2><h3 id="在Android-Studio中安装ScreenMatch插件，如图："><a href="#在Android-Studio中安装ScreenMatch插件，如图：" class="headerlink" title="在Android Studio中安装ScreenMatch插件，如图："></a>在Android Studio中安装ScreenMatch插件，如图：</h3><p><img src="https://upload-images.jianshu.io/upload_images/5382223-89529b5f508ae64a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
+<h3 id="在项目的默认values文件夹中需要一份dimens-xml文件"><a href="#在项目的默认values文件夹中需要一份dimens-xml文件" class="headerlink" title="在项目的默认values文件夹中需要一份dimens.xml文件"></a>在项目的默认values文件夹中需要一份dimens.xml文件</h3><p><img src="https://upload-images.jianshu.io/upload_images/5382223-021e947fcff9a39b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/408" alt=""></p>
+<h3 id="执行生成"><a href="#执行生成" class="headerlink" title="执行生成"></a>执行生成</h3><p>插件安装好后，在项目的任意目录或文件上右键，选择ScreenMatch选项。如图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5382223-4653a6677ba1c3b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/465" alt=""></p>
+<h3 id="然后选择在哪个module下执行适配。点击确定就会执行生成命令"><a href="#然后选择在哪个module下执行适配。点击确定就会执行生成命令" class="headerlink" title="然后选择在哪个module下执行适配。点击确定就会执行生成命令"></a>然后选择在哪个module下执行适配。点击确定就会执行生成命令</h3><h3 id="然后再看看res目录下会自动生成一堆dimens-xml文件，如下："><a href="#然后再看看res目录下会自动生成一堆dimens-xml文件，如下：" class="headerlink" title="然后再看看res目录下会自动生成一堆dimens.xml文件，如下："></a>然后再看看res目录下会自动生成一堆dimens.xml文件，如下：</h3><p><img src="http://zhaozehui.cn/images/blogiamges/image_14.png" alt="" title="使用最小宽度限制符"></p>
+<p>通过上面的步骤就已经生成了所有设备对应的dimens.xml文件。</p>
+<p>因为默认生成的是下列最小宽度dp的dimens.xml文件<br>384,392,400,410,411,480,533,592,600,640,662,720,768,800,811,820,960,961,1024,1280,1365，如果不需要或者需要增加某些dp值的dimens.xml文件，则需要修改配置文件，即screenMatch.properties文件（修改前先删除之前生成的全部dimens.xml文件）。配置文件在我们执行完成上面的命令后，会在项目的目录下自动生成，如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5382223-abd43dec273ae097.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/472" alt=""></p>
+<p>打开文件，修改下面的值即可。如下只需要适配384,392,400,410,411的值，不需要适配480,533,592,600,640,662,720,768,800,811,820,960,961,1024,1280,1365的值</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5382223-7afd8a8a1ae35287.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
+<p>其中base_dp=360代表widthDP基准值，一般都是360dp，不建议更改，除非你对屏幕适配原理有深刻的见解。</p>
+<p><strong>我自己的使用方式是新建一个项目，然后使用工具生成我说需要的所有dp值，然后将生成的结果放在res目录下</strong></p>
+<h2 id="根据设计图标注，在布局写上对应的值。"><a href="#根据设计图标注，在布局写上对应的值。" class="headerlink" title="根据设计图标注，在布局写上对应的值。"></a>根据设计图标注，在布局写上对应的值。</h2><p>在安卓中，系统密度为160dpi的中密度手机屏幕为基准屏幕，即320×480的手机屏幕。在这个屏幕中，1dp=1px。320x480分辨率对应的其他分辨率的比例如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5382223-afb77e1f091db0bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
+<p>所以，如果UI给的是720x1280分辨率的图， 那么dp = px / 2， 给的是1080x1920分辨率的图，那么 dp = px / 3，即根据比例即可。</p>
+<p>举例：UI在720x1280上做的图，其中一个按钮的宽高分辨为：宽720px，高为100px，字体大小为30px，在布局中则这样使用：</p>
+<pre><code>&lt;Button
+    android:layout_width=&quot;@dimen/dp_360&quot;
+    android:layout_height=&quot;@dimen/dp_50&quot;
+    android:textSize=&quot;@dimen/sp_15&quot;/&gt;
+</code></pre><blockquote>
+<p>注： 偶尔会有ios的设计图是 750*1334 的图，这个的比例为 2.08 ，即如果是 720的图 /2 即可，但是 ios的750需要 /2.08；</p>
+</blockquote>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>使用步骤截取的 <a href="https://www.jianshu.com/p/1302ad5a4b04" target="_blank" rel="noopener">推荐一种非常好用的Android屏幕适配</a></p>
+<p>使用原理和对比参考 <a href="https://blog.csdn.net/fesdgasdgasdg/article/details/52325590" target="_blank" rel="noopener">Android屏幕适配dp、px两套解决办法</a></p>
+<h1 id="适配优势"><a href="#适配优势" class="headerlink" title="适配优势"></a>适配优势</h1><ul>
+<li>侵入性方面来说，这套适配方案没有侵入性</li>
+<li>适配绝大多数手机增加大约200k左右，完全能接受（本人实际项目中适配的从 320 到 600）</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>适配了宽，不适配高。</li>
+</ul>
+<p>上述缺点其实实际开发中基本没有什么影响，因为如果宽适配了以后ui要的撑满高的需求并不多。一般使用的是 NestScrollView来包裹，高在必须的情况下可以使用 ConstraintLayout 来对控件进行宽高比的设置。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android适配/" rel="tag"># Android适配</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/01/Android中关于Gradle配置的一些理解和解释/" rel="next" title="Android中关于Gradle配置的一些理解和解释">
+                <i class="fa fa-chevron-left"></i> Android中关于Gradle配置的一些理解和解释
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headers.png"
+                alt="zzh" />
+            
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zzh1026" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/zzh1026it" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/zzh1026" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐的一些文档"><span class="nav-number">2.</span> <span class="nav-text">推荐的一些文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从上述的文章中，摘抄出一些个人感觉比较重要的结论："><span class="nav-number">2.1.</span> <span class="nav-text">从上述的文章中，摘抄出一些个人感觉比较重要的结论：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些比较重要的概念和理解"><span class="nav-number">2.2.</span> <span class="nav-text">一些比较重要的概念和理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#屏幕尺寸（长度单位）"><span class="nav-number">2.2.1.</span> <span class="nav-text">屏幕尺寸（长度单位）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#屏幕分辨率"><span class="nav-number">2.2.2.</span> <span class="nav-text">屏幕分辨率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#屏幕像素密度"><span class="nav-number">2.2.3.</span> <span class="nav-text">屏幕像素密度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dp、dip、dpi、sp、px"><span class="nav-number">2.2.4.</span> <span class="nav-text">dp、dip、dpi、sp、px</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mdpi、hdpi、xdpi、xxdpi"><span class="nav-number">2.2.5.</span> <span class="nav-text">mdpi、hdpi、xdpi、xxdpi</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#px与dp适配的原理"><span class="nav-number">3.</span> <span class="nav-text">px与dp适配的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#px适配原理"><span class="nav-number">3.1.</span> <span class="nav-text">px适配原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dp适配原理："><span class="nav-number">3.2.</span> <span class="nav-text">dp适配原理：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于最小宽度的资源限定符的说明"><span class="nav-number">4.</span> <span class="nav-text">关于最小宽度的资源限定符的说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适配姿势"><span class="nav-number">5.</span> <span class="nav-text">适配姿势</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工具使用步骤："><span class="nav-number">5.1.</span> <span class="nav-text">工具使用步骤：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在Android-Studio中安装ScreenMatch插件，如图："><span class="nav-number">5.1.1.</span> <span class="nav-text">在Android Studio中安装ScreenMatch插件，如图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在项目的默认values文件夹中需要一份dimens-xml文件"><span class="nav-number">5.1.2.</span> <span class="nav-text">在项目的默认values文件夹中需要一份dimens.xml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行生成"><span class="nav-number">5.1.3.</span> <span class="nav-text">执行生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#然后选择在哪个module下执行适配。点击确定就会执行生成命令"><span class="nav-number">5.1.4.</span> <span class="nav-text">然后选择在哪个module下执行适配。点击确定就会执行生成命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#然后再看看res目录下会自动生成一堆dimens-xml文件，如下："><span class="nav-number">5.1.5.</span> <span class="nav-text">然后再看看res目录下会自动生成一堆dimens.xml文件，如下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据设计图标注，在布局写上对应的值。"><span class="nav-number">5.2.</span> <span class="nav-text">根据设计图标注，在布局写上对应的值。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适配优势"><span class="nav-number">7.</span> <span class="nav-text">适配优势</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
