@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="声明本文为转载文章！尊重原创的劳动果实，严禁剽窃 本文转载于：https://www.jianshu.com/p/c9263bdc1ffe 出自于：肖丹晨的博客 本篇为设计模式系列的第一篇： 面向对象的六大原则 本文主要用于个人学习回顾使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 设计模式：（一）面向对象的六大原则">
+<meta property="og:url" content="http://zhaozehui.cn/2018/06/11/Android-设计模式：（一）面向对象的六大原则/index.html">
+<meta property="og:site_name" content="zzh1026it">
+<meta property="og:description" content="声明本文为转载文章！尊重原创的劳动果实，严禁剽窃 本文转载于：https://www.jianshu.com/p/c9263bdc1ffe 出自于：肖丹晨的博客 本篇为设计模式系列的第一篇： 面向对象的六大原则 本文主要用于个人学习回顾使用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8104568-2a989334f31aad0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/643">
+<meta property="og:updated_time" content="2018-06-11T10:19:28.286Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 设计模式：（一）面向对象的六大原则">
+<meta name="twitter:description" content="声明本文为转载文章！尊重原创的劳动果实，严禁剽窃 本文转载于：https://www.jianshu.com/p/c9263bdc1ffe 出自于：肖丹晨的博客 本篇为设计模式系列的第一篇： 面向对象的六大原则 本文主要用于个人学习回顾使用">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8104568-2a989334f31aad0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/643">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhaozehui.cn/2018/06/11/Android-设计模式：（一）面向对象的六大原则/"/>
+
+
+
+
+
+  <title>Android 设计模式：（一）面向对象的六大原则 | zzh1026it</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e1d3207f597e5755f17072f0711098cc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zzh1026it</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天都是新的开始</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhaozehui.cn/2018/06/11/Android-设计模式：（一）面向对象的六大原则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zzh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headers.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zzh1026it">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 设计模式：（一）面向对象的六大原则</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-11T17:00:07+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/架构/设计模式（转载）/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式（转载）</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><p><strong>本文为转载文章！尊重原创的劳动果实，严禁剽窃</strong></p>
+<p>本文转载于：<a href="https://www.jianshu.com/p/c9263bdc1ffe" title="Android 设计模式：（一）面向对象的六大原则" target="_blank" rel="noopener">https://www.jianshu.com/p/c9263bdc1ffe</a></p>
+<p>出自于：<a href="https://www.jianshu.com/u/d43d948bef39" target="_blank" rel="noopener">肖丹晨的博客</a></p>
+<p>本篇为设计模式系列的第一篇： <strong>面向对象的六大原则</strong></p>
+<p><strong>本文主要用于个人学习回顾使用</strong></p>
+<a id="more"></a>
+<h1 id="优化代码的第一步——单一职责原则"><a href="#优化代码的第一步——单一职责原则" class="headerlink" title="优化代码的第一步——单一职责原则"></a>优化代码的第一步——单一职责原则</h1><p><strong>单一职责原则（SRP）:</strong> 就一个类而言，应该仅有一个引起他变化的原因。简单来说，一个类应该是一组<strong>高度相关</strong>的函数，数据的封装。</p>
+<p>很抽象的概念是不是？别管他，举个栗子：</p>
+<p><strong>开发一个图片加载器（ImageLoader），要求能够实现图片的下载加载，并能将图片缓存起来。</strong></p>
+<h2 id="屌丝程序猿小明"><a href="#屌丝程序猿小明" class="headerlink" title="屌丝程序猿小明"></a>屌丝程序猿小明</h2><p><strong>源码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 图片加载类</span><br><span class="line"> */</span><br><span class="line">public class ImageLoader&#123;</span><br><span class="line">  //图片缓存</span><br><span class="line">  LruCache&lt;Strig, Bitmap&gt; mImageCache;</span><br><span class="line">  </span><br><span class="line">  public ImageLoader()&#123;</span><br><span class="line">    initImageCatche();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  //初始化缓存：mImageCache</span><br><span class="line">  private void initImageCache()&#123;...&#125;</span><br><span class="line">  </span><br><span class="line">  //加载图片</span><br><span class="line">  public void displayImage(String url, ImageView imageView)&#123;...&#125;</span><br><span class="line">  </span><br><span class="line">  //下载图片</span><br><span class="line">  public Bitmap downloadImage(String ImgUrl)&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong><br>小明的ImageLoader耦合太严重，简直没有设计可言，更不要说扩展性，灵活性。所有的功能都写在一个类里，随着功能的增多，ImageLoader会越来越重，越来越臃肿复杂。整个图片加载系统就越来越脆弱。</p>
+<h2 id="装逼程序猿小民"><a href="#装逼程序猿小民" class="headerlink" title="装逼程序猿小民"></a>装逼程序猿小民</h2><p><strong>源码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 图片缓存类</span><br><span class="line"> */</span><br><span class="line">public class ImageCache&#123;</span><br><span class="line">  //图片缓存</span><br><span class="line">  LruCache&lt;Strig, Bitmap&gt; mImageCache;</span><br><span class="line">  </span><br><span class="line">  public ImageCache()&#123;</span><br><span class="line">    initImageCatche();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  //初始化缓存：mImageCache</span><br><span class="line">  private void initImageCache()&#123;...&#125;</span><br><span class="line">  </span><br><span class="line">  //缓存图片</span><br><span class="line">  public void put(String url, Bitmap bitmap)&#123;...&#125;</span><br><span class="line">  </span><br><span class="line">  //获取图片</span><br><span class="line">  public Bitmap get(String url)&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 图片加载类</span><br><span class="line"> */</span><br><span class="line">public class ImageLoader&#123;</span><br><span class="line">  //图片缓存</span><br><span class="line">  LruCache&lt;Strig, Bitmap&gt; mImageCache = new ImageCache();</span><br><span class="line">  </span><br><span class="line">  //加载图片</span><br><span class="line">  public void displayImage(String url, ImageView imageView)&#123;...&#125;</span><br><span class="line">  </span><br><span class="line">  //下载图片</span><br><span class="line">  public Bitmap downloadImage(String ImgUrl)&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong></p>
+<p>小民将小明的版本一份为二：ImageLoader，ImageCache。ImageLoader只负责图片的加载和下载逻辑；ImageCache只负责图片的缓存逻辑。这样架构更加清晰，功能模块的耦合性更加低，相互间的影响更小。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从上面的例子中可以初步体会到，单一职责所表达的用意就是“单一”二字。我们设计类的时候，一定要仔细考虑如何划分类的职责和函数的功能。</p>
+<p>正如前文所说，一个类应当是一组高度相关的函数和数据的组合，即一个类应当高内聚，低耦合。</p>
+<h1 id="让程序更稳定、更灵活——开闭原则"><a href="#让程序更稳定、更灵活——开闭原则" class="headerlink" title="让程序更稳定、更灵活——开闭原则"></a>让程序更稳定、更灵活——开闭原则</h1><p><strong>开闭原则（OCP）：</strong> 软件中的对象（类，模块，数据等）对扩展是开放的，对于修改是封闭的。换句话就是，程序一旦开发完成，程序中一个类的实现只应该因错误而被修改，新的或者改变的特性应该通过新建不同的类来实现，新建的类可以通过继承的方式来重用原来的代码。</p>
+<h2 id="屌丝程序猿小明-1"><a href="#屌丝程序猿小明-1" class="headerlink" title="屌丝程序猿小明"></a>屌丝程序猿小明</h2><p>小明设计DiskCache类，将图片缓存到SD卡中。</p>
+<p><strong>源码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class DiskCache&#123;</span><br><span class="line">  static String cacheDir = &quot;sdcard/cache/&quot;;</span><br><span class="line">  </span><br><span class="line">  //从本地缓存中获取图片</span><br><span class="line">  public Bitmap get(String localUri)&#123;...&#125;</span><br><span class="line">  </span><br><span class="line">  //将图片缓存到本地</span><br><span class="line">  public void put(String localUri, Bitmap bmp)&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为需要将图片缓存到SD卡中，所以小明需要修改ImageLoader.java代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class ImageLoader&#123;</span><br><span class="line">  ...</span><br><span class="line">  //SD卡缓存</span><br><span class="line">  DiskCache mDiskCache = new DiskCache();</span><br><span class="line">  //是否适用SD卡缓存</span><br><span class="line">  boolean isUseDiskCache = false;</span><br><span class="line">  ...</span><br><span class="line">  //修改加载图片中的缓存策略</span><br><span class="line">  public void displayImage(String url, ImageView imageView)&#123;</span><br><span class="line">    //判读使用哪种缓存</span><br><span class="line">    Bitmap bmp = isUseDiskCache?mDiskCache.get(url):mImageCache.get(url);</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  //Added:设置是否使用本地缓存加载</span><br><span class="line">  public void useDiskCache(boolean useDiskCache)&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过useDiskCache()方法可以方便的让用户设置缓存方式，小明很开心啊。后来发现这种设计明显有问题，那就是用户只能使用内存缓存和本地缓存的一种，所以小明新建一个双缓存类，实现先内存再本地的加载策略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class DoubleCache&#123;</span><br><span class="line">  ImageCache mMenoryCache = new ImageCache();</span><br><span class="line">  DiskCache mDiskCache = new DiskCache();</span><br><span class="line">  </span><br><span class="line">  //先从内存中获取图片，获取不到再从SD获取图片</span><br><span class="line">  public Bitmap get(String url)&#123;...&#125;</span><br><span class="line">  </span><br><span class="line">  //将图片缓存到内存和SD中</span><br><span class="line">  public void put(String url,Bitmap bmp)&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>小明需要对ImageLoader更新：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class ImagerLoader&#123;</span><br><span class="line">  ...</span><br><span class="line">  //双缓存</span><br><span class="line">  DoubleCache mDoubleCache = new DoubleCache();</span><br><span class="line">  //使用双缓存</span><br><span class="line">  boolean isUseDoubleCache = false;</span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">  //Modified:修改加载图片策略</span><br><span class="line">  public void dispalyImage()(String url, ImageView imageView)&#123;</span><br><span class="line">    Bitmap bmp = null;</span><br><span class="line">    if(isUseDoubleCache)&#123;</span><br><span class="line">      bmp = mDoubleCache.get(url);</span><br><span class="line">    &#125;else if(isUseDiskCache)&#123;</span><br><span class="line">      bmp = mDiskCache.get(url);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">     bmp = mImageCache.get(url); </span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  //Added:设置是否使用双缓存加载</span><br><span class="line">  public void useDoubleCache(boolean useDoubleCache)&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong></p>
+<p>小明每次加入新的缓存策略都需要修改ImageLoader类，然后通过if-else语句进行逻辑控制。随着类似这些逻辑的加入，ImageLoader的代码变得越来越臃肿，脆弱。如果一不小心写错了某个if-else的条件，则需要花费大量的时间来排除错误。<br>最重要的是，ImageLoader的可扩展性差，用户无法自己注入自定义实现的缓存策略。可扩展性是一个框架最重要的特性。<br>小明的方案很让人郁闷：一扩展，就要修改ImageLoader，一修改就容易出bug。</p>
+<h2 id="装逼程序猿小民-1"><a href="#装逼程序猿小民-1" class="headerlink" title="装逼程序猿小民"></a>装逼程序猿小民</h2><p>软件的对象对于扩展应该是开放的，但是对于修改应该是封闭的。也就是说，软件的变化更新应该尽量通过扩展的方式实现，而不是通过修改自己原来的代码实现。<br>喜爱装逼的小民熟知关闭原则的真谛，他重构了小明的框架：<br><img src="https://upload-images.jianshu.io/upload_images/8104568-2a989334f31aad0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/643" alt=""></p>
+<p><strong>源码</strong></p>
+<p>首先定义了缓存策略接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 缓存策略接口类</span><br><span class="line"> */</span><br><span class="line">public interface ImageCache&#123;</span><br><span class="line">  public Bitmap get(String url);</span><br><span class="line">  public void put(String url, Bitmap bmp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现缓存策略的子类（缓存策略扩展）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//内存缓存策略</span><br><span class="line">public class MemoryCache implements ImageCache&#123;...&#125;</span><br><span class="line"> </span><br><span class="line">//SD缓存策略</span><br><span class="line">public class DiskCache implements ImageCache&#123;...&#125;</span><br><span class="line"> </span><br><span class="line">//双缓存策略</span><br><span class="line">public class DoubleCache implements ImageCache&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>ImageLoader: 图片加载器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class ImageLoader&#123;</span><br><span class="line">  //图片缓存策略</span><br><span class="line">  ImageCache mImageCache = new MemoryCache();</span><br><span class="line">  </span><br><span class="line">  //注入缓存实现</span><br><span class="line">  public setImageCache(ImageCache imageCache)&#123;</span><br><span class="line">    mImageCache = imageCache;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  //加载图片</span><br><span class="line">  public void displayImage(String url, ImageView imageView)&#123;</span><br><span class="line">    Bitmap bmp = mImageCache.get(url);</span><br><span class="line">    if(null != bmp)&#123;</span><br><span class="line">      imageView.setImageBitmap(bmp);</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //图片没有缓存，提交到线程池中下载图片</span><br><span class="line">    submitLoadRequest(url,imageView);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  private void submitLoadRequest(String url, ImageView imageView)&#123;</span><br><span class="line">    ...</span><br><span class="line">    Bitmap bmp = downloadImage(url);</span><br><span class="line">    ...</span><br><span class="line">    imageView.setImageBitmap(bmp);</span><br><span class="line">    ...</span><br><span class="line">    mImageCache.put(url,bmp);</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  //下载图片</span><br><span class="line">  public Bitmap downloadImage(String ImgUrl)&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>开闭原则（OCP）指导我们，当软件需求发生变化时，应该<strong>尽量通过扩展</strong>的方式来实现变化，而不是通过修改已有的代码来实现。在软件设计初期，最好能够好好的考量一下可扩展能力的设计。</p>
+<h1 id="构建扩展性更好的系统——里氏替换原则"><a href="#构建扩展性更好的系统——里氏替换原则" class="headerlink" title="构建扩展性更好的系统——里氏替换原则"></a>构建扩展性更好的系统——里氏替换原则</h1><p><strong>里氏替换原则（LSP）:</strong> 所有引用基类的地方，都必须能够透明的使用其子类的对象。说的直白一点就是<strong>多态和抽象</strong>。</p>
+<p>里氏替换原则的核心原理是抽象，抽象又依赖于继承这个特性。那么什么是抽象？按照我的理解说的直白点，就是基类，说的再具象点就是虚基类或者接口。</p>
+<p>所以，此小节的标题我们完全可以翻译为：利用接口编程思想，构建出具有良好扩展性的系统。这里的接口不单单是指interface，也包括abstract class 和base class。</p>
+<h1 id="让项目拥有变化的能力——依赖倒置原则"><a href="#让项目拥有变化的能力——依赖倒置原则" class="headerlink" title="让项目拥有变化的能力——依赖倒置原则"></a>让项目拥有变化的能力——依赖倒置原则</h1><p><strong>依赖倒置原则（DIP）：</strong></p>
+<ul>
+<li>高层模块不应依赖底层模块，两者都应该依赖其抽象。</li>
+<li>抽象不应该依赖细节。</li>
+<li>细节应该依赖抽象。</li>
+</ul>
+<p>在java语言中，抽象就是指接口或抽象类，两者都是不能直接被实例化的。细节就是实现类，实现接口或继承抽象类而产生的类就是细节，其特点就是，可以直接被实例化。高层模块就是调用端，低层模块就是具体实现类。</p>
+<p>DIP在java语言中的表现就是：<strong>模块间的依赖通过抽象发生，实现类之间不发生直接的依赖关系，其依赖关系是通过接口或者抽象类产生的。</strong>简而言之就是<strong>面向接口编程</strong>或者<strong>面向抽象编程</strong>。</p>
+<p>接着那上面的代码举例：</p>
+<h2 id="屌丝程序猿小明-2"><a href="#屌丝程序猿小明-2" class="headerlink" title="屌丝程序猿小明"></a>屌丝程序猿小明</h2><p><strong>源码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 图片加载类</span><br><span class="line"> */</span><br><span class="line">public class ImageLoader&#123;</span><br><span class="line">  //内存缓存（直接依赖细节）</span><br><span class="line">  MemoryCache mMemoryCache = new MemoryCache();</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong></p>
+<p>高层模块ImageLoader直接依赖低层模块MemoryCache，直接将二者耦合。一方面不容易扩展，另一方面，低层模块MemoryCache修改时很有可能还要修改高层模块ImageLoader，这就违反了开闭原则。</p>
+<h2 id="装逼程序猿小民-2"><a href="#装逼程序猿小民-2" class="headerlink" title="装逼程序猿小民"></a>装逼程序猿小民</h2><p><strong>源码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class ImageLoader&#123;</span><br><span class="line">  //图片缓存策略(依赖抽象--接口)</span><br><span class="line">  ImageCache mImageCache = new MemoryCache();</span><br><span class="line">  </span><br><span class="line">  //注入缓存实现（依赖注入）</span><br><span class="line">  public setImageCache(ImageCache imageCache)&#123;</span><br><span class="line">    mImageCache = imageCache;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong></p>
+<p>高层模块ImageLoader不直接依赖低层模块MemoryCache，而是二者都依赖其抽象接口ImageCache。一方面容易扩展，另一方面，低层模块MemoryCache修改时不会导致修改高层模块ImageLoader。</p>
+<h2 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2><p>DIP的核心思想就是面向接口或面向抽象编程，为什么要这样做，还需要大家好好的体会。</p>
+<h1 id="让系统具有更高的灵活性——接口隔离原则"><a href="#让系统具有更高的灵活性——接口隔离原则" class="headerlink" title="让系统具有更高的灵活性——接口隔离原则"></a>让系统具有更高的灵活性——接口隔离原则</h1><p><strong>接口隔离原则（ISP）：</strong> 客户端不应该依赖他不需要的接口，类间的依赖关系应该建立在最小的接口上。</p>
+<p>接口隔离原则将非常庞大臃肿的接口拆分成更小的和更具体的接口，这样客户将会只需要知道他们感兴趣的接口的方法。ISP的目的是系统解开耦合，从而容易重构、更改和重新部署。</p>
+<p>Bob大叔（Robert C Martin）曾将单一职责原则（SRP）、开闭原则（OCP）、里氏替换原则（LSP）、接口隔离原则（ISP）和依赖倒置原则（DIP）这5个原则称为SOLID原则，作为面向对象开发的基本原则。</p>
+<h1 id="更好的扩展性——迪米特原则"><a href="#更好的扩展性——迪米特原则" class="headerlink" title="更好的扩展性——迪米特原则"></a>更好的扩展性——迪米特原则</h1><p><strong>迪米特原则（LOD）：</strong> 也成为最少知识原则。一个对象应对其他对象有最少的了解。通俗的讲，一个类应该对自己需要耦合或者调用的类知道的最少。</p>
+<p>还有一个解释就是：只与直接朋友通信。什么是直接朋友呢？两个对象之间的耦合就是朋友关系，如组合、聚合、依赖。</p>
+<p>这个概念，太抽象了。<br>举个例子嘛：通过中介找房子。我们设定的情况为：租客只要求房间的面积和租金，其他一概不管；中介将符合要求的房子都提供给我。</p>
+<h2 id="屌丝程序猿小明-3"><a href="#屌丝程序猿小明-3" class="headerlink" title="屌丝程序猿小明"></a>屌丝程序猿小明</h2><p><strong>源码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 房间</span><br><span class="line"> */</span><br><span class="line">public class Room&#123;</span><br><span class="line">  public float area;//面积</span><br><span class="line">  public float price;//租金</span><br><span class="line">  </span><br><span class="line">  public Room(float area,float price)&#123;</span><br><span class="line">    this.area = area;</span><br><span class="line">    this.price = price;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> * 中介</span><br><span class="line"> */</span><br><span class="line">public class Mediator&#123;</span><br><span class="line">  //中介和房间类耦合</span><br><span class="line">  List&lt;Room&gt; mRooms = new ArrayList&lt;Room&gt;();</span><br><span class="line">  </span><br><span class="line">  public Mediator()&#123;</span><br><span class="line">    //初始化mRooms</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public List&lt;Room&gt; getAllRooms()&#123;</span><br><span class="line">    return mRooms;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> * 租客</span><br><span class="line"> */</span><br><span class="line">public class Tenant&#123;</span><br><span class="line">  public float roomArea;//租客需要的房子面积</span><br><span class="line">  public float roomPrice;//租客承受的租金</span><br><span class="line">  </span><br><span class="line">  //租客和中介耦合</span><br><span class="line">  public void rentRoom(Mediator mediator)&#123;</span><br><span class="line">    //租客和房间耦合</span><br><span class="line">    List&lt;Room&gt; rooms = mediator.getAllRooms();</span><br><span class="line">    for(Room room:rooms)&#123;</span><br><span class="line">      if(isSuitable(room))&#123;</span><br><span class="line">        System.out.println(&quot;租到房子啦&quot;+room);</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  private boolean isSuitable(Room room)&#123;</span><br><span class="line">    return room.area &gt;= roomArea </span><br><span class="line">        &amp;&amp; room.price &lt;= roomPrice;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong></p>
+<p>从上面的代码中可以看到，Tenant不仅依赖了Mediator类，还需要频繁的与Room类打交道。把处理的逻辑放在Tenant类中，一方面弱化了中介类的功能，另一方面导致了租户与房间类之间的高度耦合。这种三间关系纠扯不清，一旦Room变化，Tenant也需要跟着变化。</p>
+<p>这个时候我们就需要分清谁是租客真正的朋友，让租客只和真正的朋友打交道。这里显然是中介类。</p>
+<p>依照迪米特原则，Tenant应该之和真正的朋友Mediator打交道。必须要将Room相关的操作从Tenant中移除。看看小民是如何优雅的装逼的：</p>
+<h2 id="装逼程序猿小民-3"><a href="#装逼程序猿小民-3" class="headerlink" title="装逼程序猿小民"></a>装逼程序猿小民</h2><p><strong>源码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 房间</span><br><span class="line"> */</span><br><span class="line">public class Room&#123;</span><br><span class="line">  public float area;//面积</span><br><span class="line">  public float price;//租金</span><br><span class="line">  </span><br><span class="line">  public Room(float area,float price)&#123;</span><br><span class="line">    this.area = area;</span><br><span class="line">    this.price = price;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> * 中介</span><br><span class="line"> */</span><br><span class="line">public class Mediator&#123;</span><br><span class="line">  //中介和房间类耦合</span><br><span class="line">  List&lt;Room&gt; mRooms = new ArrayList&lt;Room&gt;();</span><br><span class="line">  </span><br><span class="line">  public Mediator()&#123;</span><br><span class="line">    //初始化mRooms</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public Room rentOut(float area,float price)&#123;</span><br><span class="line">    Room vRoom = null;</span><br><span class="line">    for(Room room:mRooms)&#123;</span><br><span class="line">      if(isSuitable(area,price,room))&#123;</span><br><span class="line">        vRoom = room;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return vRoom;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  private boolean isSuitable(float area,float price,Room room)&#123;</span><br><span class="line">    return room.area &gt;= area </span><br><span class="line">        &amp;&amp; room.price &lt;= price;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> * 租客</span><br><span class="line"> */</span><br><span class="line">public class Tenant&#123;</span><br><span class="line">  public float roomArea;//租客需要的房子面积</span><br><span class="line">  public float roomPrice;//租客承受的租金</span><br><span class="line">  </span><br><span class="line">  //租客和中介耦合</span><br><span class="line">  public void rentRoom(Mediator mediator)&#123;</span><br><span class="line">    //租客和房间耦合</span><br><span class="line">    Room room = mediator.rentOut(roomArea,roomPrice);</span><br><span class="line">    if(null != room)&#123;</span><br><span class="line">      System.out.println(&quot;找到合适的房子啦&quot;+room);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      System.out.println(&quot;没有找到合适的房子&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong></p>
+<p>对比小明和小民的代码，可以清晰的看出代码的解耦。<strong>只与直接朋友通信</strong>，分清朋友是关键。</p>
+<h2 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h2><p>迪米特原则（最少知识原则）的目的是通过尽量的弱化非直接相关类之间的耦合来实现整体功能的解耦和内聚。</p>
+<p>至此，面向对象的六大原则已经讲完了。还希望大家好好的理解体会各个原则的真实内涵。仅仅知道六大原则叫啥，用小民的话说就是逼值到不了满分的（哈哈，玩笑话，装逼还是要的）。深入理解六大原则，对后期学习设计模式，理解设计模式的理念会有很好的帮助。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/11/Android图片加载框架最全解析（四），玩转Glide的回调与监听/" rel="next" title="Android图片加载框架最全解析（四），玩转Glide的回调与监听">
+                <i class="fa fa-chevron-left"></i> Android图片加载框架最全解析（四），玩转Glide的回调与监听
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headers.png"
+                alt="zzh" />
+            
+              <p class="site-author-name" itemprop="name">zzh</p>
+              <p class="site-description motion-element" itemprop="description">zzh个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zzh1026" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/zzh1026it" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/zzh1026" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#声明"><span class="nav-number">1.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化代码的第一步——单一职责原则"><span class="nav-number">2.</span> <span class="nav-text">优化代码的第一步——单一职责原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#屌丝程序猿小明"><span class="nav-number">2.1.</span> <span class="nav-text">屌丝程序猿小明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装逼程序猿小民"><span class="nav-number">2.2.</span> <span class="nav-text">装逼程序猿小民</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#让程序更稳定、更灵活——开闭原则"><span class="nav-number">3.</span> <span class="nav-text">让程序更稳定、更灵活——开闭原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#屌丝程序猿小明-1"><span class="nav-number">3.1.</span> <span class="nav-text">屌丝程序猿小明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装逼程序猿小民-1"><span class="nav-number">3.2.</span> <span class="nav-text">装逼程序猿小民</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">3.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建扩展性更好的系统——里氏替换原则"><span class="nav-number">4.</span> <span class="nav-text">构建扩展性更好的系统——里氏替换原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#让项目拥有变化的能力——依赖倒置原则"><span class="nav-number">5.</span> <span class="nav-text">让项目拥有变化的能力——依赖倒置原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#屌丝程序猿小明-2"><span class="nav-number">5.1.</span> <span class="nav-text">屌丝程序猿小明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装逼程序猿小民-2"><span class="nav-number">5.2.</span> <span class="nav-text">装逼程序猿小民</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-2"><span class="nav-number">5.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#让系统具有更高的灵活性——接口隔离原则"><span class="nav-number">6.</span> <span class="nav-text">让系统具有更高的灵活性——接口隔离原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更好的扩展性——迪米特原则"><span class="nav-number">7.</span> <span class="nav-text">更好的扩展性——迪米特原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#屌丝程序猿小明-3"><span class="nav-number">7.1.</span> <span class="nav-text">屌丝程序猿小明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装逼程序猿小民-3"><span class="nav-number">7.2.</span> <span class="nav-text">装逼程序猿小民</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-3"><span class="nav-number">7.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zzh</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
